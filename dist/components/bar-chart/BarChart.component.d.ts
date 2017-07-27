@@ -1,15 +1,17 @@
 import { OnInit } from '@angular/core';
-import { LegendChartComponent } from '../legend-chart/LegendChart.component';
 export declare class BarChartComponent implements OnInit {
     data: any;
     chartConfig: any;
-    legendChart: LegendChartComponent;
-    private d3Selection;
     private barChart;
+    private d3Selection;
     private miniTooltip;
     private colors;
+    bar: any;
+    tooltip: any;
+    tooltipContainer: any;
     constructor();
     ngOnInit(): void;
-    private drawChart(redrawing);
+    private drawChart();
     redrawChart(): void;
+    getSelectedBar(): void;
 }

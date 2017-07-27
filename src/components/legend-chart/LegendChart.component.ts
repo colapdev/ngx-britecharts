@@ -14,6 +14,8 @@ export class LegendChartComponent implements OnInit {
   private legendChart = require('britecharts/dist/umd/legend.min');
   private colors = require('britecharts/dist/umd/colors.min');
 
+  public legend: any = this.legendChart();
+
   constructor() {
     Observable.fromEvent(window, 'resize')
       .debounceTime(250)
@@ -28,30 +30,29 @@ export class LegendChartComponent implements OnInit {
 
   public drawLegend() {
     if (this.data) {
-      var legendChart = this.legendChart(),
-        legendContainer = this.d3Selection.select('.legend-chart-container'),
+      var legendContainer = this.d3Selection.select('.legend-chart-container'),
         containerWidth = legendContainer.node() ? legendContainer.node().getBoundingClientRect().width : false;
 
       if (containerWidth) {
-        legendChart.width(containerWidth);
+        this.legend.width(containerWidth);
 
         for (let option in this.chartConfig["properties"]) {
-          if (legendChart.hasOwnProperty(option) && option != 'colorSchema') {
-            legendChart[option](this.chartConfig["properties"][option]);
+          if (this.legend.hasOwnProperty(option) && option != 'colorSchema') {
+            this.legend[option](this.chartConfig["properties"][option]);
           }
         }
 
         if (this.chartConfig.hasOwnProperty('colors')) {
           if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
             if (this.colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-              legendChart.colorSchema(this.colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+              this.legend.colorSchema(this.colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
             }
           } else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
-            legendChart.colorSchema(this.chartConfig['colors']['customSchema']);
+            this.legend.colorSchema(this.chartConfig['colors']['customSchema']);
           }
         }
 
-        legendContainer.datum(this.data).call(legendChart);
+        legendContainer.datum(this.data).call(this.legend);
       }
     }
   }

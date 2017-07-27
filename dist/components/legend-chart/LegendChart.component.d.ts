@@ -5,6 +5,7 @@ export declare class LegendChartComponent implements OnInit {
     private d3Selection;
     private legendChart;
     private colors;
+    legend: any;
     constructor();
     ngOnInit(): void;
     drawLegend(): void;
