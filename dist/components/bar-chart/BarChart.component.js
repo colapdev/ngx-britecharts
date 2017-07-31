@@ -65,11 +65,9 @@ var BarChartComponent = (function () {
     };
     BarChartComponent.prototype.redrawChart = function () {
         var container = this.d3Selection.select('.bar-chart-container');
-        container.selectAll("*").remove();
-        console.log("redraw bar", container);
-        this.drawChart();
-    };
-    BarChartComponent.prototype.getSelectedBar = function () {
+        var newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
+        this.bar.width(newContainerWidth);
+        container.datum(this.data).call(this.bar);
     };
     return BarChartComponent;
 }());

@@ -59,7 +59,10 @@ export class LegendChartComponent implements OnInit {
 
   public redrawChart() {
     let container = this.d3Selection.select('.legend-chart-container');
-    container.selectAll("*").remove();
-    this.drawLegend();
+    let newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
+    this.legend.width(newContainerWidth);
+    this.d3Selection.selectAll('.legend-entry-value, .legend-entry-name').remove();
+    container.datum(this.data).call(this.legend);
+    this.d3Selection.selectAll('.legend-line > .legend-circle').remove();
   }
 }

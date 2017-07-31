@@ -13,5 +13,4 @@ export declare class BarChartComponent implements OnInit {
     ngOnInit(): void;
     private drawChart();
     redrawChart(): void;
-    getSelectedBar(): void;
 }
