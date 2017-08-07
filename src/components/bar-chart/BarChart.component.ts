@@ -37,7 +37,7 @@ export class BarChartComponent implements OnInit {
 
     if (containerWidth) {
       this.bar.width(containerWidth);
-      this.bar.reverseColorList(false);
+      this.bar.shouldReverseColorList(false);
 
       for (let option in this.chartConfig["properties"]) {
         if (this.bar.hasOwnProperty(option) && option != 'colorSchema') {

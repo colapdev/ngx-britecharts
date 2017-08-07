@@ -32,7 +32,7 @@ var BarChartComponent = (function () {
         var barContainer = this.d3Selection.select('.bar-chart-container'), containerWidth = barContainer.node() ? barContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.bar.width(containerWidth);
-            this.bar.reverseColorList(false);
+            this.bar.shouldReverseColorList(false);
             for (var option in this.chartConfig["properties"]) {
                 if (this.bar.hasOwnProperty(option) && option != 'colorSchema') {
                     this.bar[option](this.chartConfig["properties"][option]);

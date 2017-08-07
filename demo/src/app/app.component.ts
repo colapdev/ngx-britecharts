@@ -13,7 +13,7 @@ export class AppComponent {
       height: 500,
       usePercentage: true,
       isAnimated: true,
-      horizontal: false,
+      isHorizontal: false,
       percentageAxisToMaxRatio: 1.3,
       numberFormat: '%'
     },
