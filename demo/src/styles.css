@@ -1,0 +1,6 @@
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import 'assets/ie10-viewport-bug-workaround.css';
+@import 'assets/demo.css';
+
+@import '../../node_modules/britecharts/dist/css/common/common.min.css';
+@import '../../node_modules/britecharts/dist/css/charts/bar.min.css';
