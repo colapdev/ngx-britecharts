@@ -40,13 +40,13 @@ There's a base file for all charts and then each chart has it's own CSS.
 ```
 
 ## Rendering the chart
-###HTML:
+### HTML:
 ```
 <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-barchart>
 <ngx-bc-legendchart #legendChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-legendchart>
 ```
 
-###Component:
+### Component:
 ```
 private firstBarChartData = [...];
   private firstBarChartConfig = {
@@ -68,7 +68,7 @@ private firstBarChartData = [...];
 Check the demos for examples of using custom mouse event handlers.
 The **properties** attributes are all optional, they correlate with their corresponding [Britechart chart API](http://eventbrite.github.io/britecharts/module-Bar.html) .
 
-###Data format
+### Data format
 The data should be an object array with this format:
 ```
 {
@@ -79,14 +79,14 @@ The data should be an object array with this format:
 }
 ```
 
-##Running the demo
+## Running the demo
  1. Clone this repo.
  2. *cd* into *demo* folder.
  3. *npm install*
  4. *npm run start*
  5. Browse to http://localhost:4200
 
-##Roadmap
+## Roadmap
  - 0.1.0 - Current release. Only Bar chart and Legend chart available.
  - 0.2.0 - Line Chart and Brush Chart
  - 0.3.0 - Donut Chart
@@ -97,14 +97,14 @@ The data should be an object array with this format:
  - 0.8.0 - Sparkline Chart
  - TBD - Angular4 support
 
-##Contributing
+## Contributing
 We are open to pull requests including:
  - More demos.
  - Better docs.
  - Tests.
 
-##Support
+## Support
 Feel free to open any issue in case you need help.
 
-##Acknowledgments
+## Acknowledgments
 [Britecharts](https://github.com/eventbrite/britecharts/) community, specially [Marcos Iglesias](https://github.com/miglesiasEB) for his support and patience.
