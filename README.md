@@ -69,13 +69,22 @@ Check the demos for examples of using custom mouse event handlers.
 The **properties** attributes are all optional, they correlate with their corresponding [Britechart chart API](http://eventbrite.github.io/britecharts/module-Bar.html) .
 
 ### Data format
-The data should be an object array with this format:
+#### Bar chart:
 ```
 {
-	"id": 0,
-	"name": "A",
-	"value": 0.08167,
-	"quantity": 0.08167
+    "id": 0,
+    "name": "A",
+    "value": 0.08167,
+    "quantity": 0.08167
+}
+```
+#### Grouped Bar chart:
+```
+{
+    "stack": "shiny",
+    "name": "Direct4",
+    "views": 23,
+    "date": "2011-01-08"
 }
 ```
 
@@ -87,8 +96,8 @@ The data should be an object array with this format:
  5. Browse to http://localhost:4200
 
 ## Roadmap
- - 0.1.0 - Current release. Only Bar chart and Legend chart available.
- - 0.2.0 - Grouped Bar Chart
+ - 0.1.0 - Only Bar chart and Legend chart available.
+ - 0.2.0 - Grouped Bar Chart --> Current release
  - 0.3.0 - Stacked Bar Chart
  - 0.4.0 - Line Chart and Brush Chart
  - 0.5.0 - Donut Chart
