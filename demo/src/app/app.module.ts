@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import { BarChartModule, LegendChartModule } from '@colap-dev/ngx-britecharts/dist';
+import { BarChartModule, LegendChartModule, GroupedBarChartModule } from '@colap-dev/ngx-britecharts/dist';
 
 @NgModule({
   declarations: [
@@ -12,6 +12,7 @@ import { BarChartModule, LegendChartModule } from '@colap-dev/ngx-britecharts/di
   imports: [
     BrowserModule,
     BarChartModule,
+    GroupedBarChartModule,
     LegendChartModule
   ],
   providers: [],
