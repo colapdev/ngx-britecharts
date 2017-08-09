@@ -75,10 +75,6 @@ var GroupedBarChartComponent = (function () {
         }
     };
     GroupedBarChartComponent.prototype.redrawChart = function () {
-        /*let container = this.d3Selection.select('.grouped-bar-chart-container');
-        let newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
-        this.groupedBar.width(newContainerWidth);
-        container.datum(this.data).call(this.groupedBar);*/
         this.d3Selection.selectAll('.grouped-bar').remove();
         this.drawChart();
     };

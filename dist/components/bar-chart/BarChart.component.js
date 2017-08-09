@@ -16,8 +16,6 @@ var BarChartComponent = (function () {
         this.d3Selection = require('d3-selection');
         this.miniTooltip = require('britecharts/dist/umd/mini-tooltip.min');
         this.colors = require('britecharts/dist/umd/colors.min');
-        this.bar = this.barChart();
-        this.tooltip = this.miniTooltip();
         Observable.fromEvent(window, 'resize')
             .debounceTime(250)
             .subscribe(function () {
@@ -29,6 +27,8 @@ var BarChartComponent = (function () {
     };
     BarChartComponent.prototype.drawChart = function () {
         var _this = this;
+        this.bar = this.barChart();
+        this.tooltip = this.miniTooltip();
         var barContainer = this.d3Selection.select('.bar-chart-container'), containerWidth = barContainer.node() ? barContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.bar.width(containerWidth);
@@ -64,10 +64,12 @@ var BarChartComponent = (function () {
         }
     };
     BarChartComponent.prototype.redrawChart = function () {
-        var container = this.d3Selection.select('.bar-chart-container');
-        var newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
+        /*let container = this.d3Selection.select('.bar-chart-container');
+        let newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
         this.bar.width(newContainerWidth);
-        container.datum(this.data).call(this.bar);
+        container.datum(this.data).call(this.bar);*/
+        this.d3Selection.selectAll('.bar-chart').remove();
+        this.drawChart();
     };
     return BarChartComponent;
 }());
