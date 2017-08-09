@@ -78,10 +78,6 @@ export class BarChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    /*let container = this.d3Selection.select('.bar-chart-container');
-    let newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
-    this.bar.width(newContainerWidth);
-    container.datum(this.data).call(this.bar);*/
     this.d3Selection.selectAll('.bar-chart').remove();
     this.drawChart();
   }
