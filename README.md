@@ -45,6 +45,7 @@ There's a base file for all charts and then each chart has it's own CSS.
 ```
 <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-barchart>
 <ngx-bc-legendchart #legendChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-legendchart>
+<ngx-bc-groupedbarchart #groupedBarChart [data]="groupedBarChartData" [chartConfig]="gorupedBarChartConfig"></ngx-bc-groupedbarchart>
 ```
 
 ### Component:
@@ -120,4 +121,5 @@ Feel free to open any issue in case you need help.
 
 ## Acknowledgments
 [Britecharts](https://github.com/eventbrite/britecharts/) community, specially [Marcos Iglesias](https://github.com/miglesiasEB) for his support and patience.
+
 [@dzurico](https://twitter.com/dzurico) for this post http://www.dzurico.com/how-to-create-an-angular-library/.
