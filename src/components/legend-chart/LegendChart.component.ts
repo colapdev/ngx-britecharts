@@ -14,7 +14,7 @@ export class LegendChartComponent implements OnInit {
   private legendChart = require('britecharts/dist/umd/legend.min');
   private colors = require('britecharts/dist/umd/colors.min');
 
-  public legend: any = this.legendChart();
+  public legend: any;
 
   constructor() {
     Observable.fromEvent(window, 'resize')
@@ -29,6 +29,8 @@ export class LegendChartComponent implements OnInit {
   }
 
   public drawLegend() {
+    this.legend = this.legendChart();
+
     if (this.data) {
       var legendContainer = this.d3Selection.select('.legend-chart-container'),
         containerWidth = legendContainer.node() ? legendContainer.node().getBoundingClientRect().width : false;
@@ -58,11 +60,7 @@ export class LegendChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    let container = this.d3Selection.select('.legend-chart-container');
-    let newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
-    this.legend.width(newContainerWidth);
-    this.d3Selection.selectAll('.legend-entry-value, .legend-entry-name').remove();
-    container.datum(this.data).call(this.legend);
-    this.d3Selection.selectAll('.legend-line > .legend-circle').remove();
+    this.d3Selection.selectAll('.britechart-legend').remove();
+    this.drawLegend();
   }
 }

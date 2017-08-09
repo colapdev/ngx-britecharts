@@ -1,6 +1,6 @@
 {
   "name": "@colap-dev/ngx-britecharts",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "@colap-dev/ngx-britecharts is an Angular2 library for creating and displaying Britecharts charts (https://github.com/eventbrite/britecharts/) in your web application using D3.js v4.",
   "scripts": {
     "lint": "tslint --force \"src/**/*.ts\"",
@@ -34,7 +34,7 @@
     "@angular/platform-browser": "2.4.10",
     "@angular/platform-browser-dynamic": "2.4.10",
     "@angular/router": "3.4.10",
-    "britecharts": "martinmanzo/britecharts#d3Transitions",
+    "britecharts": "martinmanzo/britecharts#fork-master",
     "core-js": "2.4.1",
     "d3-selection": "^1.1.0",
     "reflect-metadata": "0.1.10",

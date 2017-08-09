@@ -15,8 +15,8 @@ export class BarChartComponent implements OnInit {
   private miniTooltip = require('britecharts/dist/umd/mini-tooltip.min');
   private colors = require('britecharts/dist/umd/colors.min');
 
-  public bar: any = this.barChart();
-  public tooltip: any = this.miniTooltip();
+  public bar: any;
+  public tooltip: any;
   public tooltipContainer: any;
 
   constructor() {
@@ -32,6 +32,9 @@ export class BarChartComponent implements OnInit {
   }
 
   private drawChart() {
+    this.bar = this.barChart();
+    this.tooltip = this.miniTooltip();
+
     var barContainer = this.d3Selection.select('.bar-chart-container'),
       containerWidth = barContainer.node() ? barContainer.node().getBoundingClientRect().width : false;
 
@@ -75,9 +78,7 @@ export class BarChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    let container = this.d3Selection.select('.bar-chart-container');
-    let newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
-    this.bar.width(newContainerWidth);
-    container.datum(this.data).call(this.bar);
+    this.d3Selection.selectAll('.bar-chart').remove();
+    this.drawChart();
   }
 }

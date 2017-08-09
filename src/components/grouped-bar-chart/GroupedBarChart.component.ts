@@ -15,8 +15,8 @@ export class GroupedBarChartComponent implements OnInit {
   private colors = require('britecharts/dist/umd/colors.min');
   private tooltip = require('britecharts/dist/umd/tooltip.min');
 
-  public groupedBar: any = this.groupedBarChart();
-  public chartTooltip: any = this.tooltip();
+  public groupedBar: any;
+  public chartTooltip: any;
   public tooltipContainer: any;
 
   constructor() {
@@ -32,6 +32,9 @@ export class GroupedBarChartComponent implements OnInit {
   }
 
   private drawChart() {
+    this.groupedBar = this.groupedBarChart();
+    this.chartTooltip = this.tooltip();
+
     var groupedBarContainer = this.d3Selection.select('.grouped-bar-chart-container'),
       containerWidth = groupedBarContainer.node() ? groupedBarContainer.node().getBoundingClientRect().width : false;
 
@@ -87,9 +90,7 @@ export class GroupedBarChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    let container = this.d3Selection.select('.grouped-bar-chart-container');
-    let newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
-    this.groupedBar.width(newContainerWidth);
-    container.datum(this.data).call(this.groupedBar);
+    this.d3Selection.selectAll('.grouped-bar').remove();
+    this.drawChart();
   }
 }
