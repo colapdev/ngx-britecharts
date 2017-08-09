@@ -16,8 +16,6 @@ var GroupedBarChartComponent = (function () {
         this.d3Selection = require('d3-selection');
         this.colors = require('britecharts/dist/umd/colors.min');
         this.tooltip = require('britecharts/dist/umd/tooltip.min');
-        this.groupedBar = this.groupedBarChart();
-        this.chartTooltip = this.tooltip();
         Observable.fromEvent(window, 'resize')
             .debounceTime(250)
             .subscribe(function () {
@@ -29,6 +27,8 @@ var GroupedBarChartComponent = (function () {
     };
     GroupedBarChartComponent.prototype.drawChart = function () {
         var _this = this;
+        this.groupedBar = this.groupedBarChart();
+        this.chartTooltip = this.tooltip();
         var groupedBarContainer = this.d3Selection.select('.grouped-bar-chart-container'), containerWidth = groupedBarContainer.node() ? groupedBarContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.groupedBar.width(containerWidth);
@@ -75,10 +75,12 @@ var GroupedBarChartComponent = (function () {
         }
     };
     GroupedBarChartComponent.prototype.redrawChart = function () {
-        var container = this.d3Selection.select('.grouped-bar-chart-container');
-        var newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
+        /*let container = this.d3Selection.select('.grouped-bar-chart-container');
+        let newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
         this.groupedBar.width(newContainerWidth);
-        container.datum(this.data).call(this.groupedBar);
+        container.datum(this.data).call(this.groupedBar);*/
+        this.d3Selection.selectAll('.grouped-bar').remove();
+        this.drawChart();
     };
     return GroupedBarChartComponent;
 }());

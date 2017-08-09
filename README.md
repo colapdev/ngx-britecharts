@@ -37,6 +37,7 @@ There's a base file for all charts and then each chart has it's own CSS.
 ```
 @import '../../node_modules/britecharts/dist/css/common/common.min.css';
 @import '../../node_modules/britecharts/dist/css/charts/bar.min.css';
+@import '../../node_modules/britecharts/dist/css/charts/grouped-bar.min.css';
 ```
 
 ## Rendering the chart
@@ -72,10 +73,10 @@ The **properties** attributes are all optional, they correlate with their corres
 #### Bar chart:
 ```
 {
-    "id": 0,
+    "id": 0, // Optional, if using legend chart and want to highlight on mouse over.
     "name": "A",
     "value": 0.08167,
-    "quantity": 0.08167
+    "quantity": 0.08167 // Optional, if using legend chart and want to highlight on mouse over.
 }
 ```
 #### Grouped Bar chart:
@@ -106,6 +107,8 @@ The **properties** attributes are all optional, they correlate with their corres
  - 0.8.0 - Sparkline Chart
  - TBD - Angular4 support
 
+**NOTE: EXPECT REAKING CHANGES WITH EACH RELEASE UNTIL WE REACH THE 1.0.0 VERSION.**
+
 ## Contributing
 We are open to pull requests including:
  - More demos.
@@ -117,3 +120,4 @@ Feel free to open any issue in case you need help.
 
 ## Acknowledgments
 [Britecharts](https://github.com/eventbrite/britecharts/) community, specially [Marcos Iglesias](https://github.com/miglesiasEB) for his support and patience.
+[@dzurico](https://twitter.com/dzurico) for this post http://www.dzurico.com/how-to-create-an-angular-library/.
