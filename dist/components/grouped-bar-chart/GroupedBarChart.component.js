@@ -65,13 +65,15 @@ var GroupedBarChartComponent = (function () {
             if (this.chartConfig.hasOwnProperty('click')) {
                 this.d3Selection.selectAll('.grouped-bar .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
             }
-            this.chartTooltip
-                .topicLabel('values')
-                .dateLabel('key')
-                .nameLabel('stack')
-                .title('Testing tooltip');
-            this.tooltipContainer = this.d3Selection.select('.grouped-bar .metadata-group');
-            this.tooltipContainer.datum(this.data).call(this.chartTooltip);
+            if (showTooltip) {
+                for (var option in this.chartConfig["tooltip"]) {
+                    if (this.chartTooltip.hasOwnProperty(option)) {
+                        this.chartTooltip[option](this.chartConfig["tooltip"][option]);
+                    }
+                }
+                this.tooltipContainer = this.d3Selection.select('.grouped-bar .metadata-group');
+                this.tooltipContainer.datum(this.data).call(this.chartTooltip);
+            }
         }
     };
     GroupedBarChartComponent.prototype.redrawChart = function () {

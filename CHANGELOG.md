@@ -1,5 +1,9 @@
 # Changelog
 
+### 2017-08-10
+- 0.2.2 release.
+  - Grouped bar charts - Dynamic tooltip options.
+
 ### 2017-08-09
 - 0.2.1 release.
   - Grouped bar charts made responsive.

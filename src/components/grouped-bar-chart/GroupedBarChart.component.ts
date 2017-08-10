@@ -78,14 +78,16 @@ export class GroupedBarChartComponent implements OnInit {
         this.d3Selection.selectAll('.grouped-bar .bar').on("click", (ev) => this.chartConfig['click'](ev));
       }
 
-      this.chartTooltip
-        .topicLabel('values')
-        .dateLabel('key')
-        .nameLabel('stack')
-        .title('Testing tooltip');
+      if (showTooltip) {
+        for (let option in this.chartConfig["tooltip"]) {
+          if (this.chartTooltip.hasOwnProperty(option)) {
+            this.chartTooltip[option](this.chartConfig["tooltip"][option]);
+          }
+        }
 
-      this.tooltipContainer = this.d3Selection.select('.grouped-bar .metadata-group');
-      this.tooltipContainer.datum(this.data).call(this.chartTooltip);
+        this.tooltipContainer = this.d3Selection.select('.grouped-bar .metadata-group');
+        this.tooltipContainer.datum(this.data).call(this.chartTooltip);
+      }
     }
   }
 
