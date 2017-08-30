@@ -1,10 +1,18 @@
 <div class="row">
   <div class="col-xs-12">
     <h1>@colap-dev/ngx-britecharts</h1>
-    <h3>Bar charts</h3>
-    <h5>Bar Chart with Tooltip</h5>
-    <ngx-bc-legendchart #legendChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-legendchart>
-    <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-barchart>
-    <ngx-bc-groupedbarchart #groupedBarChart [data]="groupedBarChartData" [chartConfig]="gorupedBarChartConfig"></ngx-bc-groupedbarchart>
+    <tabset>
+      <tab heading="Bar charts">
+        <div class="col-sm-9">
+          <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-barchart>
+        </div>
+        <div class="col-sm-3">
+          <ngx-bc-legendchart #legendChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-legendchart>
+        </div>
+      </tab>
+      <tab heading="Grouped bar chart">
+        <ngx-bc-groupedbarchart #groupedBarChart [data]="groupedBarChartData" [chartConfig]="gorupedBarChartConfig"></ngx-bc-groupedbarchart>
+      </tab>
+    </tabset>
   </div>
 </div>
