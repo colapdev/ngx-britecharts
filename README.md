@@ -4,6 +4,9 @@
 
 Don't now what Britecharts is? [Check this out.](http://eventbrite.github.io/britecharts/)
 
+## Demo
+Visit https://colapdev.github.io/ngx-britecharts/.
+
 ## Installation
 ```
 npm install @colap-dev/ngx-britecharts --save
