@@ -139,9 +139,6 @@ export class AppComponent {
       nameLabel: 'date',
       valueLabel: 'views'
     },
-    colors: {
-      customSchema: ["#17becf ", "#bcbd22 ", "#7f7f7f ", "#e377c2 ", "#8c564b ", "#9467bd ", "#d62728 ", "#2ca02c ", "#ff7f0e ", "#1f77b4 "],
-    },
     click: this.onBarChartClick,
     showTooltip: true, // Dont set to true if you are going to use custom mouse events.
     tooltip: {
