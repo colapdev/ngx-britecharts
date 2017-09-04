@@ -31,7 +31,7 @@ export class AppComponent {
     console.log($ev);
   }
 
-  private configCustomEvents(ready) {
+  public configCustomEvents(ready) {
     if (ready) {
       let that = this;
       this.barChart.bar.on('customMouseOver', function() {
