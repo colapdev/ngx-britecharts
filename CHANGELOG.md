@@ -1,5 +1,9 @@
 # Changelog
 
+### 2017-09-04
+- 0.2.3 release.
+  - Firing events on rendering ready.
+
 ### 2017-08-10
 - 0.2.2 release.
   - Grouped bar charts - Dynamic tooltip options.

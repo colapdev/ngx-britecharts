@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Rx';
 export class GroupedBarChartComponent implements OnInit {
   @Input() data: any;
   @Input() chartConfig: any;
+  @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private groupedBarChart = require('britecharts/dist/umd/groupedBar.min');
   private d3Selection = require('d3-selection');
@@ -88,6 +89,8 @@ export class GroupedBarChartComponent implements OnInit {
         this.tooltipContainer = this.d3Selection.select('.grouped-bar .metadata-group');
         this.tooltipContainer.datum(this.data).call(this.chartTooltip);
       }
+
+      this.ready.emit(true);
     }
   }
 

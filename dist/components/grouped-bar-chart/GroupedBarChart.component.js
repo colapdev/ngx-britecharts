@@ -7,11 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 var GroupedBarChartComponent = (function () {
     function GroupedBarChartComponent() {
         var _this = this;
+        this.ready = new EventEmitter();
         this.groupedBarChart = require('britecharts/dist/umd/groupedBar.min');
         this.d3Selection = require('d3-selection');
         this.colors = require('britecharts/dist/umd/colors.min');
@@ -74,6 +75,7 @@ var GroupedBarChartComponent = (function () {
                 this.tooltipContainer = this.d3Selection.select('.grouped-bar .metadata-group');
                 this.tooltipContainer.datum(this.data).call(this.chartTooltip);
             }
+            this.ready.emit(true);
         }
     };
     GroupedBarChartComponent.prototype.redrawChart = function () {
@@ -90,6 +92,10 @@ __decorate([
     Input(),
     __metadata("design:type", Object)
 ], GroupedBarChartComponent.prototype, "chartConfig", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], GroupedBarChartComponent.prototype, "ready", void 0);
 GroupedBarChartComponent = __decorate([
     Component({
         selector: 'ngx-bc-groupedbarchart',

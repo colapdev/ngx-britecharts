@@ -21,7 +21,7 @@ export class AppComponent {
       customSchema: ["#17becf ", "#bcbd22 ", "#7f7f7f ", "#e377c2 ", "#8c564b ", "#9467bd ", "#d62728 ", "#2ca02c ", "#ff7f0e ", "#1f77b4 "],
     },
     click: this.onBarChartClick,
-    showTooltip: false // Dont set to true if you are going to use custom mouse events.
+    showTooltip: false, // Dont set to true if you are going to use custom mouse events.
   };
 
   @ViewChild('barChart') barChart: BarChartComponent;
@@ -31,26 +31,28 @@ export class AppComponent {
     console.log($ev);
   }
 
-  ngAfterViewInit() {
-    let that = this;
-    this.barChart.bar.on('customMouseOver', function() {
-      that.barChart.tooltip.show();
-    });
-    this.barChart.bar.on('customMouseMove', function(data, pos, size) {
-      that.barChart.tooltip.update(data, pos, size);
-      // We are about to send a pull request to britecharts in order to make
-      // this more efficient.
-      for (let d of that.firstBarChartData) {
-        if (d["name"] == data["name"]) {
-          that.legendChart.legend.highlight(d["id"]);
-          break;
+  private configCustomEvents(ready) {
+    if (ready) {
+      let that = this;
+      this.barChart.bar.on('customMouseOver', function() {
+        that.barChart.tooltip.show();
+      });
+      this.barChart.bar.on('customMouseMove', function(data, pos, size) {
+        that.barChart.tooltip.update(data, pos, size);
+        // We are about to send a pull request to britecharts in order to make
+        // this more efficient.
+        for (let d of that.firstBarChartData) {
+          if (d["name"] == data["name"]) {
+            that.legendChart.legend.highlight(d["id"]);
+            break;
+          }
         }
-      }
-    })
-    this.barChart.bar.on('customMouseOut', function() {
-      that.barChart.tooltip.hide();
-      that.legendChart.legend.clearHighlight();
-    });
+      })
+      this.barChart.bar.on('customMouseOut', function() {
+        that.barChart.tooltip.hide();
+        that.legendChart.legend.clearHighlight();
+      });
+    }
   }
 
   public groupedBarChartData = [

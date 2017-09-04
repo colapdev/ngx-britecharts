@@ -1,7 +1,8 @@
-import { OnInit } from '@angular/core';
+import { OnInit, EventEmitter } from '@angular/core';
 export declare class BarChartComponent implements OnInit {
     data: any;
     chartConfig: any;
+    ready: EventEmitter<boolean>;
     private barChart;
     private d3Selection;
     private miniTooltip;

@@ -7,11 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 var LegendChartComponent = (function () {
     function LegendChartComponent() {
         var _this = this;
+        this.ready = new EventEmitter();
         this.d3Selection = require('d3-selection');
         this.legendChart = require('britecharts/dist/umd/legend.min');
         this.colors = require('britecharts/dist/umd/colors.min');
@@ -46,6 +47,7 @@ var LegendChartComponent = (function () {
                     }
                 }
                 legendContainer.datum(this.data).call(this.legend);
+                this.ready.emit(true);
             }
         }
     };
@@ -63,6 +65,10 @@ __decorate([
     Input(),
     __metadata("design:type", Object)
 ], LegendChartComponent.prototype, "chartConfig", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], LegendChartComponent.prototype, "ready", void 0);
 LegendChartComponent = __decorate([
     Component({
         selector: 'ngx-bc-legendchart',
