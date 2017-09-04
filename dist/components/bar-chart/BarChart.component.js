@@ -7,11 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 var BarChartComponent = (function () {
     function BarChartComponent() {
         var _this = this;
+        this.ready = new EventEmitter();
         this.barChart = require('britecharts/dist/umd/bar.min');
         this.d3Selection = require('d3-selection');
         this.miniTooltip = require('britecharts/dist/umd/mini-tooltip.min');
@@ -61,6 +62,7 @@ var BarChartComponent = (function () {
             }
             this.tooltipContainer = this.d3Selection.select('.bar-chart .metadata-group');
             this.tooltipContainer.datum(this.data).call(this.tooltip);
+            this.ready.emit(true);
         }
     };
     BarChartComponent.prototype.redrawChart = function () {
@@ -77,6 +79,10 @@ __decorate([
     Input(),
     __metadata("design:type", Object)
 ], BarChartComponent.prototype, "chartConfig", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], BarChartComponent.prototype, "ready", void 0);
 BarChartComponent = __decorate([
     Component({
         selector: 'ngx-bc-barchart',

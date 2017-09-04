@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Rx';
 export class LegendChartComponent implements OnInit {
   @Input() data: any;
   @Input() chartConfig: any;
+  @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private d3Selection = require('d3-selection');
   private legendChart = require('britecharts/dist/umd/legend.min');
@@ -55,6 +56,8 @@ export class LegendChartComponent implements OnInit {
         }
 
         legendContainer.datum(this.data).call(this.legend);
+
+        this.ready.emit(true);
       }
     }
   }

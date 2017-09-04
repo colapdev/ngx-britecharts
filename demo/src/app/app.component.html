@@ -4,7 +4,7 @@
     <tabset>
       <tab heading="Bar charts">
         <div class="col-sm-9">
-          <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-barchart>
+          <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" (ready)="configCustomEvents($event)"></ngx-bc-barchart>
         </div>
         <div class="col-sm-3">
           <ngx-bc-legendchart #legendChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-legendchart>

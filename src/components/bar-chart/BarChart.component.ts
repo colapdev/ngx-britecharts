@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Rx';
 export class BarChartComponent implements OnInit {
   @Input() data: any;
   @Input() chartConfig: any;
+  @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private barChart = require('britecharts/dist/umd/bar.min');
   private d3Selection = require('d3-selection');
@@ -74,6 +75,8 @@ export class BarChartComponent implements OnInit {
 
       this.tooltipContainer = this.d3Selection.select('.bar-chart .metadata-group');
       this.tooltipContainer.datum(this.data).call(this.tooltip);
+
+      this.ready.emit(true);
     }
   }
 
