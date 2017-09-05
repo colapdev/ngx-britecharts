@@ -15,13 +15,15 @@ npm install @colap-dev/ngx-britecharts --save
 ## Using it in your project
 Every chart is independent so you must import the ones you want to use.
 ```
-import { BarChartModule, LegendChartModule } from '@colap-dev/ngx-britecharts/dist';
+import { BarChartModule, LegendChartModule, GroupedBarChartModule, StackedBarChartModule } from '@colap-dev/ngx-britecharts/dist';
 
 @NgModule({
   imports: [
     ...
     BarChartModule,
     LegendChartModule,
+    GroupedBarChartModule,
+    StackedBarChartModule,
     ...
   ],
   declarations: [
@@ -41,6 +43,7 @@ There's a base file for all charts and then each chart has it's own CSS.
 @import '../../node_modules/britecharts/dist/css/common/common.min.css';
 @import '../../node_modules/britecharts/dist/css/charts/bar.min.css';
 @import '../../node_modules/britecharts/dist/css/charts/grouped-bar.min.css';
+@import '../../node_modules/britecharts/dist/css/charts/stacked-bar.min.css';
 ```
 
 ## Rendering the chart
@@ -49,6 +52,7 @@ There's a base file for all charts and then each chart has it's own CSS.
 <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-barchart>
 <ngx-bc-legendchart #legendChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-legendchart>
 <ngx-bc-groupedbarchart #groupedBarChart [data]="groupedBarChartData" [chartConfig]="gorupedBarChartConfig"></ngx-bc-groupedbarchart>
+<ngx-bc-stackedbarchart #stackedBarChart [data]="stackedBarChartData" [chartConfig]="stackedBarChartConfig"></ngx-bc-stackedbarchart>
 ```
 
 ### Component:
@@ -92,6 +96,15 @@ The **properties** attributes are all optional, they correlate with their corres
     "date": "2011-01-08"
 }
 ```
+#### Stacked Bar chart:
+```
+{
+    "stack": "sunny",
+    "name": "Email4",
+    "views": 33,
+    "date": "2011-01-08"
+}
+```
 
 ## Running the demo
  1. Clone this repo.
@@ -102,8 +115,8 @@ The **properties** attributes are all optional, they correlate with their corres
 
 ## Roadmap
  - 0.1.0 - Only Bar chart and Legend chart available.
- - 0.2.0 - Grouped Bar Chart --> Current release
- - 0.3.0 - Stacked Bar Chart
+ - 0.2.0 - Grouped Bar Chart
+ - 0.3.0 - Stacked Bar Chart --> Current release
  - 0.4.0 - Line Chart and Brush Chart
  - 0.5.0 - Donut Chart
  - 0.6.0 - Stacked Area Chart

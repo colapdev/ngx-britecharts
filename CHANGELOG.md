@@ -1,5 +1,9 @@
 # Changelog
 
+### 2017-09-05
+- 0.3.0 release.
+  - Stacked bar charts.
+
 ### 2017-09-04
 - 0.2.3 release.
   - Firing events on rendering ready.

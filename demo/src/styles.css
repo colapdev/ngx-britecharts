@@ -5,3 +5,4 @@
 @import '../../node_modules/britecharts/dist/css/common/common.min.css';
 @import '../../node_modules/britecharts/dist/css/charts/bar.min.css';
 @import '../../node_modules/britecharts/dist/css/charts/grouped-bar.min.css';
+@import '../../node_modules/britecharts/dist/css/charts/stacked-bar.min.css';
