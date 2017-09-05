@@ -139,8 +139,100 @@ export class AppComponent {
       nameLabel: 'date',
       valueLabel: 'views'
     },
-    colors: {
-      customSchema: ["#17becf ", "#bcbd22 ", "#7f7f7f ", "#e377c2 ", "#8c564b ", "#9467bd ", "#d62728 ", "#2ca02c ", "#ff7f0e ", "#1f77b4 "],
+    click: this.onBarChartClick,
+    showTooltip: true, // Dont set to true if you are going to use custom mouse events.
+    tooltip: {
+      topicLabel: "values",
+      dateLabel: "key",
+      nameLabel: "stack",
+      title: "Testing",
+    }
+  };
+
+  public stackedBarChartData = [
+      {
+          "stack": "vivid",
+          "name": "Direct1",
+          "views": 0,
+          "date": "2011-01-05"
+      },
+      {
+          "stack": "vivid",
+          "name": "Direct2",
+          "views": 10,
+          "date": "2011-01-06"
+      },
+      {
+          "stack": "vivid",
+          "name": "Direct3",
+          "views": 16,
+          "date": "2011-01-07"
+      },
+      {
+          "stack": "vivid",
+          "name": "Direct4",
+          "views": 23,
+          "date": "2011-01-08"
+      },
+      {
+          "stack": "sparkling",
+          "name": "Eventbrite1",
+          "views": 23,
+          "date": "2011-01-05"
+      },
+      {
+          "stack": "sparkling",
+           "name": "Eventbrite2",
+          "views": 16,
+          "date": "2011-01-06"
+      },
+      {
+          "stack": "sparkling",
+           "name": "Eventbrite3",
+          "views": 10,
+          "date": "2011-01-07"
+      },
+      {
+          "stack": "sparkling",
+          "name": "Eventbrite4",
+          "views": 0,
+          "date": "2011-01-08"
+      },
+      {
+          "stack": "sunny",
+          "name": "Email1",
+          "views": 10,
+          "date": "2011-01-05"
+      },
+      {
+          "stack": "sunny",
+          "name": "Email2",
+          "views": 20,
+          "date": "2011-01-06"
+      },
+      {
+          "stack": "sunny",
+          "name": "Email3",
+          "views": 26,
+          "date": "2011-01-07"
+      },
+      {
+          "stack": "sunny",
+          "name": "Email4",
+          "views": 33,
+          "date": "2011-01-08"
+      }
+  ];
+
+  public stackedBarChartConfig = {
+    properties: {
+      height: 500,
+      tooltipThreshold: 600,
+      grid: 'horizontal',
+      isAnimated: false,
+      stackLabel: 'stack',
+      nameLabel: 'date',
+      valueLabel: 'views'
     },
     click: this.onBarChartClick,
     showTooltip: true, // Dont set to true if you are going to use custom mouse events.
