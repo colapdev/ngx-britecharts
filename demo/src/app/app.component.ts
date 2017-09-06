@@ -150,78 +150,78 @@ export class AppComponent {
   };
 
   public stackedBarChartData = [
-      {
-          "stack": "vivid",
-          "name": "Direct1",
-          "views": 0,
-          "date": "2011-01-05"
-      },
-      {
-          "stack": "vivid",
-          "name": "Direct2",
-          "views": 10,
-          "date": "2011-01-06"
-      },
-      {
-          "stack": "vivid",
-          "name": "Direct3",
-          "views": 16,
-          "date": "2011-01-07"
-      },
-      {
-          "stack": "vivid",
-          "name": "Direct4",
-          "views": 23,
-          "date": "2011-01-08"
-      },
-      {
-          "stack": "sparkling",
-          "name": "Eventbrite1",
-          "views": 23,
-          "date": "2011-01-05"
-      },
-      {
-          "stack": "sparkling",
-           "name": "Eventbrite2",
-          "views": 16,
-          "date": "2011-01-06"
-      },
-      {
-          "stack": "sparkling",
-           "name": "Eventbrite3",
-          "views": 10,
-          "date": "2011-01-07"
-      },
-      {
-          "stack": "sparkling",
-          "name": "Eventbrite4",
-          "views": 0,
-          "date": "2011-01-08"
-      },
-      {
-          "stack": "sunny",
-          "name": "Email1",
-          "views": 10,
-          "date": "2011-01-05"
-      },
-      {
-          "stack": "sunny",
-          "name": "Email2",
-          "views": 20,
-          "date": "2011-01-06"
-      },
-      {
-          "stack": "sunny",
-          "name": "Email3",
-          "views": 26,
-          "date": "2011-01-07"
-      },
-      {
-          "stack": "sunny",
-          "name": "Email4",
-          "views": 33,
-          "date": "2011-01-08"
-      }
+    {
+      "stack": "vivid",
+      "name": "Direct1",
+      "views": 0,
+      "date": "2011-01-05"
+    },
+    {
+      "stack": "vivid",
+      "name": "Direct2",
+      "views": 10,
+      "date": "2011-01-06"
+    },
+    {
+      "stack": "vivid",
+      "name": "Direct3",
+      "views": 16,
+      "date": "2011-01-07"
+    },
+    {
+      "stack": "vivid",
+      "name": "Direct4",
+      "views": 23,
+      "date": "2011-01-08"
+    },
+    {
+      "stack": "sparkling",
+      "name": "Eventbrite1",
+      "views": 23,
+      "date": "2011-01-05"
+    },
+    {
+      "stack": "sparkling",
+      "name": "Eventbrite2",
+      "views": 16,
+      "date": "2011-01-06"
+    },
+    {
+      "stack": "sparkling",
+      "name": "Eventbrite3",
+      "views": 10,
+      "date": "2011-01-07"
+    },
+    {
+      "stack": "sparkling",
+      "name": "Eventbrite4",
+      "views": 0,
+      "date": "2011-01-08"
+    },
+    {
+      "stack": "sunny",
+      "name": "Email1",
+      "views": 10,
+      "date": "2011-01-05"
+    },
+    {
+      "stack": "sunny",
+      "name": "Email2",
+      "views": 20,
+      "date": "2011-01-06"
+    },
+    {
+      "stack": "sunny",
+      "name": "Email3",
+      "views": 26,
+      "date": "2011-01-07"
+    },
+    {
+      "stack": "sunny",
+      "name": "Email4",
+      "views": 33,
+      "date": "2011-01-08"
+    }
   ];
 
   public stackedBarChartConfig = {
@@ -242,5 +242,20 @@ export class AppComponent {
       nameLabel: "stack",
       title: "Testing",
     }
+  };
+
+  public lineChartData = { "dataByTopic": [{ "topic": -1, "topicName": "Quantity", "dates": [{ "date": "2016-07-31T07:00:00.000Z", "value": 0, "fullDate": "2016-07-31T00:00:00-07:00" }, { "date": "2016-08-01T07:00:00.000Z", "value": 0, "fullDate": "2016-08-01T00:00:00-07:00" }, { "date": "2016-08-02T07:00:00.000Z", "value": 3, "fullDate": "2016-08-02T00:00:00-07:00" }, { "date": "2016-08-03T07:00:00.000Z", "value": 1, "fullDate": "2016-08-03T00:00:00-07:00" }, { "date": "2016-08-04T07:00:00.000Z", "value": 3, "fullDate": "2016-08-04T00:00:00-07:00" }, { "date": "2016-08-05T07:00:00.000Z", "value": 3, "fullDate": "2016-08-05T00:00:00-07:00" }, { "date": "2016-08-06T07:00:00.000Z", "value": 0, "fullDate": "2016-08-06T00:00:00-07:00" }, { "date": "2016-08-07T07:00:00.000Z", "value": 1, "fullDate": "2016-08-07T00:00:00-07:00" }, { "date": "2016-08-08T07:00:00.000Z", "value": 1, "fullDate": "2016-08-08T00:00:00-07:00" }, { "date": "2016-08-09T07:00:00.000Z", "value": 0, "fullDate": "2016-08-09T00:00:00-07:00" }, { "date": "2016-08-10T07:00:00.000Z", "value": 3, "fullDate": "2016-08-10T00:00:00-07:00" }, { "date": "2016-08-11T07:00:00.000Z", "value": 4, "fullDate": "2016-08-11T00:00:00-07:00" }, { "date": "2016-08-12T07:00:00.000Z", "value": 4, "fullDate": "2016-08-12T00:00:00-07:00" }, { "date": "2016-08-13T07:00:00.000Z", "value": 2, "fullDate": "2016-08-13T00:00:00-07:00" }, { "date": "2016-08-14T07:00:00.000Z", "value": 3, "fullDate": "2016-08-14T00:00:00-07:00" }, { "date": "2016-08-15T07:00:00.000Z", "value": 0, "fullDate": "2016-08-15T00:00:00-07:00" }, { "date": "2016-08-16T07:00:00.000Z", "value": 1, "fullDate": "2016-08-16T00:00:00-07:00" }, { "date": "2016-08-17T07:00:00.000Z", "value": 0, "fullDate": "2016-08-17T00:00:00-07:00" }, { "date": "2016-08-18T07:00:00.000Z", "value": 2, "fullDate": "2016-08-18T00:00:00-07:00" }, { "date": "2016-08-19T07:00:00.000Z", "value": 5, "fullDate": "2016-08-19T00:00:00-07:00" }, { "date": "2016-08-20T07:00:00.000Z", "value": 1, "fullDate": "2016-08-20T00:00:00-07:00" }, { "date": "2016-08-21T07:00:00.000Z", "value": 2, "fullDate": "2016-08-21T00:00:00-07:00" }, { "date": "2016-08-22T07:00:00.000Z", "value": 9, "fullDate": "2016-08-22T00:00:00-07:00" }, { "date": "2016-08-23T07:00:00.000Z", "value": 4, "fullDate": "2016-08-23T00:00:00-07:00" }, { "date": "2016-08-24T07:00:00.000Z", "value": 3, "fullDate": "2016-08-24T00:00:00-07:00" }, { "date": "2016-08-25T07:00:00.000Z", "value": 2, "fullDate": "2016-08-25T00:00:00-07:00" }, { "date": "2016-08-26T07:00:00.000Z", "value": 5, "fullDate": "2016-08-26T00:00:00-07:00" }] }] };
+  public lineChartConfig = {
+    properties: {
+      height: 500,
+      tooltipThreshold: 600,
+      grid: 'full',
+      lineCurve: 'basis',
+      topicNameLabel: "topicName",
+      topicLabel: "Quantity",
+      dateLabel: "fullDate",
+      valueLabel: "value",
+    },
+    showTooltip:true
   };
 }
