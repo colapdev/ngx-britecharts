@@ -7,10 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 var GroupedBarChartComponent = (function () {
-    function GroupedBarChartComponent() {
+    function GroupedBarChartComponent(elementRef) {
         var _this = this;
         this.ready = new EventEmitter();
         this.groupedBarChart = require('britecharts/dist/umd/groupedBar.min');
@@ -22,6 +22,7 @@ var GroupedBarChartComponent = (function () {
             .subscribe(function () {
             _this.redrawChart();
         });
+        this.el = elementRef.nativeElement;
     }
     GroupedBarChartComponent.prototype.ngOnInit = function () {
         this.drawChart();
@@ -30,7 +31,7 @@ var GroupedBarChartComponent = (function () {
         var _this = this;
         this.groupedBar = this.groupedBarChart();
         this.chartTooltip = this.tooltip();
-        var groupedBarContainer = this.d3Selection.select('.grouped-bar-chart-container'), containerWidth = groupedBarContainer.node() ? groupedBarContainer.node().getBoundingClientRect().width : false;
+        var groupedBarContainer = this.d3Selection.select(this.el).select('.grouped-bar-chart-container'), containerWidth = groupedBarContainer.node() ? groupedBarContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.groupedBar.width(containerWidth);
             for (var option in this.chartConfig["properties"]) {
@@ -64,7 +65,7 @@ var GroupedBarChartComponent = (function () {
             }
             groupedBarContainer.datum(this.data).call(this.groupedBar);
             if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.selectAll('.grouped-bar .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
+                this.d3Selection.select(this.el).selectAll('.grouped-bar .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
             }
             if (showTooltip) {
                 for (var option in this.chartConfig["tooltip"]) {
@@ -72,14 +73,14 @@ var GroupedBarChartComponent = (function () {
                         this.chartTooltip[option](this.chartConfig["tooltip"][option]);
                     }
                 }
-                this.tooltipContainer = this.d3Selection.select('.grouped-bar-chart-container .metadata-group');
+                this.tooltipContainer = this.d3Selection.select(this.el).select('.grouped-bar-chart-container .metadata-group');
                 this.tooltipContainer.datum(this.data).call(this.chartTooltip);
             }
             this.ready.emit(true);
         }
     };
     GroupedBarChartComponent.prototype.redrawChart = function () {
-        this.d3Selection.selectAll('.grouped-bar').remove();
+        this.d3Selection.select(this.el).selectAll('.grouped-bar').remove();
         this.drawChart();
     };
     return GroupedBarChartComponent;
@@ -101,7 +102,7 @@ GroupedBarChartComponent = __decorate([
         selector: 'ngx-bc-groupedbarchart',
         template: "<div class=\"grouped-bar-chart-container\"></div> "
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [ElementRef])
 ], GroupedBarChartComponent);
 export { GroupedBarChartComponent };
 //# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/grouped-bar-chart/GroupedBarChart.component.js.map
