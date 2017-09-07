@@ -7,10 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 var StackedBarChartComponent = (function () {
-    function StackedBarChartComponent() {
+    function StackedBarChartComponent(elementRef) {
         var _this = this;
         this.ready = new EventEmitter();
         this.stackedBarChart = require('britecharts/dist/umd/stackedBar.min');
@@ -22,6 +22,7 @@ var StackedBarChartComponent = (function () {
             .subscribe(function () {
             _this.redrawChart();
         });
+        this.el = elementRef.nativeElement;
     }
     StackedBarChartComponent.prototype.ngOnInit = function () {
         this.drawChart();
@@ -30,7 +31,7 @@ var StackedBarChartComponent = (function () {
         var _this = this;
         this.stackedBar = this.stackedBarChart();
         this.chartTooltip = this.tooltip();
-        var stackedBarContainer = this.d3Selection.select('.stacked-bar-chart-container'), containerWidth = stackedBarContainer.node() ? stackedBarContainer.node().getBoundingClientRect().width : false;
+        var stackedBarContainer = this.d3Selection.select(this.el).select('.stacked-bar-chart-container'), containerWidth = stackedBarContainer.node() ? stackedBarContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.stackedBar.width(containerWidth);
             for (var option in this.chartConfig["properties"]) {
@@ -64,7 +65,7 @@ var StackedBarChartComponent = (function () {
             }
             stackedBarContainer.datum(this.data).call(this.stackedBar);
             if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.selectAll('.stacked-bar .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
+                this.d3Selection.select(this.el).selectAll('.stacked-bar .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
             }
             if (showTooltip) {
                 for (var option in this.chartConfig["tooltip"]) {
@@ -72,14 +73,14 @@ var StackedBarChartComponent = (function () {
                         this.chartTooltip[option](this.chartConfig["tooltip"][option]);
                     }
                 }
-                this.tooltipContainer = this.d3Selection.select('.stacked-bar-chart-container .metadata-group');
+                this.tooltipContainer = this.d3Selection.select(this.el).select('.stacked-bar-chart-container .metadata-group');
                 this.tooltipContainer.datum(this.data).call(this.chartTooltip);
             }
             this.ready.emit(true);
         }
     };
     StackedBarChartComponent.prototype.redrawChart = function () {
-        this.d3Selection.selectAll('.stacked-bar').remove();
+        this.d3Selection.select(this.el).selectAll('.stacked-bar').remove();
         this.drawChart();
     };
     return StackedBarChartComponent;
@@ -101,7 +102,7 @@ StackedBarChartComponent = __decorate([
         selector: 'ngx-bc-stackedbarchart',
         template: "<div class=\"stacked-bar-chart-container\"></div> "
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [ElementRef])
 ], StackedBarChartComponent);
 export { StackedBarChartComponent };
 //# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/stacked-bar-chart/StackedBarChart.component.js.map

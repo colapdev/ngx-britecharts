@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -16,16 +16,18 @@ export class StackedBarChartComponent implements OnInit {
   private colors = require('britecharts/dist/umd/colors.min');
   private tooltip = require('britecharts/dist/umd/tooltip.min');
 
+  private el: HTMLElement;
   public stackedBar: any;
   public chartTooltip: any;
   public tooltipContainer: any;
 
-  constructor() {
+  constructor(elementRef: ElementRef) {
     Observable.fromEvent(window, 'resize')
       .debounceTime(250)
       .subscribe(() => {
         this.redrawChart();
       });
+    this.el = elementRef.nativeElement;
   }
 
   ngOnInit() {
@@ -36,7 +38,7 @@ export class StackedBarChartComponent implements OnInit {
     this.stackedBar = this.stackedBarChart();
     this.chartTooltip = this.tooltip();
 
-    var stackedBarContainer = this.d3Selection.select('.stacked-bar-chart-container'),
+    var stackedBarContainer = this.d3Selection.select(this.el).select('.stacked-bar-chart-container'),
       containerWidth = stackedBarContainer.node() ? stackedBarContainer.node().getBoundingClientRect().width : false;
 
     if (containerWidth) {
@@ -76,7 +78,7 @@ export class StackedBarChartComponent implements OnInit {
       stackedBarContainer.datum(this.data).call(this.stackedBar);
 
       if (this.chartConfig.hasOwnProperty('click')) {
-        this.d3Selection.selectAll('.stacked-bar .bar').on("click", (ev) => this.chartConfig['click'](ev));
+        this.d3Selection.select(this.el).selectAll('.stacked-bar .bar').on("click", (ev) => this.chartConfig['click'](ev));
       }
 
       if (showTooltip) {
@@ -86,7 +88,7 @@ export class StackedBarChartComponent implements OnInit {
           }
         }
 
-        this.tooltipContainer = this.d3Selection.select('.stacked-bar-chart-container .metadata-group');
+        this.tooltipContainer = this.d3Selection.select(this.el).select('.stacked-bar-chart-container .metadata-group');
         this.tooltipContainer.datum(this.data).call(this.chartTooltip);
       }
 
@@ -95,7 +97,7 @@ export class StackedBarChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    this.d3Selection.selectAll('.stacked-bar').remove();
+    this.d3Selection.select(this.el).selectAll('.stacked-bar').remove();
     this.drawChart();
   }
 }

@@ -1,4 +1,4 @@
-import { OnInit, EventEmitter } from '@angular/core';
+import { OnInit, EventEmitter, ElementRef } from '@angular/core';
 export declare class StackedBarChartComponent implements OnInit {
     data: any;
     chartConfig: any;
@@ -7,10 +7,11 @@ export declare class StackedBarChartComponent implements OnInit {
     private d3Selection;
     private colors;
     private tooltip;
+    private el;
     stackedBar: any;
     chartTooltip: any;
     tooltipContainer: any;
-    constructor();
+    constructor(elementRef: ElementRef);
     ngOnInit(): void;
     private drawChart();
     redrawChart(): void;
