@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Rx';
 export class LineChartComponent implements OnInit {
   @Input() data: any;
   @Input() chartConfig: any;
+
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private lineChart = require('britecharts/dist/umd/line.min');
@@ -16,16 +17,18 @@ export class LineChartComponent implements OnInit {
   private colors = require('britecharts/dist/umd/colors.min');
   private tooltip = require('britecharts/dist/umd/tooltip.min');
 
+  private el: HTMLElement;
   public line: any;
   public chartTooltip: any;
   public tooltipContainer: any;
 
-  constructor() {
+  constructor(elementRef: ElementRef) {
     Observable.fromEvent(window, 'resize')
       .debounceTime(250)
       .subscribe(() => {
         this.redrawChart();
       });
+    this.el = elementRef.nativeElement;
   }
 
   ngOnInit() {
@@ -36,7 +39,7 @@ export class LineChartComponent implements OnInit {
     this.line = this.lineChart();
     this.chartTooltip = this.tooltip();
 
-    var lineContainer = this.d3Selection.select('.line-chart-container'),
+    var lineContainer = this.d3Selection.select(this.el).select('.line-chart-container'),
       containerWidth = lineContainer.node() ? lineContainer.node().getBoundingClientRect().width : false;
 
     if (containerWidth) {
@@ -55,8 +58,8 @@ export class LineChartComponent implements OnInit {
         this.line.on('customMouseOver', function() {
           that.chartTooltip.show();
         });
-        this.line.on('customMouseMove', function(dataPoint, topicColorMap, x, y) {
-          that.chartTooltip.update(dataPoint, topicColorMap, x, y);
+        this.line.on('customMouseMove', function(dataPoint, topicColorMap, dataPointXPosition) {
+          that.chartTooltip.update(dataPoint, topicColorMap, dataPointXPosition);
         });
         this.line.on('customMouseOut', function() {
           that.chartTooltip.hide();
@@ -71,12 +74,20 @@ export class LineChartComponent implements OnInit {
         } else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
           this.line.colorSchema(this.chartConfig['colors']['customSchema']);
         }
+
+        if (this.chartConfig['colors'].hasOwnProperty('singleLineGradient')) {
+          if (this.colors.colorGradientsHuman.hasOwnProperty(this.chartConfig['colors']['singleLineGradient'])) {
+            this.line.lineGradient(this.colors.colorGradients[this.chartConfig['colors']['singleLineGradient']]);
+          }
+        } else if (this.chartConfig['colors'].hasOwnProperty('customsingleLineGradient')) {
+          this.line.lineGradient(this.chartConfig['colors']['customsingleLineGradient']);
+        }
       }
 
       lineContainer.datum(this.data).call(this.line);
 
       if (this.chartConfig.hasOwnProperty('click')) {
-        this.d3Selection.selectAll('.line-chart .bar').on("click", (ev) => this.chartConfig['click'](ev));
+        this.d3Selection.select(this.el).selectAll('.line-chart .bar').on("click", (ev) => this.chartConfig['click'](ev));
       }
 
       if (showTooltip) {
@@ -86,8 +97,8 @@ export class LineChartComponent implements OnInit {
           }
         }
 
-        this.tooltipContainer = this.d3Selection.select('.line-chart .metadata-group');
-        this.tooltipContainer.datum(this.data).call(this.chartTooltip);
+        this.tooltipContainer = this.d3Selection.select(this.el).select('.line-chart-container .metadata-group .hover-marker');
+        this.tooltipContainer.datum([]).call(this.chartTooltip);
       }
 
       this.ready.emit(true);
@@ -95,7 +106,7 @@ export class LineChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    this.d3Selection.selectAll('.line-chart').remove();
+    this.d3Selection.select(this.el).selectAll('.line-chart').remove();
     this.drawChart();
   }
 }

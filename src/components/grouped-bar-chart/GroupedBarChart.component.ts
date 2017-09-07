@@ -86,7 +86,7 @@ export class GroupedBarChartComponent implements OnInit {
           }
         }
 
-        this.tooltipContainer = this.d3Selection.select('.grouped-bar .metadata-group');
+        this.tooltipContainer = this.d3Selection.select('.grouped-bar-chart-container .metadata-group');
         this.tooltipContainer.datum(this.data).call(this.chartTooltip);
       }
 

@@ -15,8 +15,11 @@
       <tab heading="Stacked bar chart">
         <ngx-bc-stackedbarchart #stackedBarChart [data]="stackedBarChartData" [chartConfig]="stackedBarChartConfig"></ngx-bc-stackedbarchart>
       </tab>
-      <tab heading="Line chart">
-        <ngx-bc-linechart #lineChart [data]="lineChartData" [chartConfig]="lineChartConfig"></ngx-bc-linechart>
+      <tab heading="Single line chart">
+        <ngx-bc-linechart #singleLineChart [data]="singleLineChartData" [chartConfig]="singleLineChartConfig"></ngx-bc-linechart>
+      </tab>
+      <tab heading="Multiline chart">
+        <ngx-bc-linechart #multilineChart [data]="multilineChartData" [chartConfig]="multilineChartConfig"></ngx-bc-linechart>
       </tab>
     </tabset>
   </div>

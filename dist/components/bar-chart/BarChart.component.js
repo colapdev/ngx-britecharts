@@ -60,7 +60,7 @@ var BarChartComponent = (function () {
             if (this.chartConfig.hasOwnProperty('click')) {
                 this.d3Selection.selectAll('.bar-chart .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
             }
-            this.tooltipContainer = this.d3Selection.select('.bar-chart .metadata-group');
+            this.tooltipContainer = this.d3Selection.select('.bar-chart-container .metadata-group');
             this.tooltipContainer.datum(this.data).call(this.tooltip);
             this.ready.emit(true);
         }

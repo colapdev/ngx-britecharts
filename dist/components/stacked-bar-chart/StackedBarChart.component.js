@@ -72,7 +72,7 @@ var StackedBarChartComponent = (function () {
                         this.chartTooltip[option](this.chartConfig["tooltip"][option]);
                     }
                 }
-                this.tooltipContainer = this.d3Selection.select('.stacked-bar .metadata-group');
+                this.tooltipContainer = this.d3Selection.select('.stacked-bar-chart-container .metadata-group');
                 this.tooltipContainer.datum(this.data).call(this.chartTooltip);
             }
             this.ready.emit(true);

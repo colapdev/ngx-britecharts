@@ -7,10 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 var LineChartComponent = (function () {
-    function LineChartComponent() {
+    function LineChartComponent(elementRef) {
         var _this = this;
         this.ready = new EventEmitter();
         this.lineChart = require('britecharts/dist/umd/line.min');
@@ -22,6 +22,7 @@ var LineChartComponent = (function () {
             .subscribe(function () {
             _this.redrawChart();
         });
+        this.el = elementRef.nativeElement;
     }
     LineChartComponent.prototype.ngOnInit = function () {
         this.drawChart();
@@ -30,7 +31,7 @@ var LineChartComponent = (function () {
         var _this = this;
         this.line = this.lineChart();
         this.chartTooltip = this.tooltip();
-        var lineContainer = this.d3Selection.select('.line-chart-container'), containerWidth = lineContainer.node() ? lineContainer.node().getBoundingClientRect().width : false;
+        var lineContainer = this.d3Selection.select(this.el).select('.line-chart-container'), containerWidth = lineContainer.node() ? lineContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.line.width(containerWidth);
             for (var option in this.chartConfig["properties"]) {
@@ -45,8 +46,8 @@ var LineChartComponent = (function () {
                 this.line.on('customMouseOver', function () {
                     that_1.chartTooltip.show();
                 });
-                this.line.on('customMouseMove', function (dataPoint, topicColorMap, x, y) {
-                    that_1.chartTooltip.update(dataPoint, topicColorMap, x, y);
+                this.line.on('customMouseMove', function (dataPoint, topicColorMap, dataPointXPosition) {
+                    that_1.chartTooltip.update(dataPoint, topicColorMap, dataPointXPosition);
                 });
                 this.line.on('customMouseOut', function () {
                     that_1.chartTooltip.hide();
@@ -61,10 +62,18 @@ var LineChartComponent = (function () {
                 else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
                     this.line.colorSchema(this.chartConfig['colors']['customSchema']);
                 }
+                if (this.chartConfig['colors'].hasOwnProperty('singleLineGradient')) {
+                    if (this.colors.colorGradientsHuman.hasOwnProperty(this.chartConfig['colors']['singleLineGradient'])) {
+                        this.line.lineGradient(this.colors.colorGradients[this.chartConfig['colors']['singleLineGradient']]);
+                    }
+                }
+                else if (this.chartConfig['colors'].hasOwnProperty('customsingleLineGradient')) {
+                    this.line.lineGradient(this.chartConfig['colors']['customsingleLineGradient']);
+                }
             }
             lineContainer.datum(this.data).call(this.line);
             if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.selectAll('.line-chart .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
+                this.d3Selection.select(this.el).selectAll('.line-chart .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
             }
             if (showTooltip) {
                 for (var option in this.chartConfig["tooltip"]) {
@@ -72,14 +81,14 @@ var LineChartComponent = (function () {
                         this.chartTooltip[option](this.chartConfig["tooltip"][option]);
                     }
                 }
-                this.tooltipContainer = this.d3Selection.select('.line-chart .metadata-group');
-                this.tooltipContainer.datum(this.data).call(this.chartTooltip);
+                this.tooltipContainer = this.d3Selection.select(this.el).select('.line-chart-container .metadata-group .hover-marker');
+                this.tooltipContainer.datum([]).call(this.chartTooltip);
             }
             this.ready.emit(true);
         }
     };
     LineChartComponent.prototype.redrawChart = function () {
-        this.d3Selection.selectAll('.line-chart').remove();
+        this.d3Selection.select(this.el).selectAll('.line-chart').remove();
         this.drawChart();
     };
     return LineChartComponent;
@@ -99,9 +108,9 @@ __decorate([
 LineChartComponent = __decorate([
     Component({
         selector: 'ngx-bc-linechart',
-        template: "<div class=\"line-chart-container\"></div> "
+        template: "<div [attr.id]=\"compId\" class=\"line-chart-container\"></div> "
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [ElementRef])
 ], LineChartComponent);
 export { LineChartComponent };
 //# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/line-chart/LineChart.component.js.map
