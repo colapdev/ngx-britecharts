@@ -3,7 +3,7 @@
     <tabset>
       <tab heading="Bar charts">
         <div class="col-sm-9">
-          <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" (ready)="configCustomEvents($event)"></ngx-bc-barchart>
+          <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" (ready)="configCustomEventsBarChart($event)"></ngx-bc-barchart>
         </div>
         <div class="col-sm-3">
           <ngx-bc-legendchart #legendChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-legendchart>
@@ -20,6 +20,9 @@
       </tab>
       <tab heading="Multiline chart">
         <ngx-bc-linechart #multilineChart [data]="multilineChartData" [chartConfig]="multilineChartConfig"></ngx-bc-linechart>
+      </tab>
+      <tab heading="Brush chart">
+        <ngx-bc-brushchart #brushChart [data]="brushChartData" [chartConfig]="brushChartConfig" (ready)="configCustomEventsBrushChart($event)"></ngx-bc-brushchart>
       </tab>
     </tabset>
   </div>
