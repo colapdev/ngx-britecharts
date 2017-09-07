@@ -108,7 +108,7 @@ __decorate([
 LineChartComponent = __decorate([
     Component({
         selector: 'ngx-bc-linechart',
-        template: "<div [attr.id]=\"compId\" class=\"line-chart-container\"></div> "
+        template: "<div class=\"line-chart-container\"></div> "
     }),
     __metadata("design:paramtypes", [ElementRef])
 ], LineChartComponent);

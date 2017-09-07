@@ -7,10 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 var BarChartComponent = (function () {
-    function BarChartComponent() {
+    function BarChartComponent(elementRef) {
         var _this = this;
         this.ready = new EventEmitter();
         this.barChart = require('britecharts/dist/umd/bar.min');
@@ -22,6 +22,7 @@ var BarChartComponent = (function () {
             .subscribe(function () {
             _this.redrawChart();
         });
+        this.el = elementRef.nativeElement;
     }
     BarChartComponent.prototype.ngOnInit = function () {
         this.drawChart();
@@ -30,7 +31,7 @@ var BarChartComponent = (function () {
         var _this = this;
         this.bar = this.barChart();
         this.tooltip = this.miniTooltip();
-        var barContainer = this.d3Selection.select('.bar-chart-container'), containerWidth = barContainer.node() ? barContainer.node().getBoundingClientRect().width : false;
+        var barContainer = this.d3Selection.select(this.el).select('.bar-chart-container'), containerWidth = barContainer.node() ? barContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.bar.width(containerWidth);
             this.bar.shouldReverseColorList(false);
@@ -58,15 +59,15 @@ var BarChartComponent = (function () {
             }
             barContainer.datum(this.data).call(this.bar);
             if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.selectAll('.bar-chart .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
+                this.d3Selection.select(this.el).selectAll('.bar-chart .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
             }
-            this.tooltipContainer = this.d3Selection.select('.bar-chart-container .metadata-group');
+            this.tooltipContainer = this.d3Selection.select(this.el).select('.bar-chart-container .metadata-group');
             this.tooltipContainer.datum(this.data).call(this.tooltip);
             this.ready.emit(true);
         }
     };
     BarChartComponent.prototype.redrawChart = function () {
-        this.d3Selection.selectAll('.bar-chart').remove();
+        this.d3Selection.select(this.el).selectAll('.bar-chart').remove();
         this.drawChart();
     };
     return BarChartComponent;
@@ -88,7 +89,7 @@ BarChartComponent = __decorate([
         selector: 'ngx-bc-barchart',
         template: "<div class=\"bar-chart-container\"></div> "
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [ElementRef])
 ], BarChartComponent);
 export { BarChartComponent };
 //# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/bar-chart/BarChart.component.js.map
