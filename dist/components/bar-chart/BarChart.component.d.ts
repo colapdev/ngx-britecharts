@@ -1,4 +1,4 @@
-import { OnInit, EventEmitter } from '@angular/core';
+import { OnInit, EventEmitter, ElementRef } from '@angular/core';
 export declare class BarChartComponent implements OnInit {
     data: any;
     chartConfig: any;
@@ -7,10 +7,11 @@ export declare class BarChartComponent implements OnInit {
     private d3Selection;
     private miniTooltip;
     private colors;
+    private el;
     bar: any;
     tooltip: any;
     tooltipContainer: any;
-    constructor();
+    constructor(elementRef: ElementRef);
     ngOnInit(): void;
     private drawChart();
     redrawChart(): void;

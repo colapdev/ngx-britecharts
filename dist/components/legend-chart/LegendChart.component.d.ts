@@ -1,4 +1,4 @@
-import { OnInit, EventEmitter } from '@angular/core';
+import { OnInit, EventEmitter, ElementRef } from '@angular/core';
 export declare class LegendChartComponent implements OnInit {
     data: any;
     chartConfig: any;
@@ -6,8 +6,9 @@ export declare class LegendChartComponent implements OnInit {
     private d3Selection;
     private legendChart;
     private colors;
+    private el;
     legend: any;
-    constructor();
+    constructor(elementRef: ElementRef);
     ngOnInit(): void;
     drawLegend(): void;
     redrawChart(): void;

@@ -3,7 +3,7 @@
     <tabset>
       <tab heading="Bar charts">
         <div class="col-sm-9">
-          <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" (ready)="configCustomEvents($event)"></ngx-bc-barchart>
+          <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" (ready)="configCustomEventsBarChart($event)"></ngx-bc-barchart>
         </div>
         <div class="col-sm-3">
           <ngx-bc-legendchart #legendChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-legendchart>
@@ -14,6 +14,16 @@
       </tab>
       <tab heading="Stacked bar chart">
         <ngx-bc-stackedbarchart #stackedBarChart [data]="stackedBarChartData" [chartConfig]="stackedBarChartConfig"></ngx-bc-stackedbarchart>
+      </tab>
+      <tab heading="Single line chart">
+        <ngx-bc-linechart #singleLineChart [data]="singleLineChartData" [chartConfig]="singleLineChartConfig"></ngx-bc-linechart>
+      </tab>
+      <tab heading="Multiline chart">
+        <ngx-bc-linechart #multilineChart [data]="multilineChartData" [chartConfig]="multilineChartConfig"></ngx-bc-linechart>
+        <ngx-bc-brushchart #multilineBrushChart [data]="multilineChartData.dataByDate" [chartConfig]="multilineBrushChartConfig" (ready)="configCustomEventsMultilineBrushChartConfig($event)"></ngx-bc-brushchart>
+      </tab>
+      <tab heading="Brush chart">
+        <ngx-bc-brushchart #brushChart [data]="brushChartData" [chartConfig]="brushChartConfig" (ready)="configCustomEventsBrushChart($event)"></ngx-bc-brushchart>
       </tab>
     </tabset>
   </div>

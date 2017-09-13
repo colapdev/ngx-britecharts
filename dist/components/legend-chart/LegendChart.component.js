@@ -7,10 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 var LegendChartComponent = (function () {
-    function LegendChartComponent() {
+    function LegendChartComponent(elementRef) {
         var _this = this;
         this.ready = new EventEmitter();
         this.d3Selection = require('d3-selection');
@@ -21,6 +21,7 @@ var LegendChartComponent = (function () {
             .subscribe(function () {
             _this.redrawChart();
         });
+        this.el = elementRef.nativeElement;
     }
     LegendChartComponent.prototype.ngOnInit = function () {
         this.drawLegend();
@@ -28,7 +29,7 @@ var LegendChartComponent = (function () {
     LegendChartComponent.prototype.drawLegend = function () {
         this.legend = this.legendChart();
         if (this.data) {
-            var legendContainer = this.d3Selection.select('.legend-chart-container'), containerWidth = legendContainer.node() ? legendContainer.node().getBoundingClientRect().width : false;
+            var legendContainer = this.d3Selection.select(this.el).select('.legend-chart-container'), containerWidth = legendContainer.node() ? legendContainer.node().getBoundingClientRect().width : false;
             if (containerWidth) {
                 this.legend.width(containerWidth);
                 for (var option in this.chartConfig["properties"]) {
@@ -52,7 +53,7 @@ var LegendChartComponent = (function () {
         }
     };
     LegendChartComponent.prototype.redrawChart = function () {
-        this.d3Selection.selectAll('.britechart-legend').remove();
+        this.d3Selection.select(this.el).selectAll('.britechart-legend').remove();
         this.drawLegend();
     };
     return LegendChartComponent;
@@ -74,7 +75,7 @@ LegendChartComponent = __decorate([
         selector: 'ngx-bc-legendchart',
         template: "<div class=\"legend-chart-container\"></div> "
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [ElementRef])
 ], LegendChartComponent);
 export { LegendChartComponent };
 //# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/legend-chart/LegendChart.component.js.map

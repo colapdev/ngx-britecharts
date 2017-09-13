@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -15,14 +15,16 @@ export class LegendChartComponent implements OnInit {
   private legendChart = require('britecharts/dist/umd/legend.min');
   private colors = require('britecharts/dist/umd/colors.min');
 
-  public legend: any;
+  private el: HTMLElement;
+public legend: any;
 
-  constructor() {
+  constructor(elementRef: ElementRef) {
     Observable.fromEvent(window, 'resize')
       .debounceTime(250)
       .subscribe(() => {
         this.redrawChart();
       });
+      this.el = elementRef.nativeElement;
   }
 
   ngOnInit() {
@@ -33,7 +35,7 @@ export class LegendChartComponent implements OnInit {
     this.legend = this.legendChart();
 
     if (this.data) {
-      var legendContainer = this.d3Selection.select('.legend-chart-container'),
+      var legendContainer = this.d3Selection.select(this.el).select('.legend-chart-container'),
         containerWidth = legendContainer.node() ? legendContainer.node().getBoundingClientRect().width : false;
 
       if (containerWidth) {
@@ -63,7 +65,7 @@ export class LegendChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    this.d3Selection.selectAll('.britechart-legend').remove();
+    this.d3Selection.select(this.el).selectAll('.britechart-legend').remove();
     this.drawLegend();
   }
 }

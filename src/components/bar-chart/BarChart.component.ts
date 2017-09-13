@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -16,16 +16,18 @@ export class BarChartComponent implements OnInit {
   private miniTooltip = require('britecharts/dist/umd/mini-tooltip.min');
   private colors = require('britecharts/dist/umd/colors.min');
 
+  private el: HTMLElement;
   public bar: any;
   public tooltip: any;
   public tooltipContainer: any;
 
-  constructor() {
+  constructor(elementRef: ElementRef) {
     Observable.fromEvent(window, 'resize')
       .debounceTime(250)
       .subscribe(() => {
         this.redrawChart();
       });
+      this.el = elementRef.nativeElement;
   }
 
   ngOnInit() {
@@ -36,7 +38,7 @@ export class BarChartComponent implements OnInit {
     this.bar = this.barChart();
     this.tooltip = this.miniTooltip();
 
-    var barContainer = this.d3Selection.select('.bar-chart-container'),
+    var barContainer = this.d3Selection.select(this.el).select('.bar-chart-container'),
       containerWidth = barContainer.node() ? barContainer.node().getBoundingClientRect().width : false;
 
     if (containerWidth) {
@@ -70,10 +72,10 @@ export class BarChartComponent implements OnInit {
       barContainer.datum(this.data).call(this.bar);
 
       if (this.chartConfig.hasOwnProperty('click')) {
-        this.d3Selection.selectAll('.bar-chart .bar').on("click", (ev) => this.chartConfig['click'](ev));
+        this.d3Selection.select(this.el).selectAll('.bar-chart .bar').on("click", (ev) => this.chartConfig['click'](ev));
       }
 
-      this.tooltipContainer = this.d3Selection.select('.bar-chart .metadata-group');
+      this.tooltipContainer = this.d3Selection.select(this.el).select('.bar-chart-container .metadata-group');
       this.tooltipContainer.datum(this.data).call(this.tooltip);
 
       this.ready.emit(true);
@@ -81,7 +83,7 @@ export class BarChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    this.d3Selection.selectAll('.bar-chart').remove();
+    this.d3Selection.select(this.el).selectAll('.bar-chart').remove();
     this.drawChart();
   }
 }

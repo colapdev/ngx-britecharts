@@ -15,7 +15,7 @@ npm install @colap-dev/ngx-britecharts --save
 ## Using it in your project
 Every chart is independent so you must import the ones you want to use.
 ```
-import { BarChartModule, LegendChartModule, GroupedBarChartModule, StackedBarChartModule } from '@colap-dev/ngx-britecharts/dist';
+import { BarChartModule, LegendChartModule, GroupedBarChartModule, StackedBarChartModule, LineChartModule, BrushChartModule } from '@colap-dev/ngx-britecharts/dist';
 
 @NgModule({
   imports: [
@@ -24,6 +24,8 @@ import { BarChartModule, LegendChartModule, GroupedBarChartModule, StackedBarCha
     LegendChartModule,
     GroupedBarChartModule,
     StackedBarChartModule,
+    LineChartModule,
+    BrushChartModule
     ...
   ],
   declarations: [
@@ -44,15 +46,20 @@ There's a base file for all charts and then each chart has it's own CSS.
 @import '../../node_modules/britecharts/dist/css/charts/bar.min.css';
 @import '../../node_modules/britecharts/dist/css/charts/grouped-bar.min.css';
 @import '../../node_modules/britecharts/dist/css/charts/stacked-bar.min.css';
+@import '../../node_modules/britecharts/dist/css/charts/brush.min.css';
+@import '../../node_modules/britecharts/dist/css/charts/line.min.css';
 ```
 
 ## Rendering the chart
 ### HTML:
 ```
-<ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-barchart>
+<ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" (ready)="configCustomEventsBarChart($event)"></ngx-bc-barchart>
 <ngx-bc-legendchart #legendChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-legendchart>
 <ngx-bc-groupedbarchart #groupedBarChart [data]="groupedBarChartData" [chartConfig]="gorupedBarChartConfig"></ngx-bc-groupedbarchart>
 <ngx-bc-stackedbarchart #stackedBarChart [data]="stackedBarChartData" [chartConfig]="stackedBarChartConfig"></ngx-bc-stackedbarchart>
+<ngx-bc-linechart #multilineChart [data]="multilineChartData" [chartConfig]="multilineChartConfig"></ngx-bc-linechart>
+<ngx-bc-brushchart #multilineBrushChart [data]="multilineChartData.dataByDate" [chartConfig]="multilineBrushChartConfig" (ready)="configCustomEventsMultilineBrushChartConfig($event)"></ngx-bc-brushchart>
+</tab>
 ```
 
 ### Component:
@@ -105,6 +112,45 @@ The **properties** attributes are all optional, they correlate with their corres
     "date": "2011-01-08"
 }
 ```
+#### Line chart:
+```
+{
+    "dataByTopic": [
+        {
+            "topic": 103,
+            "topicName": "San Francisco",
+            "dates": [
+                {
+                    "date": "2015-06-27T07:00:00.000Z",
+                    "value": 1,
+                    "fullDate": "2015-06-27T07:00:00.000Z"
+                },
+            ]
+        }
+    ],
+    "dataByDate": [
+        {
+            "date": "2015-06-27T07:00:00.000Z",
+            "value": 1,
+            "topics": [
+                {
+                    "name": 103,
+                    "value": 1,
+                    "topicName": "San Francisco"
+                },
+            ]
+        }
+    ]
+}
+```
+
+#### Brush chart:
+```
+{
+    "date": "2015-06-27T07:00:00.000Z",
+    "value": 4
+}
+```
 
 ## Running the demo
  1. Clone this repo.
@@ -114,14 +160,14 @@ The **properties** attributes are all optional, they correlate with their corres
  5. Browse to http://localhost:4200
 
 ## Roadmap
- - 0.1.0 - Only Bar chart and Legend chart available.
- - 0.2.0 - Grouped Bar Chart
- - 0.3.0 - Stacked Bar Chart --> Current release
- - 0.4.0 - Line Chart and Brush Chart
- - 0.5.0 - Donut Chart
- - 0.6.0 - Stacked Area Chart
- - 0.7.0 - Step Chart
- - 0.8.0 - Sparkline Chart
+ - 0.1.X - Only Bar chart and Legend chart available.
+ - 0.2.X - Grouped Bar Chart
+ - 0.3.X - Stacked Bar Chart
+ - 0.4.X - Line Chart and Brush Chart --> Current release
+ - 0.5.X - Donut Chart
+ - 0.6.X - Stacked Area Chart
+ - 0.7.X - Step Chart
+ - 0.8.X - Sparkline Chart
  - TBD - Angular4 support
 
 **NOTE: EXPECT REAKING CHANGES WITH EACH RELEASE UNTIL WE REACH THE 1.0.0 VERSION.**

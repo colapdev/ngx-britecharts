@@ -1,5 +1,9 @@
 # Changelog
 
+### 2017-09-13
+- 0.4.0 release.
+  - Line and brush charts.
+
 ### 2017-09-05
 - 0.3.0 release.
   - Stacked bar charts.
