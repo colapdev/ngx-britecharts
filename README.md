@@ -160,7 +160,7 @@ The **properties** attributes are all optional, they correlate with their corres
  5. Browse to http://localhost:4200
 
 ## Roadmap
- - 0.1.X - Only Bar chart and Legend chart available.
+ - 0.1.X - Bar chart and Legend chart available.
  - 0.2.X - Grouped Bar Chart
  - 0.3.X - Stacked Bar Chart
  - 0.4.X - Line Chart and Brush Chart --> Current release

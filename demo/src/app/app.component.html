@@ -25,6 +25,14 @@
       <tab heading="Brush chart">
         <ngx-bc-brushchart #brushChart [data]="brushChartData" [chartConfig]="brushChartConfig" (ready)="configCustomEventsBrushChart($event)"></ngx-bc-brushchart>
       </tab>
+      <tab heading="Donut chart">
+        <div class="col-sm-6 col-sm-offset-3 text-center">
+          <ngx-bc-donutchart #donutChart [data]="donutChartData" [chartConfig]="donutChartConfig" (ready)="configCustomEventsDonutChart($event)"></ngx-bc-donutchart>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3 text-center">
+          <ngx-bc-legendchart #donutLegendChart [data]="donutChartData" [chartConfig]="donutLegendChartConfig"></ngx-bc-legendchart>
+        </div>
+      </tab>
     </tabset>
   </div>
   <div class="col-xs-12 text-center">

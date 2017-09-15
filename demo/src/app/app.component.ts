@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { LegendChartComponent, BarChartComponent, BrushChartComponent, LineChartComponent } from '@colap-dev/ngx-britecharts/dist';
+import { LegendChartComponent, BarChartComponent, BrushChartComponent, LineChartComponent, DonutChartComponent } from '@colap-dev/ngx-britecharts/dist';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +29,8 @@ export class AppComponent {
   @ViewChild('brushChart') brushChart: BrushChartComponent;
   @ViewChild('multilineChart') multilineChart: LineChartComponent;
   @ViewChild('multilineBrushChart') multilineBrushChart: BrushChartComponent;
-
+  @ViewChild('donutChart') donutChart: DonutChartComponent;
+  @ViewChild('donutLegendChart') donutLegendChart: LegendChartComponent;
 
   private onBarChartClick($ev) {
     console.log($ev);
@@ -311,7 +312,7 @@ export class AppComponent {
     let that = this;
     data["dataByDate"] = [];
     data["dataByTopic"] = [];
-    
+
     for (let d of this.multilineChartData["dataByDate"]) {
       let aDate = new Date(d["date"]);
       if (iDate <= aDate && aDate <= eDate) {
@@ -356,6 +357,61 @@ export class AppComponent {
       });
       this.brushChart.brush.on('customBrushEnd', function(brushExtent) {
         console.log("End", brushExtent);
+      });
+    }
+  }
+
+  public donutChartData = [
+    {
+      "name": "Shiny",
+      "id": 1,
+      "quantity": 86
+    },
+    {
+      "name": "Blazing",
+      "id": 2,
+      "quantity": 300
+    },
+    {
+      "name": "Dazzling",
+      "id": 3,
+      "quantity": 276
+    },
+    {
+      "name": "Radiant",
+      "id": 4,
+      "quantity": 195
+    },
+    {
+      "name": "Sparkling",
+      "id": 5,
+      "quantity": 36
+    },
+    {
+      "name": "Other",
+      "id": 0,
+      "quantity": 814
+    }
+  ];
+  public donutChartConfig = {
+    properties: {
+      width: 500,
+      height: 500,
+      externalRadius: 500/2.5,
+      internalRadius: 500/5,
+    },
+    click: this.onBarChartClick,
+  };
+  public donutLegendChartConfig = { };
+
+  public configCustomEventsDonutChart(ready) {
+    if (ready) {
+      let that = this;
+      this.donutChart.donut.on('customMouseOver', function(data) {
+        that.donutLegendChart.legend.highlight(data.data["id"]);
+      });
+      this.donutChart.donut.on('customMouseOut', function(data) {
+        that.donutLegendChart.legend.clearHighlight();
       });
     }
   }
