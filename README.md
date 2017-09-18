@@ -15,7 +15,7 @@ npm install @colap-dev/ngx-britecharts --save
 ## Using it in your project
 Every chart is independent so you must import the ones you want to use.
 ```
-import { BarChartModule, LegendChartModule, GroupedBarChartModule, StackedBarChartModule, LineChartModule, BrushChartModule } from '@colap-dev/ngx-britecharts/dist';
+import { BarChartModule, LegendChartModule, GroupedBarChartModule, StackedBarChartModule, LineChartModule, BrushChartModule, DonutChartModule } from '@colap-dev/ngx-britecharts/dist';
 
 @NgModule({
   imports: [
@@ -25,7 +25,8 @@ import { BarChartModule, LegendChartModule, GroupedBarChartModule, StackedBarCha
     GroupedBarChartModule,
     StackedBarChartModule,
     LineChartModule,
-    BrushChartModule
+    BrushChartModule,
+    DonutChartModule
     ...
   ],
   declarations: [
@@ -48,6 +49,7 @@ There's a base file for all charts and then each chart has it's own CSS.
 @import '../../node_modules/britecharts/dist/css/charts/stacked-bar.min.css';
 @import '../../node_modules/britecharts/dist/css/charts/brush.min.css';
 @import '../../node_modules/britecharts/dist/css/charts/line.min.css';
+@import '../../node_modules/britecharts/dist/css/charts/donut.min.css';
 ```
 
 ## Rendering the chart
@@ -59,6 +61,7 @@ There's a base file for all charts and then each chart has it's own CSS.
 <ngx-bc-stackedbarchart #stackedBarChart [data]="stackedBarChartData" [chartConfig]="stackedBarChartConfig"></ngx-bc-stackedbarchart>
 <ngx-bc-linechart #multilineChart [data]="multilineChartData" [chartConfig]="multilineChartConfig"></ngx-bc-linechart>
 <ngx-bc-brushchart #multilineBrushChart [data]="multilineChartData.dataByDate" [chartConfig]="multilineBrushChartConfig" (ready)="configCustomEventsMultilineBrushChartConfig($event)"></ngx-bc-brushchart>
+<ngx-bc-donutchart #donutChart [data]="donutChartData" [chartConfig]="donutChartConfig" (ready)="configCustomEventsDonutChart($event)"></ngx-bc-donutchart>
 </tab>
 ```
 
@@ -152,6 +155,15 @@ The **properties** attributes are all optional, they correlate with their corres
 }
 ```
 
+### Donut chart
+```
+{
+    "name": "Other",
+    "id": 0,
+    "quantity": 814
+}
+```
+
 ## Running the demo
  1. Clone this repo.
  2. *cd* into *demo* folder.
@@ -163,8 +175,8 @@ The **properties** attributes are all optional, they correlate with their corres
  - 0.1.X - Bar chart and Legend chart available.
  - 0.2.X - Grouped Bar Chart
  - 0.3.X - Stacked Bar Chart
- - 0.4.X - Line Chart and Brush Chart --> Current release
- - 0.5.X - Donut Chart
+ - 0.4.X - Line Chart and Brush Chart
+ - 0.5.X - Donut Chart --> Current release
  - 0.6.X - Stacked Area Chart
  - 0.7.X - Step Chart
  - 0.8.X - Sparkline Chart
