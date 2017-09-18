@@ -1,6 +1,10 @@
 # Changelog
 
 ### 2017-09-18
+- 0.5.1 release.
+  - Updated docs.
+
+### 2017-09-18
 - 0.5.0 release.
   - Donut chart.
 
