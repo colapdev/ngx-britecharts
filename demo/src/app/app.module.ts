@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 import { BarChartModule, LegendChartModule, GroupedBarChartModule, StackedBarChartModule,
-  LineChartModule, BrushChartModule } from '@colap-dev/ngx-britecharts/dist';
+  LineChartModule, BrushChartModule, DonutChartModule } from '@colap-dev/ngx-britecharts/dist';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
@@ -19,7 +19,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     StackedBarChartModule,
     LineChartModule,
     BrushChartModule,
-    LegendChartModule
+    LegendChartModule,
+    DonutChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
