@@ -15,7 +15,7 @@ var BarChartComponent = (function () {
         this.ready = new EventEmitter();
         this.barChart = require('britecharts/dist/umd/bar.min');
         this.d3Selection = require('d3-selection');
-        this.miniTooltip = require('britecharts/dist/umd/mini-tooltip.min');
+        this.miniTooltip = require('britecharts/dist/umd/miniTooltip.min');
         this.colors = require('britecharts/dist/umd/colors.min');
         Observable.fromEvent(window, 'resize')
             .debounceTime(250)

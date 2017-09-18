@@ -1,6 +1,10 @@
 # Changelog
 
 ### 2017-09-18
+- 0.5.2 release.
+  - Fixed dependency with new britecharts update.
+
+### 2017-09-18
 - 0.5.1 release.
   - Updated docs.
 

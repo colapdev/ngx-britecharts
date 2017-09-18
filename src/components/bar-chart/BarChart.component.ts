@@ -13,7 +13,7 @@ export class BarChartComponent implements OnInit {
 
   private barChart = require('britecharts/dist/umd/bar.min');
   private d3Selection = require('d3-selection');
-  private miniTooltip = require('britecharts/dist/umd/mini-tooltip.min');
+  private miniTooltip = require('britecharts/dist/umd/miniTooltip.min');
   private colors = require('britecharts/dist/umd/colors.min');
 
   private el: HTMLElement;
