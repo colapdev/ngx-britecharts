@@ -1,5 +1,5 @@
-import { OnInit, EventEmitter, ElementRef } from '@angular/core';
-export declare class GroupedBarChartComponent implements OnInit {
+import { AfterViewInit, EventEmitter, ElementRef } from '@angular/core';
+export declare class GroupedBarChartComponent implements AfterViewInit {
     data: any;
     chartConfig: any;
     ready: EventEmitter<boolean>;
@@ -12,7 +12,7 @@ export declare class GroupedBarChartComponent implements OnInit {
     chartTooltip: any;
     tooltipContainer: any;
     constructor(elementRef: ElementRef);
-    ngOnInit(): void;
+    ngAfterViewInit(): void;
     private drawChart();
     redrawChart(): void;
 }

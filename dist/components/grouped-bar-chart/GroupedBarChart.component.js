@@ -24,7 +24,7 @@ var GroupedBarChartComponent = (function () {
         });
         this.el = elementRef.nativeElement;
     }
-    GroupedBarChartComponent.prototype.ngOnInit = function () {
+    GroupedBarChartComponent.prototype.ngAfterViewInit = function () {
         this.drawChart();
     };
     GroupedBarChartComponent.prototype.drawChart = function () {

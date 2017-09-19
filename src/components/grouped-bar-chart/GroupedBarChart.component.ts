@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Rx';
   templateUrl: './GroupedBarChart.component.html'
 })
 
-export class GroupedBarChartComponent implements OnInit {
+export class GroupedBarChartComponent implements AfterViewInit {
   @Input() data: any;
   @Input() chartConfig: any;
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -30,7 +30,7 @@ export class GroupedBarChartComponent implements OnInit {
       this.el = elementRef.nativeElement;
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.drawChart();
   }
 
