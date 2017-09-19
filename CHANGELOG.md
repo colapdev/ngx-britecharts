@@ -1,5 +1,9 @@
 # Changelog
 
+### 2017-09-19
+- 0.5.3 release.
+  - Changed grouped chart to AfterViewInit.
+
 ### 2017-09-18
 - 0.5.2 release.
   - Fixed dependency with new britecharts update.
