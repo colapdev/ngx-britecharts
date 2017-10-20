@@ -1,5 +1,10 @@
 # Changelog
 
+### 2017-10-20
+- 0.5.4 release.
+  - Updated to Britecharts 2.2.0
+  - Added click handler for line chart.
+
 ### 2017-09-19
 - 0.5.3 release.
   - Changed grouped chart to AfterViewInit.
