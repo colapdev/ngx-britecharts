@@ -36,6 +36,7 @@ export class LineChartComponent implements OnInit {
   }
 
   private drawChart() {
+    let that = this;
     this.line = this.lineChart();
     this.chartTooltip = this.tooltip();
 
@@ -54,7 +55,6 @@ export class LineChartComponent implements OnInit {
       let showTooltip = false;
       if (this.chartConfig.hasOwnProperty('showTooltip') && this.chartConfig['showTooltip'] === true) {
         showTooltip = true;
-        let that = this;
         this.line.on('customMouseOver', function() {
           that.chartTooltip.show();
         });
@@ -87,7 +87,9 @@ export class LineChartComponent implements OnInit {
       lineContainer.datum(this.data).call(this.line);
 
       if (this.chartConfig.hasOwnProperty('click')) {
-        this.d3Selection.select(this.el).selectAll('.line-chart .bar').on("click", (ev) => this.chartConfig['click'](ev));
+        this.line.on('customDataEntryClick', function(e, d, m) {
+          that.chartConfig['click'](e, d, m);
+        });
       }
 
       if (showTooltip) {

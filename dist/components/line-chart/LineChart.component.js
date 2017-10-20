@@ -28,7 +28,7 @@ var LineChartComponent = (function () {
         this.drawChart();
     };
     LineChartComponent.prototype.drawChart = function () {
-        var _this = this;
+        var that = this;
         this.line = this.lineChart();
         this.chartTooltip = this.tooltip();
         var lineContainer = this.d3Selection.select(this.el).select('.line-chart-container'), containerWidth = lineContainer.node() ? lineContainer.node().getBoundingClientRect().width : false;
@@ -42,15 +42,14 @@ var LineChartComponent = (function () {
             var showTooltip = false;
             if (this.chartConfig.hasOwnProperty('showTooltip') && this.chartConfig['showTooltip'] === true) {
                 showTooltip = true;
-                var that_1 = this;
                 this.line.on('customMouseOver', function () {
-                    that_1.chartTooltip.show();
+                    that.chartTooltip.show();
                 });
                 this.line.on('customMouseMove', function (dataPoint, topicColorMap, dataPointXPosition) {
-                    that_1.chartTooltip.update(dataPoint, topicColorMap, dataPointXPosition);
+                    that.chartTooltip.update(dataPoint, topicColorMap, dataPointXPosition);
                 });
                 this.line.on('customMouseOut', function () {
-                    that_1.chartTooltip.hide();
+                    that.chartTooltip.hide();
                 });
             }
             if (this.chartConfig.hasOwnProperty('colors')) {
@@ -73,7 +72,9 @@ var LineChartComponent = (function () {
             }
             lineContainer.datum(this.data).call(this.line);
             if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.select(this.el).selectAll('.line-chart .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
+                this.line.on('customDataEntryClick', function (e, d, m) {
+                    that.chartConfig['click'](e, d, m);
+                });
             }
             if (showTooltip) {
                 for (var option in this.chartConfig["tooltip"]) {

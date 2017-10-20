@@ -26,7 +26,6 @@ var BrushChartComponent = (function () {
         this.drawChart();
     };
     BrushChartComponent.prototype.drawChart = function () {
-        var _this = this;
         this.brush = this.brushChart();
         var brushContainer = this.d3Selection.select(this.el).select('.brush-chart-container'), containerWidth = brushContainer.node() ? brushContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
@@ -37,9 +36,6 @@ var BrushChartComponent = (function () {
                 }
             }
             brushContainer.datum(this.data).call(this.brush);
-            if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.select(this.el).selectAll('.brush-chart .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
-            }
             this.ready.emit(true);
         }
     };

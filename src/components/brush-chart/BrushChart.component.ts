@@ -48,10 +48,6 @@ export class BrushChartComponent implements OnInit {
 
       brushContainer.datum(this.data).call(this.brush);
 
-      if (this.chartConfig.hasOwnProperty('click')) {
-        this.d3Selection.select(this.el).selectAll('.brush-chart .bar').on("click", (ev) => this.chartConfig['click'](ev));
-      }
-
       this.ready.emit(true);
     }
   }
