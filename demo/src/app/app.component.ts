@@ -292,7 +292,7 @@ export class AppComponent {
       height: 125,
       margin: { top: 0, bottom: 0, left: 70, right: 30 }
     },
-    click: this.onDemoChartClick
+    //click: this.onDemoChartClick
   };
 
   public configCustomEventsMultilineBrushChartConfig(ready) {
@@ -350,7 +350,7 @@ export class AppComponent {
     properties: {
       height: 125
     },
-    click: this.onDemoChartClick
+    //click: this.onDemoChartClick
   };
 
   public configCustomEventsBrushChart(ready) {
