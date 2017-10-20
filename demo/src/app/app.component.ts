@@ -20,7 +20,7 @@ export class AppComponent {
     colors: {
       customSchema: ["#17becf ", "#bcbd22 ", "#7f7f7f ", "#e377c2 ", "#8c564b ", "#9467bd ", "#d62728 ", "#2ca02c ", "#ff7f0e ", "#1f77b4 "],
     },
-    click: this.onBarChartClick,
+    click: this.onDemoChartClick,
     showTooltip: false, // Dont set to true if you are going to use custom mouse events.
   };
 
@@ -32,7 +32,7 @@ export class AppComponent {
   @ViewChild('donutChart') donutChart: DonutChartComponent;
   @ViewChild('donutLegendChart') donutLegendChart: LegendChartComponent;
 
-  private onBarChartClick($ev) {
+  private onDemoChartClick($ev) {
     console.log($ev);
   }
 
@@ -144,7 +144,7 @@ export class AppComponent {
       nameLabel: 'date',
       valueLabel: 'views'
     },
-    click: this.onBarChartClick,
+    click: this.onDemoChartClick,
     showTooltip: true, // Dont set to true if you are going to use custom mouse events.
     tooltip: {
       topicLabel: "values",
@@ -239,7 +239,7 @@ export class AppComponent {
       nameLabel: 'date',
       valueLabel: 'views'
     },
-    click: this.onBarChartClick,
+    click: this.onDemoChartClick,
     showTooltip: true, // Dont set to true if you are going to use custom mouse events.
     tooltip: {
       topicLabel: "values",
@@ -260,6 +260,7 @@ export class AppComponent {
       dateLabel: "fullDate",
       valueLabel: "value",
     },
+    click: this.onDemoChartClick,
     showTooltip: true,
     tooltip: {
       valueLabel: 'value',
@@ -279,6 +280,7 @@ export class AppComponent {
       dateLabel: "fullDate",
       valueLabel: "value",
     },
+    click: this.onDemoChartClick,
     showTooltip: true,
     tooltip: {
       valueLabel: 'value',
@@ -289,7 +291,8 @@ export class AppComponent {
     properties: {
       height: 125,
       margin: { top: 0, bottom: 0, left: 70, right: 30 }
-    }
+    },
+    click: this.onDemoChartClick
   };
 
   public configCustomEventsMultilineBrushChartConfig(ready) {
@@ -346,7 +349,8 @@ export class AppComponent {
   public brushChartConfig = {
     properties: {
       height: 125
-    }
+    },
+    click: this.onDemoChartClick
   };
 
   public configCustomEventsBrushChart(ready) {
@@ -400,7 +404,7 @@ export class AppComponent {
       externalRadius: 500/2.5,
       internalRadius: 500/5,
     },
-    click: this.onBarChartClick,
+    click: this.onDemoChartClick,
   };
   public donutLegendChartConfig = { };
 
