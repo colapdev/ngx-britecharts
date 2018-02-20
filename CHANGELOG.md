@@ -1,6 +1,10 @@
 # Changelog
 
 ### 2018-02-20
+- 0.5.6 release.
+  - Bug fixes.
+
+### 2018-02-20
 - 0.5.5 release.
   - Added export charts as PNG.
 
