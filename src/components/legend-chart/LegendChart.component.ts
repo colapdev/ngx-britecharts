@@ -35,7 +35,7 @@ export class LegendChartComponent implements OnInit {
     let that = this;
     if (this.exportAsImageEvt) {
       this.exportAsImageEvt.subscribe(data => {
-        that.legendChart.exportChart(data['filename']);
+        that.legend.exportChart(data['filename'], data['title']);
       });
     }
   }

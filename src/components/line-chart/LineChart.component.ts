@@ -38,7 +38,7 @@ export class LineChartComponent implements OnInit {
     let that = this;
     if (this.exportAsImageEvt) {
       this.exportAsImageEvt.subscribe(data => {
-        that.lineChart.exportChart(data['filename']);
+        that.line.exportChart(data['filename'], data['title']);
       });
     }
   }

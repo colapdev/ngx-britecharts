@@ -35,7 +35,7 @@ export class DonutChartComponent implements OnInit {
     let that = this;
     if (this.exportAsImageEvt) {
       this.exportAsImageEvt.subscribe(data => {
-        that.donutChart.exportChart(data['filename']);
+        that.donut.exportChart(data['filename'], data['title']);
       });
     }
   }

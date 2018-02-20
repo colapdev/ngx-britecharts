@@ -102,11 +102,12 @@ To export the chart the parent component must emit an event that has to binded t
 private exportBarChart: EventEmitter<any> = new EventEmitter<any>();
 private exportBarChartClick() {
     this.exportBarChart.emit({
-        'filename': 'Exported bar chart.png'
+        'filename': 'Exported bar chart.png', 
+        'title': 'Chart title'
     });
 }
 ```
-The file name must be sent inside the event.
+The file name and chart title must be sent inside the event.
 
 ### Data format
 #### Bar chart:

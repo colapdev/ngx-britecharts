@@ -38,7 +38,7 @@ export class BarChartComponent implements OnInit {
     let that = this;
     if (this.exportAsImageEvt) {
       this.exportAsImageEvt.subscribe(data => {
-        that.bar.exportChart(data['filename']);
+        that.bar.exportChart(data['filename'], data['title']);
       });
     }
   }

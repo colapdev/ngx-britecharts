@@ -35,7 +35,8 @@ export class AppComponent {
   public exportBarChart: EventEmitter<any> = new EventEmitter<any>();
   public exportBarChartClick() {
     this.exportBarChart.emit({
-      'filename': 'Exported bar chart.png'
+      'filename': 'Exported bar chart.png',
+      'title': 'Chart title'
     });
   }
 

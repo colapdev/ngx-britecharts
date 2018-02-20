@@ -38,7 +38,7 @@ export class GroupedBarChartComponent implements AfterViewInit {
     let that = this;
     if (this.exportAsImageEvt) {
       this.exportAsImageEvt.subscribe(data => {
-        that.groupedBarChart.exportChart(data['filename']);
+        that.groupedBar.exportChart(data['filename'], data['title']);
       });
     }
   }

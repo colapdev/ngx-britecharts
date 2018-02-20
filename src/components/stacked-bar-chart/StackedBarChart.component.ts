@@ -38,7 +38,7 @@ export class StackedBarChartComponent implements OnInit {
     let that = this;
     if (this.exportAsImageEvt) {
       this.exportAsImageEvt.subscribe(data => {
-        that.stackedBarChart.exportChart(data['filename']);
+        that.stackedBar.exportChart(data['filename'], data['title']);
       });
     }
   }
