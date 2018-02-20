@@ -9,6 +9,8 @@ import { Observable } from 'rxjs/Rx';
 export class StackedBarChartComponent implements OnInit {
   @Input() data: any;
   @Input() chartConfig: any;
+  @Input() exportAsImageEvt: Observable<any>;
+
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private stackedBarChart = require('britecharts/dist/umd/stackedBar.min');
@@ -32,21 +34,28 @@ export class StackedBarChartComponent implements OnInit {
 
   ngOnInit() {
     this.drawChart();
+
+    let that = this;
+    if (this.exportAsImageEvt) {
+      this.exportAsImageEvt.subscribe(data => {
+        that.stackedBar.exportChart(data['filename'], data['title']);
+      });
+    }
   }
 
   private drawChart() {
     this.stackedBar = this.stackedBarChart();
     this.chartTooltip = this.tooltip();
 
-    var stackedBarContainer = this.d3Selection.select(this.el).select('.stacked-bar-chart-container'),
+    let stackedBarContainer = this.d3Selection.select(this.el).select('.stacked-bar-chart-container'),
       containerWidth = stackedBarContainer.node() ? stackedBarContainer.node().getBoundingClientRect().width : false;
 
     if (containerWidth) {
       this.stackedBar.width(containerWidth);
 
-      for (let option in this.chartConfig["properties"]) {
-        if (this.stackedBar.hasOwnProperty(option) && option != 'colorSchema') {
-          this.stackedBar[option](this.chartConfig["properties"][option]);
+      for (let option in this.chartConfig['properties']) {
+        if (this.stackedBar.hasOwnProperty(option) && option !== 'colorSchema') {
+          this.stackedBar[option](this.chartConfig['properties'][option]);
         }
       }
 
@@ -54,13 +63,13 @@ export class StackedBarChartComponent implements OnInit {
       if (this.chartConfig.hasOwnProperty('showTooltip') && this.chartConfig['showTooltip'] === true) {
         showTooltip = true;
         let that = this;
-        this.stackedBar.on('customMouseOver', function() {
+        this.stackedBar.on('customMouseOver', function () {
           that.chartTooltip.show();
         });
-        this.stackedBar.on('customMouseMove', function(dataPoint, topicColorMap, x, y) {
+        this.stackedBar.on('customMouseMove', function (dataPoint, topicColorMap, x, y) {
           that.chartTooltip.update(dataPoint, topicColorMap, x, y);
         });
-        this.stackedBar.on('customMouseOut', function() {
+        this.stackedBar.on('customMouseOut', function () {
           that.chartTooltip.hide();
         });
       }
@@ -78,13 +87,13 @@ export class StackedBarChartComponent implements OnInit {
       stackedBarContainer.datum(this.data).call(this.stackedBar);
 
       if (this.chartConfig.hasOwnProperty('click')) {
-        this.d3Selection.select(this.el).selectAll('.stacked-bar .bar').on("click", (ev) => this.chartConfig['click'](ev));
+        this.d3Selection.select(this.el).selectAll('.stacked-bar .bar').on('click', (ev) => this.chartConfig['click'](ev));
       }
 
       if (showTooltip) {
-        for (let option in this.chartConfig["tooltip"]) {
+        for (let option in this.chartConfig['tooltip']) {
           if (this.chartTooltip.hasOwnProperty(option)) {
-            this.chartTooltip[option](this.chartConfig["tooltip"][option]);
+            this.chartTooltip[option](this.chartConfig['tooltip'][option]);
           }
         }
 

@@ -9,6 +9,8 @@ import { Observable } from 'rxjs/Rx';
 export class LegendChartComponent implements OnInit {
   @Input() data: any;
   @Input() chartConfig: any;
+  @Input() exportAsImageEvt: Observable<any>;
+
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private d3Selection = require('d3-selection');
@@ -16,7 +18,7 @@ export class LegendChartComponent implements OnInit {
   private colors = require('britecharts/dist/umd/colors.min');
 
   private el: HTMLElement;
-public legend: any;
+  public legend: any;
 
   constructor(elementRef: ElementRef) {
     Observable.fromEvent(window, 'resize')
@@ -24,26 +26,33 @@ public legend: any;
       .subscribe(() => {
         this.redrawChart();
       });
-      this.el = elementRef.nativeElement;
+    this.el = elementRef.nativeElement;
   }
 
   ngOnInit() {
     this.drawLegend();
+
+    let that = this;
+    if (this.exportAsImageEvt) {
+      this.exportAsImageEvt.subscribe(data => {
+        that.legend.exportChart(data['filename'], data['title']);
+      });
+    }
   }
 
   public drawLegend() {
     this.legend = this.legendChart();
 
     if (this.data) {
-      var legendContainer = this.d3Selection.select(this.el).select('.legend-chart-container'),
+      let legendContainer = this.d3Selection.select(this.el).select('.legend-chart-container'),
         containerWidth = legendContainer.node() ? legendContainer.node().getBoundingClientRect().width : false;
 
       if (containerWidth) {
         this.legend.width(containerWidth);
 
-        for (let option in this.chartConfig["properties"]) {
-          if (this.legend.hasOwnProperty(option) && option != 'colorSchema') {
-            this.legend[option](this.chartConfig["properties"][option]);
+        for (let option in this.chartConfig['properties']) {
+          if (this.legend.hasOwnProperty(option) && option !== 'colorSchema') {
+            this.legend[option](this.chartConfig['properties'][option]);
           }
         }
 

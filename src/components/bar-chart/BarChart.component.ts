@@ -9,6 +9,8 @@ import { Observable } from 'rxjs/Rx';
 export class BarChartComponent implements OnInit {
   @Input() data: any;
   @Input() chartConfig: any;
+  @Input() exportAsImageEvt: Observable<any>;
+
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private barChart = require('britecharts/dist/umd/bar.min');
@@ -27,27 +29,34 @@ export class BarChartComponent implements OnInit {
       .subscribe(() => {
         this.redrawChart();
       });
-      this.el = elementRef.nativeElement;
+    this.el = elementRef.nativeElement;
   }
 
   ngOnInit() {
     this.drawChart();
+
+    let that = this;
+    if (this.exportAsImageEvt) {
+      this.exportAsImageEvt.subscribe(data => {
+        that.bar.exportChart(data['filename'], data['title']);
+      });
+    }
   }
 
   private drawChart() {
     this.bar = this.barChart();
     this.tooltip = this.miniTooltip();
 
-    var barContainer = this.d3Selection.select(this.el).select('.bar-chart-container'),
+    let barContainer = this.d3Selection.select(this.el).select('.bar-chart-container'),
       containerWidth = barContainer.node() ? barContainer.node().getBoundingClientRect().width : false;
 
     if (containerWidth) {
       this.bar.width(containerWidth);
       this.bar.shouldReverseColorList(false);
 
-      for (let option in this.chartConfig["properties"]) {
-        if (this.bar.hasOwnProperty(option) && option != 'colorSchema') {
-          this.bar[option](this.chartConfig["properties"][option]);
+      for (let option in this.chartConfig['properties']) {
+        if (this.bar.hasOwnProperty(option) && option !== 'colorSchema') {
+          this.bar[option](this.chartConfig['properties'][option]);
         }
       }
 
@@ -72,7 +81,7 @@ export class BarChartComponent implements OnInit {
       barContainer.datum(this.data).call(this.bar);
 
       if (this.chartConfig.hasOwnProperty('click')) {
-        this.d3Selection.select(this.el).selectAll('.bar-chart .bar').on("click", (ev) => this.chartConfig['click'](ev));
+        this.d3Selection.select(this.el).selectAll('.bar-chart .bar').on('click', (ev) => this.chartConfig['click'](ev));
       }
 
       this.tooltipContainer = this.d3Selection.select(this.el).select('.bar-chart-container .metadata-group');

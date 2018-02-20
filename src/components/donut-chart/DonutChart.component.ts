@@ -9,6 +9,8 @@ import { Observable } from 'rxjs/Rx';
 export class DonutChartComponent implements OnInit {
   @Input() data: any;
   @Input() chartConfig: any;
+  @Input() exportAsImageEvt: Observable<any>;
+
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private donutChart = require('britecharts/dist/umd/donut.min');
@@ -24,25 +26,32 @@ export class DonutChartComponent implements OnInit {
       .subscribe(() => {
         this.redrawChart();
       });
-      this.el = elementRef.nativeElement;
+    this.el = elementRef.nativeElement;
   }
 
   ngOnInit() {
     this.drawChart();
+
+    let that = this;
+    if (this.exportAsImageEvt) {
+      this.exportAsImageEvt.subscribe(data => {
+        that.donut.exportChart(data['filename'], data['title']);
+      });
+    }
   }
 
   private drawChart() {
     this.donut = this.donutChart();
 
-    var donutContainer = this.d3Selection.select(this.el).select('.donut-chart-container'),
+    let donutContainer = this.d3Selection.select(this.el).select('.donut-chart-container'),
       containerWidth = donutContainer.node() ? donutContainer.node().getBoundingClientRect().width : false;
 
     if (containerWidth) {
       this.donut.width(containerWidth);
 
-      for (let option in this.chartConfig["properties"]) {
-        if (this.donut.hasOwnProperty(option) && option != 'colorSchema') {
-          this.donut[option](this.chartConfig["properties"][option]);
+      for (let option in this.chartConfig['properties']) {
+        if (this.donut.hasOwnProperty(option) && option !== 'colorSchema') {
+          this.donut[option](this.chartConfig['properties'][option]);
         }
       }
 
@@ -59,7 +68,7 @@ export class DonutChartComponent implements OnInit {
       donutContainer.datum(this.data).call(this.donut);
 
       if (this.chartConfig.hasOwnProperty('click')) {
-        this.d3Selection.select(this.el).selectAll('.donut-chart .arc').on("click", (ev) => this.chartConfig['click'](ev));
+        this.d3Selection.select(this.el).selectAll('.donut-chart .arc').on('click', (ev) => this.chartConfig['click'](ev));
       }
 
       this.ready.emit(true);
