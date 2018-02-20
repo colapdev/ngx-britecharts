@@ -24,15 +24,21 @@ var BrushChartComponent = (function () {
     }
     BrushChartComponent.prototype.ngOnInit = function () {
         this.drawChart();
+        var that = this;
+        if (this.exportAsImageEvt) {
+            this.exportAsImageEvt.subscribe(function (data) {
+                that.brushChart.exportChart(data['filename']);
+            });
+        }
     };
     BrushChartComponent.prototype.drawChart = function () {
         this.brush = this.brushChart();
         var brushContainer = this.d3Selection.select(this.el).select('.brush-chart-container'), containerWidth = brushContainer.node() ? brushContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.brush.width(containerWidth);
-            for (var option in this.chartConfig["properties"]) {
+            for (var option in this.chartConfig['properties']) {
                 if (this.brush.hasOwnProperty(option)) {
-                    this.brush[option](this.chartConfig["properties"][option]);
+                    this.brush[option](this.chartConfig['properties'][option]);
                 }
             }
             brushContainer.datum(this.data).call(this.brush);
@@ -53,6 +59,10 @@ __decorate([
     Input(),
     __metadata("design:type", Object)
 ], BrushChartComponent.prototype, "chartConfig", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Observable)
+], BrushChartComponent.prototype, "exportAsImageEvt", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

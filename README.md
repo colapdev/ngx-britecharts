@@ -85,7 +85,28 @@ private firstBarChartConfig = {
 };
 ```
 Check the demos for examples of using custom mouse event handlers.
-The **properties** attributes are all optional, they correlate with their corresponding [Britechart chart API](http://eventbrite.github.io/britecharts/module-Bar.html) .
+The **properties** attributes are all optional, they correlate with their corresponding [Britechart chart API](http://eventbrite.github.io/britecharts/module-Bar.html).
+
+#### Exporting the chart
+To export the chart the parent component must emit an event that has to binded to the graph component like this (full code in the demos):
+
+**Parent:**
+
+*HTML:*
+```
+<ngx-bc-barchart [exportAsImageEvt]="exportBarChart" ....></ngx-bc-barchart>
+<button (click)="exportBarChartClick()" ....>Export</button>
+```
+*Component:*
+```
+private exportBarChart: EventEmitter<any> = new EventEmitter<any>();
+private exportBarChartClick() {
+    this.exportBarChart.emit({
+        'filename': 'Exported bar chart.png'
+    });
+}
+```
+The file name must be sent inside the event.
 
 ### Data format
 #### Bar chart:

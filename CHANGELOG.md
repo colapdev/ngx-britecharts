@@ -1,5 +1,9 @@
 # Changelog
 
+### 2018-02-20
+- 0.5.5 release.
+  - Added export charts as PNG.
+
 ### 2017-10-20
 - 0.5.4 release.
   - Updated to Britecharts 2.2.0

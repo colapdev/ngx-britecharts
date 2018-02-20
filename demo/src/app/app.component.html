@@ -3,7 +3,8 @@
     <tabset>
       <tab heading="Bar charts">
         <div class="col-sm-9">
-          <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" (ready)="configCustomEventsBarChart($event)"></ngx-bc-barchart>
+          <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" [exportAsImageEvt]="exportBarChart" (ready)="configCustomEventsBarChart($event)"></ngx-bc-barchart>
+          <button class="btn btn-default" (click)="exportBarChartClick()">Export</button>
         </div>
         <div class="col-sm-3">
           <ngx-bc-legendchart #legendChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-legendchart>
