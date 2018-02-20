@@ -32,8 +32,8 @@ export class AppComponent {
   @ViewChild('donutChart') donutChart: DonutChartComponent;
   @ViewChild('donutLegendChart') donutLegendChart: LegendChartComponent;
 
-  private exportBarChart: EventEmitter<any> = new EventEmitter<any>();
-  private exportBarChartClick() {
+  public exportBarChart: EventEmitter<any> = new EventEmitter<any>();
+  public exportBarChartClick() {
     this.exportBarChart.emit({
       'filename': 'Exported bar chart.png'
     });
