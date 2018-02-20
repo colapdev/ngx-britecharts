@@ -27,4 +27,4 @@ LegendChartModule = LegendChartModule_1 = __decorate([
 ], LegendChartModule);
 export { LegendChartModule };
 var LegendChartModule_1;
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/legend-chart/LegendChart.module.js.map
+//# sourceMappingURL=/home/martin/Escritorio/ngx publish/ngx-britecharts/src/components/legend-chart/LegendChart.module.js.map

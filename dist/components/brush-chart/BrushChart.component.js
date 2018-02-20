@@ -75,4 +75,4 @@ BrushChartComponent = __decorate([
     __metadata("design:paramtypes", [ElementRef])
 ], BrushChartComponent);
 export { BrushChartComponent };
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/brush-chart/BrushChart.component.js.map
+//# sourceMappingURL=/home/martin/Escritorio/ngx publish/ngx-britecharts/src/components/brush-chart/BrushChart.component.js.map

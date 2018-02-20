@@ -1,2 +1,2 @@
 export * from './components';
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/index.js.map
+//# sourceMappingURL=/home/martin/Escritorio/ngx publish/ngx-britecharts/src/index.js.map

@@ -102,4 +102,4 @@ BarChartComponent = __decorate([
     __metadata("design:paramtypes", [ElementRef])
 ], BarChartComponent);
 export { BarChartComponent };
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/bar-chart/BarChart.component.js.map
+//# sourceMappingURL=/home/martin/Escritorio/ngx publish/ngx-britecharts/src/components/bar-chart/BarChart.component.js.map

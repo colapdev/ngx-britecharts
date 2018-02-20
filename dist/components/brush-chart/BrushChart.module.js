@@ -27,4 +27,4 @@ BrushChartModule = BrushChartModule_1 = __decorate([
 ], BrushChartModule);
 export { BrushChartModule };
 var BrushChartModule_1;
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/brush-chart/BrushChart.module.js.map
+//# sourceMappingURL=/home/martin/Escritorio/ngx publish/ngx-britecharts/src/components/brush-chart/BrushChart.module.js.map

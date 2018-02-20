@@ -115,4 +115,4 @@ StackedBarChartComponent = __decorate([
     __metadata("design:paramtypes", [ElementRef])
 ], StackedBarChartComponent);
 export { StackedBarChartComponent };
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/stacked-bar-chart/StackedBarChart.component.js.map
+//# sourceMappingURL=/home/martin/Escritorio/ngx publish/ngx-britecharts/src/components/stacked-bar-chart/StackedBarChart.component.js.map

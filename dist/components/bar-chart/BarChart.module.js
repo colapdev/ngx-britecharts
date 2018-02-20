@@ -27,4 +27,4 @@ BarChartModule = BarChartModule_1 = __decorate([
 ], BarChartModule);
 export { BarChartModule };
 var BarChartModule_1;
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/bar-chart/BarChart.module.js.map
+//# sourceMappingURL=/home/martin/Escritorio/ngx publish/ngx-britecharts/src/components/bar-chart/BarChart.module.js.map

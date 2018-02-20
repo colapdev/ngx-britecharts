@@ -27,4 +27,4 @@ DonutChartModule = DonutChartModule_1 = __decorate([
 ], DonutChartModule);
 export { DonutChartModule };
 var DonutChartModule_1;
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/donut-chart/DonutChart.module.js.map
+//# sourceMappingURL=/home/martin/Escritorio/ngx publish/ngx-britecharts/src/components/donut-chart/DonutChart.module.js.map

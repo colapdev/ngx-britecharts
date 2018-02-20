@@ -27,4 +27,4 @@ LineChartModule = LineChartModule_1 = __decorate([
 ], LineChartModule);
 export { LineChartModule };
 var LineChartModule_1;
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/line-chart/LineChart.module.js.map
+//# sourceMappingURL=/home/martin/Escritorio/ngx publish/ngx-britecharts/src/components/line-chart/LineChart.module.js.map

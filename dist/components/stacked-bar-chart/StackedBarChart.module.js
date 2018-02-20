@@ -27,4 +27,4 @@ StackedBarChartModule = StackedBarChartModule_1 = __decorate([
 ], StackedBarChartModule);
 export { StackedBarChartModule };
 var StackedBarChartModule_1;
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/stacked-bar-chart/StackedBarChart.module.js.map
+//# sourceMappingURL=/home/martin/Escritorio/ngx publish/ngx-britecharts/src/components/stacked-bar-chart/StackedBarChart.module.js.map

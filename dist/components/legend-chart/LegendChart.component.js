@@ -88,4 +88,4 @@ LegendChartComponent = __decorate([
     __metadata("design:paramtypes", [ElementRef])
 ], LegendChartComponent);
 export { LegendChartComponent };
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/legend-chart/LegendChart.component.js.map
+//# sourceMappingURL=/home/martin/Escritorio/ngx publish/ngx-britecharts/src/components/legend-chart/LegendChart.component.js.map

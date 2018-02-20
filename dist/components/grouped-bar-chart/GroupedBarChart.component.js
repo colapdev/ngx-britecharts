@@ -115,4 +115,4 @@ GroupedBarChartComponent = __decorate([
     __metadata("design:paramtypes", [ElementRef])
 ], GroupedBarChartComponent);
 export { GroupedBarChartComponent };
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/grouped-bar-chart/GroupedBarChart.component.js.map
+//# sourceMappingURL=/home/martin/Escritorio/ngx publish/ngx-britecharts/src/components/grouped-bar-chart/GroupedBarChart.component.js.map

@@ -124,4 +124,4 @@ LineChartComponent = __decorate([
     __metadata("design:paramtypes", [ElementRef])
 ], LineChartComponent);
 export { LineChartComponent };
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/line-chart/LineChart.component.js.map
+//# sourceMappingURL=/home/martin/Escritorio/ngx publish/ngx-britecharts/src/components/line-chart/LineChart.component.js.map
