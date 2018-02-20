@@ -26,6 +26,12 @@ var BarChartComponent = (function () {
     }
     BarChartComponent.prototype.ngOnInit = function () {
         this.drawChart();
+        var that = this;
+        if (this.exportAsImageEvt) {
+            this.exportAsImageEvt.subscribe(function (data) {
+                that.bar.exportChart(data['filename']);
+            });
+        }
     };
     BarChartComponent.prototype.drawChart = function () {
         var _this = this;
@@ -35,9 +41,9 @@ var BarChartComponent = (function () {
         if (containerWidth) {
             this.bar.width(containerWidth);
             this.bar.shouldReverseColorList(false);
-            for (var option in this.chartConfig["properties"]) {
-                if (this.bar.hasOwnProperty(option) && option != 'colorSchema') {
-                    this.bar[option](this.chartConfig["properties"][option]);
+            for (var option in this.chartConfig['properties']) {
+                if (this.bar.hasOwnProperty(option) && option !== 'colorSchema') {
+                    this.bar[option](this.chartConfig['properties'][option]);
                 }
             }
             var showTooltip = false;
@@ -59,7 +65,7 @@ var BarChartComponent = (function () {
             }
             barContainer.datum(this.data).call(this.bar);
             if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.select(this.el).selectAll('.bar-chart .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
+                this.d3Selection.select(this.el).selectAll('.bar-chart .bar').on('click', function (ev) { return _this.chartConfig['click'](ev); });
             }
             this.tooltipContainer = this.d3Selection.select(this.el).select('.bar-chart-container .metadata-group');
             this.tooltipContainer.datum(this.data).call(this.tooltip);
@@ -80,6 +86,10 @@ __decorate([
     Input(),
     __metadata("design:type", Object)
 ], BarChartComponent.prototype, "chartConfig", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Observable)
+], BarChartComponent.prototype, "exportAsImageEvt", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

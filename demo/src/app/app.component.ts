@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, EventEmitter } from '@angular/core';
 import { LegendChartComponent, BarChartComponent, BrushChartComponent, LineChartComponent, DonutChartComponent } from '@colap-dev/ngx-britecharts/dist';
 
 @Component({
@@ -32,6 +32,13 @@ export class AppComponent {
   @ViewChild('donutChart') donutChart: DonutChartComponent;
   @ViewChild('donutLegendChart') donutLegendChart: LegendChartComponent;
 
+  private exportBarChart: EventEmitter<any> = new EventEmitter<any>();
+  private exportBarChartClick() {
+    this.exportBarChart.emit({
+      'filename': 'Exported bar chart.png'
+    });
+  }
+
   private onDemoChartClick($ev) {
     console.log($ev);
   }
@@ -39,10 +46,10 @@ export class AppComponent {
   public configCustomEventsBarChart(ready) {
     if (ready) {
       let that = this;
-      this.barChart.bar.on('customMouseOver', function() {
+      this.barChart.bar.on('customMouseOver', function () {
         that.barChart.tooltip.show();
       });
-      this.barChart.bar.on('customMouseMove', function(data, pos, size) {
+      this.barChart.bar.on('customMouseMove', function (data, pos, size) {
         that.barChart.tooltip.update(data, pos, size);
         // We are about to send a pull request to britecharts in order to make
         // this more efficient.
@@ -53,7 +60,7 @@ export class AppComponent {
           }
         }
       })
-      this.barChart.bar.on('customMouseOut', function() {
+      this.barChart.bar.on('customMouseOut', function () {
         that.barChart.tooltip.hide();
         that.legendChart.legend.clearHighlight();
       });
@@ -302,7 +309,7 @@ export class AppComponent {
   public configCustomEventsMultilineBrushChartConfig(ready) {
     if (ready) {
       let that = this;
-      this.multilineBrushChart.brush.on('customBrushEnd', function(brushExtent) {
+      this.multilineBrushChart.brush.on('customBrushEnd', function (brushExtent) {
         that.filterMultilineChartData(brushExtent[0], brushExtent[1]);
       });
     }
@@ -360,10 +367,10 @@ export class AppComponent {
   public configCustomEventsBrushChart(ready) {
     if (ready) {
       let that = this;
-      this.brushChart.brush.on('customBrushStart', function(brushExtent) {
+      this.brushChart.brush.on('customBrushStart', function (brushExtent) {
         console.log("Start", brushExtent);
       });
-      this.brushChart.brush.on('customBrushEnd', function(brushExtent) {
+      this.brushChart.brush.on('customBrushEnd', function (brushExtent) {
         console.log("End", brushExtent);
       });
     }
@@ -405,20 +412,20 @@ export class AppComponent {
     properties: {
       width: 500,
       height: 500,
-      externalRadius: 500/2.5,
-      internalRadius: 500/5,
+      externalRadius: 500 / 2.5,
+      internalRadius: 500 / 5,
     },
     click: this.onDemoChartClick,
   };
-  public donutLegendChartConfig = { };
+  public donutLegendChartConfig = {};
 
   public configCustomEventsDonutChart(ready) {
     if (ready) {
       let that = this;
-      this.donutChart.donut.on('customMouseOver', function(data) {
+      this.donutChart.donut.on('customMouseOver', function (data) {
         that.donutLegendChart.legend.highlight(data.data["id"]);
       });
-      this.donutChart.donut.on('customMouseOut', function(data) {
+      this.donutChart.donut.on('customMouseOut', function (data) {
         that.donutLegendChart.legend.clearHighlight();
       });
     }

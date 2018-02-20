@@ -26,6 +26,12 @@ var GroupedBarChartComponent = (function () {
     }
     GroupedBarChartComponent.prototype.ngAfterViewInit = function () {
         this.drawChart();
+        var that = this;
+        if (this.exportAsImageEvt) {
+            this.exportAsImageEvt.subscribe(function (data) {
+                that.groupedBarChart.exportChart(data['filename']);
+            });
+        }
     };
     GroupedBarChartComponent.prototype.drawChart = function () {
         var _this = this;
@@ -34,9 +40,9 @@ var GroupedBarChartComponent = (function () {
         var groupedBarContainer = this.d3Selection.select(this.el).select('.grouped-bar-chart-container'), containerWidth = groupedBarContainer.node() ? groupedBarContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.groupedBar.width(containerWidth);
-            for (var option in this.chartConfig["properties"]) {
-                if (this.groupedBar.hasOwnProperty(option) && option != 'colorSchema') {
-                    this.groupedBar[option](this.chartConfig["properties"][option]);
+            for (var option in this.chartConfig['properties']) {
+                if (this.groupedBar.hasOwnProperty(option) && option !== 'colorSchema') {
+                    this.groupedBar[option](this.chartConfig['properties'][option]);
                 }
             }
             var showTooltip = false;
@@ -65,12 +71,12 @@ var GroupedBarChartComponent = (function () {
             }
             groupedBarContainer.datum(this.data).call(this.groupedBar);
             if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.select(this.el).selectAll('.grouped-bar .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
+                this.d3Selection.select(this.el).selectAll('.grouped-bar .bar').on('click', function (ev) { return _this.chartConfig['click'](ev); });
             }
             if (showTooltip) {
-                for (var option in this.chartConfig["tooltip"]) {
+                for (var option in this.chartConfig['tooltip']) {
                     if (this.chartTooltip.hasOwnProperty(option)) {
-                        this.chartTooltip[option](this.chartConfig["tooltip"][option]);
+                        this.chartTooltip[option](this.chartConfig['tooltip'][option]);
                     }
                 }
                 this.tooltipContainer = this.d3Selection.select(this.el).select('.grouped-bar-chart-container .metadata-group');
@@ -93,6 +99,10 @@ __decorate([
     Input(),
     __metadata("design:type", Object)
 ], GroupedBarChartComponent.prototype, "chartConfig", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Observable)
+], GroupedBarChartComponent.prototype, "exportAsImageEvt", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

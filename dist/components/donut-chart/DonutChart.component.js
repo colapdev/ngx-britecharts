@@ -25,6 +25,12 @@ var DonutChartComponent = (function () {
     }
     DonutChartComponent.prototype.ngOnInit = function () {
         this.drawChart();
+        var that = this;
+        if (this.exportAsImageEvt) {
+            this.exportAsImageEvt.subscribe(function (data) {
+                that.donutChart.exportChart(data['filename']);
+            });
+        }
     };
     DonutChartComponent.prototype.drawChart = function () {
         var _this = this;
@@ -32,9 +38,9 @@ var DonutChartComponent = (function () {
         var donutContainer = this.d3Selection.select(this.el).select('.donut-chart-container'), containerWidth = donutContainer.node() ? donutContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.donut.width(containerWidth);
-            for (var option in this.chartConfig["properties"]) {
-                if (this.donut.hasOwnProperty(option) && option != 'colorSchema') {
-                    this.donut[option](this.chartConfig["properties"][option]);
+            for (var option in this.chartConfig['properties']) {
+                if (this.donut.hasOwnProperty(option) && option !== 'colorSchema') {
+                    this.donut[option](this.chartConfig['properties'][option]);
                 }
             }
             if (this.chartConfig.hasOwnProperty('colors')) {
@@ -49,7 +55,7 @@ var DonutChartComponent = (function () {
             }
             donutContainer.datum(this.data).call(this.donut);
             if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.select(this.el).selectAll('.donut-chart .arc').on("click", function (ev) { return _this.chartConfig['click'](ev); });
+                this.d3Selection.select(this.el).selectAll('.donut-chart .arc').on('click', function (ev) { return _this.chartConfig['click'](ev); });
             }
             this.ready.emit(true);
         }
@@ -68,6 +74,10 @@ __decorate([
     Input(),
     __metadata("design:type", Object)
 ], DonutChartComponent.prototype, "chartConfig", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Observable)
+], DonutChartComponent.prototype, "exportAsImageEvt", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

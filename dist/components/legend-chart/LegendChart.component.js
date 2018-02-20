@@ -25,6 +25,12 @@ var LegendChartComponent = (function () {
     }
     LegendChartComponent.prototype.ngOnInit = function () {
         this.drawLegend();
+        var that = this;
+        if (this.exportAsImageEvt) {
+            this.exportAsImageEvt.subscribe(function (data) {
+                that.legendChart.exportChart(data['filename']);
+            });
+        }
     };
     LegendChartComponent.prototype.drawLegend = function () {
         this.legend = this.legendChart();
@@ -32,9 +38,9 @@ var LegendChartComponent = (function () {
             var legendContainer = this.d3Selection.select(this.el).select('.legend-chart-container'), containerWidth = legendContainer.node() ? legendContainer.node().getBoundingClientRect().width : false;
             if (containerWidth) {
                 this.legend.width(containerWidth);
-                for (var option in this.chartConfig["properties"]) {
-                    if (this.legend.hasOwnProperty(option) && option != 'colorSchema') {
-                        this.legend[option](this.chartConfig["properties"][option]);
+                for (var option in this.chartConfig['properties']) {
+                    if (this.legend.hasOwnProperty(option) && option !== 'colorSchema') {
+                        this.legend[option](this.chartConfig['properties'][option]);
                     }
                 }
                 if (this.chartConfig.hasOwnProperty('colors')) {
@@ -66,6 +72,10 @@ __decorate([
     Input(),
     __metadata("design:type", Object)
 ], LegendChartComponent.prototype, "chartConfig", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Observable)
+], LegendChartComponent.prototype, "exportAsImageEvt", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

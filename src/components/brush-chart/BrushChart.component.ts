@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Rx';
 export class BrushChartComponent implements OnInit {
   @Input() data: any;
   @Input() chartConfig: any;
+  @Input() exportAsImageEvt: Observable<any>;
 
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -29,20 +30,27 @@ export class BrushChartComponent implements OnInit {
 
   ngOnInit() {
     this.drawChart();
+
+    let that = this;
+    if (this.exportAsImageEvt) {
+      this.exportAsImageEvt.subscribe(data => {
+        that.brushChart.exportChart(data['filename']);
+      });
+    }
   }
 
   private drawChart() {
     this.brush = this.brushChart();
 
-    var brushContainer = this.d3Selection.select(this.el).select('.brush-chart-container'),
+    let brushContainer = this.d3Selection.select(this.el).select('.brush-chart-container'),
       containerWidth = brushContainer.node() ? brushContainer.node().getBoundingClientRect().width : false;
 
     if (containerWidth) {
       this.brush.width(containerWidth);
 
-      for (let option in this.chartConfig["properties"]) {
+      for (let option in this.chartConfig['properties']) {
         if (this.brush.hasOwnProperty(option)) {
-          this.brush[option](this.chartConfig["properties"][option]);
+          this.brush[option](this.chartConfig['properties'][option]);
         }
       }
 

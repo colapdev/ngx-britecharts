@@ -26,6 +26,12 @@ var StackedBarChartComponent = (function () {
     }
     StackedBarChartComponent.prototype.ngOnInit = function () {
         this.drawChart();
+        var that = this;
+        if (this.exportAsImageEvt) {
+            this.exportAsImageEvt.subscribe(function (data) {
+                that.stackedBarChart.exportChart(data['filename']);
+            });
+        }
     };
     StackedBarChartComponent.prototype.drawChart = function () {
         var _this = this;
@@ -34,9 +40,9 @@ var StackedBarChartComponent = (function () {
         var stackedBarContainer = this.d3Selection.select(this.el).select('.stacked-bar-chart-container'), containerWidth = stackedBarContainer.node() ? stackedBarContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.stackedBar.width(containerWidth);
-            for (var option in this.chartConfig["properties"]) {
-                if (this.stackedBar.hasOwnProperty(option) && option != 'colorSchema') {
-                    this.stackedBar[option](this.chartConfig["properties"][option]);
+            for (var option in this.chartConfig['properties']) {
+                if (this.stackedBar.hasOwnProperty(option) && option !== 'colorSchema') {
+                    this.stackedBar[option](this.chartConfig['properties'][option]);
                 }
             }
             var showTooltip = false;
@@ -65,12 +71,12 @@ var StackedBarChartComponent = (function () {
             }
             stackedBarContainer.datum(this.data).call(this.stackedBar);
             if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.select(this.el).selectAll('.stacked-bar .bar').on("click", function (ev) { return _this.chartConfig['click'](ev); });
+                this.d3Selection.select(this.el).selectAll('.stacked-bar .bar').on('click', function (ev) { return _this.chartConfig['click'](ev); });
             }
             if (showTooltip) {
-                for (var option in this.chartConfig["tooltip"]) {
+                for (var option in this.chartConfig['tooltip']) {
                     if (this.chartTooltip.hasOwnProperty(option)) {
-                        this.chartTooltip[option](this.chartConfig["tooltip"][option]);
+                        this.chartTooltip[option](this.chartConfig['tooltip'][option]);
                     }
                 }
                 this.tooltipContainer = this.d3Selection.select(this.el).select('.stacked-bar-chart-container .metadata-group');
@@ -93,6 +99,10 @@ __decorate([
     Input(),
     __metadata("design:type", Object)
 ], StackedBarChartComponent.prototype, "chartConfig", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Observable)
+], StackedBarChartComponent.prototype, "exportAsImageEvt", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

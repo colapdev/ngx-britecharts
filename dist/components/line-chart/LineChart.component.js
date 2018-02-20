@@ -26,6 +26,12 @@ var LineChartComponent = (function () {
     }
     LineChartComponent.prototype.ngOnInit = function () {
         this.drawChart();
+        var that = this;
+        if (this.exportAsImageEvt) {
+            this.exportAsImageEvt.subscribe(function (data) {
+                that.lineChart.exportChart(data['filename']);
+            });
+        }
     };
     LineChartComponent.prototype.drawChart = function () {
         var that = this;
@@ -34,9 +40,9 @@ var LineChartComponent = (function () {
         var lineContainer = this.d3Selection.select(this.el).select('.line-chart-container'), containerWidth = lineContainer.node() ? lineContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.line.width(containerWidth);
-            for (var option in this.chartConfig["properties"]) {
-                if (this.line.hasOwnProperty(option) && option != 'colorSchema') {
-                    this.line[option](this.chartConfig["properties"][option]);
+            for (var option in this.chartConfig['properties']) {
+                if (this.line.hasOwnProperty(option) && option !== 'colorSchema') {
+                    this.line[option](this.chartConfig['properties'][option]);
                 }
             }
             var showTooltip = false;
@@ -77,9 +83,9 @@ var LineChartComponent = (function () {
                 });
             }
             if (showTooltip) {
-                for (var option in this.chartConfig["tooltip"]) {
+                for (var option in this.chartConfig['tooltip']) {
                     if (this.chartTooltip.hasOwnProperty(option)) {
-                        this.chartTooltip[option](this.chartConfig["tooltip"][option]);
+                        this.chartTooltip[option](this.chartConfig['tooltip'][option]);
                     }
                 }
                 this.tooltipContainer = this.d3Selection.select(this.el).select('.line-chart-container .metadata-group .hover-marker');
@@ -102,6 +108,10 @@ __decorate([
     Input(),
     __metadata("design:type", Object)
 ], LineChartComponent.prototype, "chartConfig", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Observable)
+], LineChartComponent.prototype, "exportAsImageEvt", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)
