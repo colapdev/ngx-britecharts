@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-xs-12">
+    <tabset>
+      <tab heading="Bar charts">
+        <div class="col-sm-9">
+          <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" [exportAsImageEvt]="exportBarChart" (ready)="configCustomEventsBarChart($event)"></ngx-bc-barchart>
+          <button class="btn btn-default" (click)="exportBarChartClick()">Export</button>
+        </div>
+        <div class="col-sm-3">
+          <ngx-bc-legendchart #legendChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-legendchart>
+        </div>
+      </tab>
+      <tab heading="Grouped bar chart">
+        <ngx-bc-groupedbarchart #groupedBarChart [data]="groupedBarChartData" [chartConfig]="gorupedBarChartConfig"></ngx-bc-groupedbarchart>
+      </tab>
+      <tab heading="Stacked bar chart">
+        <ngx-bc-stackedbarchart #stackedBarChart [data]="stackedBarChartData" [chartConfig]="stackedBarChartConfig"></ngx-bc-stackedbarchart>
+      </tab>
+      <tab heading="Single line chart">
+        <ngx-bc-linechart #singleLineChart [data]="singleLineChartData" [chartConfig]="singleLineChartConfig"></ngx-bc-linechart>
+      </tab>
+      <tab heading="Multiline chart">
+        <ngx-bc-linechart #multilineChart [data]="multilineChartData" [chartConfig]="multilineChartConfig"></ngx-bc-linechart>
+        <ngx-bc-brushchart #multilineBrushChart [data]="multilineChartData.dataByDate" [chartConfig]="multilineBrushChartConfig" (ready)="configCustomEventsMultilineBrushChartConfig($event)"></ngx-bc-brushchart>
+      </tab>
+      <tab heading="Brush chart">
+        <ngx-bc-brushchart #brushChart [data]="brushChartData" [chartConfig]="brushChartConfig" (ready)="configCustomEventsBrushChart($event)"></ngx-bc-brushchart>
+      </tab>
+      <tab heading="Donut chart">
+        <div class="col-sm-6 col-sm-offset-3 text-center">
+          <ngx-bc-donutchart #donutChart [data]="donutChartData" [chartConfig]="donutChartConfig" (ready)="configCustomEventsDonutChart($event)"></ngx-bc-donutchart>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3 text-center">
+          <ngx-bc-legendchart #donutLegendChart [data]="donutChartData" [chartConfig]="donutLegendChartConfig"></ngx-bc-legendchart>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+  <div class="col-xs-12 text-center">
+    <hr>
+    <h4><a target="_blank" href="https://www.colap.io"><img class="colap-logo" src="/ngx-britecharts/assets/logo_light.png" alt="Colap logo"></a></h4>
+  </div>
+</div>
