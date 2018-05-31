@@ -1,6 +1,6 @@
 # ngx-britecharts
 
-**@colap-dev/ngx-britecharts** is an Angular2 library for creating and displaying [Britecharts](https://github.com/eventbrite/britecharts/) in your web application using D3.js v4.
+**@colap-dev/ngx-britecharts** is an Angular2+ library for creating and displaying [Britecharts](https://github.com/eventbrite/britecharts/) in your web application using D3.js v4. Demo available for Angular's versions 2, 4, 5 and 6.
 
 Don't now what Britecharts is? [Check this out.](http://eventbrite.github.io/britecharts/)
 
@@ -202,7 +202,6 @@ The file name and chart title must be sent inside the event.
  - 0.6.X - Stacked Area Chart
  - 0.7.X - Step Chart
  - 0.8.X - Sparkline Chart
- - TBD - Angular4 support
 
 **NOTE: EXPECT REAKING CHANGES WITH EACH RELEASE UNTIL WE REACH THE 1.0.0 VERSION.**
 
