@@ -1,5 +1,9 @@
 # Changelog
 
+### 2018-06-02
+- 0.5.7 release.
+  - Changed require for imports.
+
 ### 2018-02-20
 - 0.5.6 release.
   - Bug fixes.

@@ -9,12 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as brush from 'britecharts/dist/umd/brush.min';
+import * as d3Selection from 'd3-selection';
 var BrushChartComponent = (function () {
     function BrushChartComponent(elementRef) {
         var _this = this;
         this.ready = new EventEmitter();
-        this.brushChart = require('britecharts/dist/umd/brush.min');
-        this.d3Selection = require('d3-selection');
         Observable.fromEvent(window, 'resize')
             .debounceTime(250)
             .subscribe(function () {
@@ -32,8 +32,8 @@ var BrushChartComponent = (function () {
         }
     };
     BrushChartComponent.prototype.drawChart = function () {
-        this.brush = this.brushChart();
-        var brushContainer = this.d3Selection.select(this.el).select('.brush-chart-container'), containerWidth = brushContainer.node() ? brushContainer.node().getBoundingClientRect().width : false;
+        this.brush = brush();
+        var brushContainer = d3Selection.select(this.el).select('.brush-chart-container'), containerWidth = brushContainer.node() ? brushContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.brush.width(containerWidth);
             for (var option in this.chartConfig['properties']) {
@@ -46,7 +46,7 @@ var BrushChartComponent = (function () {
         }
     };
     BrushChartComponent.prototype.redrawChart = function () {
-        this.d3Selection.select(this.el).selectAll('.brush-chart').remove();
+        d3Selection.select(this.el).selectAll('.brush-chart').remove();
         this.drawChart();
     };
     return BrushChartComponent;

@@ -9,13 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as donut from 'britecharts/dist/umd/donut.min';
+import * as d3Selection from 'd3-selection';
+import * as colors from 'britecharts/dist/umd/colors.min';
 var DonutChartComponent = (function () {
     function DonutChartComponent(elementRef) {
         var _this = this;
         this.ready = new EventEmitter();
-        this.donutChart = require('britecharts/dist/umd/donut.min');
-        this.d3Selection = require('d3-selection');
-        this.colors = require('britecharts/dist/umd/colors.min');
         Observable.fromEvent(window, 'resize')
             .debounceTime(250)
             .subscribe(function () {
@@ -34,8 +34,8 @@ var DonutChartComponent = (function () {
     };
     DonutChartComponent.prototype.drawChart = function () {
         var _this = this;
-        this.donut = this.donutChart();
-        var donutContainer = this.d3Selection.select(this.el).select('.donut-chart-container'), containerWidth = donutContainer.node() ? donutContainer.node().getBoundingClientRect().width : false;
+        this.donut = donut();
+        var donutContainer = d3Selection.select(this.el).select('.donut-chart-container'), containerWidth = donutContainer.node() ? donutContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.donut.width(containerWidth);
             for (var option in this.chartConfig['properties']) {
@@ -45,8 +45,8 @@ var DonutChartComponent = (function () {
             }
             if (this.chartConfig.hasOwnProperty('colors')) {
                 if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
-                    if (this.colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-                        this.donut.colorSchema(this.colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+                    if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
+                        this.donut.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
                     }
                 }
                 else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
@@ -55,13 +55,13 @@ var DonutChartComponent = (function () {
             }
             donutContainer.datum(this.data).call(this.donut);
             if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.select(this.el).selectAll('.donut-chart .arc').on('click', function (ev) { return _this.chartConfig['click'](ev); });
+                d3Selection.select(this.el).selectAll('.donut-chart .arc').on('click', function (ev) { return _this.chartConfig['click'](ev); });
             }
             this.ready.emit(true);
         }
     };
     DonutChartComponent.prototype.redrawChart = function () {
-        this.d3Selection.select(this.el).selectAll('.donut-chart').remove();
+        d3Selection.select(this.el).selectAll('.donut-chart').remove();
         this.drawChart();
     };
     return DonutChartComponent;

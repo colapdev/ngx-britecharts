@@ -5,10 +5,6 @@ export declare class StackedBarChartComponent implements OnInit {
     chartConfig: any;
     exportAsImageEvt: Observable<any>;
     ready: EventEmitter<boolean>;
-    private stackedBarChart;
-    private d3Selection;
-    private colors;
-    private tooltip;
     private el;
     stackedBar: any;
     chartTooltip: any;

@@ -1,6 +1,6 @@
 # ngx-britecharts
 
-**@colap-dev/ngx-britecharts** is an Angular2+ library for creating and displaying [Britecharts](https://github.com/eventbrite/britecharts/) in your web application using D3.js v4. Demo available for Angular's versions 2, 4, 5 and 6.
+**@colap-dev/ngx-britecharts** is an Angular2+ library for creating and displaying [Britecharts](https://github.com/eventbrite/britecharts/) in your web application using D3.js v4. Demo available for Angular's versions 2, 4 and 5.
 
 Don't now what Britecharts is? [Check this out.](http://eventbrite.github.io/britecharts/)
 

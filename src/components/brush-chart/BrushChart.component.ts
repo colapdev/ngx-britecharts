@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as brush from 'britecharts/dist/umd/brush.min';
+import * as d3Selection from 'd3-selection';
 
 @Component({
   selector: 'ngx-bc-brushchart',
@@ -12,9 +14,6 @@ export class BrushChartComponent implements OnInit {
   @Input() exportAsImageEvt: Observable<any>;
 
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  private brushChart = require('britecharts/dist/umd/brush.min');
-  private d3Selection = require('d3-selection');
 
   private el: HTMLElement;
   public brush: any;
@@ -40,9 +39,9 @@ export class BrushChartComponent implements OnInit {
   }
 
   private drawChart() {
-    this.brush = this.brushChart();
+    this.brush = brush();
 
-    let brushContainer = this.d3Selection.select(this.el).select('.brush-chart-container'),
+    let brushContainer = d3Selection.select(this.el).select('.brush-chart-container'),
       containerWidth = brushContainer.node() ? brushContainer.node().getBoundingClientRect().width : false;
 
     if (containerWidth) {
@@ -61,7 +60,7 @@ export class BrushChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    this.d3Selection.select(this.el).selectAll('.brush-chart').remove();
+    d3Selection.select(this.el).selectAll('.brush-chart').remove();
     this.drawChart();
   }
 }

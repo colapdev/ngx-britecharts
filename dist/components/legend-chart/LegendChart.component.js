@@ -9,13 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as legend from 'britecharts/dist/umd/legend.min';
+import * as d3Selection from 'd3-selection';
+import * as colors from 'britecharts/dist/umd/colors.min';
 var LegendChartComponent = (function () {
     function LegendChartComponent(elementRef) {
         var _this = this;
         this.ready = new EventEmitter();
-        this.d3Selection = require('d3-selection');
-        this.legendChart = require('britecharts/dist/umd/legend.min');
-        this.colors = require('britecharts/dist/umd/colors.min');
         Observable.fromEvent(window, 'resize')
             .debounceTime(250)
             .subscribe(function () {
@@ -33,9 +33,9 @@ var LegendChartComponent = (function () {
         }
     };
     LegendChartComponent.prototype.drawLegend = function () {
-        this.legend = this.legendChart();
+        this.legend = legend();
         if (this.data) {
-            var legendContainer = this.d3Selection.select(this.el).select('.legend-chart-container'), containerWidth = legendContainer.node() ? legendContainer.node().getBoundingClientRect().width : false;
+            var legendContainer = d3Selection.select(this.el).select('.legend-chart-container'), containerWidth = legendContainer.node() ? legendContainer.node().getBoundingClientRect().width : false;
             if (containerWidth) {
                 this.legend.width(containerWidth);
                 for (var option in this.chartConfig['properties']) {
@@ -45,8 +45,8 @@ var LegendChartComponent = (function () {
                 }
                 if (this.chartConfig.hasOwnProperty('colors')) {
                     if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
-                        if (this.colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-                            this.legend.colorSchema(this.colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+                        if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
+                            this.legend.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
                         }
                     }
                     else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
@@ -59,7 +59,7 @@ var LegendChartComponent = (function () {
         }
     };
     LegendChartComponent.prototype.redrawChart = function () {
-        this.d3Selection.select(this.el).selectAll('.britechart-legend').remove();
+        d3Selection.select(this.el).selectAll('.britechart-legend').remove();
         this.drawLegend();
     };
     return LegendChartComponent;

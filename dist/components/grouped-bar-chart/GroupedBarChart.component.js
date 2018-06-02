@@ -9,14 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as groupedBar from 'britecharts/dist/umd/groupedBar.min';
+import * as d3Selection from 'd3-selection';
+import * as tooltip from 'britecharts/dist/umd/tooltip.min';
+import * as colors from 'britecharts/dist/umd/colors.min';
 var GroupedBarChartComponent = (function () {
     function GroupedBarChartComponent(elementRef) {
         var _this = this;
         this.ready = new EventEmitter();
-        this.groupedBarChart = require('britecharts/dist/umd/groupedBar.min');
-        this.d3Selection = require('d3-selection');
-        this.colors = require('britecharts/dist/umd/colors.min');
-        this.tooltip = require('britecharts/dist/umd/tooltip.min');
         Observable.fromEvent(window, 'resize')
             .debounceTime(250)
             .subscribe(function () {
@@ -35,9 +35,9 @@ var GroupedBarChartComponent = (function () {
     };
     GroupedBarChartComponent.prototype.drawChart = function () {
         var _this = this;
-        this.groupedBar = this.groupedBarChart();
-        this.chartTooltip = this.tooltip();
-        var groupedBarContainer = this.d3Selection.select(this.el).select('.grouped-bar-chart-container'), containerWidth = groupedBarContainer.node() ? groupedBarContainer.node().getBoundingClientRect().width : false;
+        this.groupedBar = groupedBar();
+        this.chartTooltip = tooltip();
+        var groupedBarContainer = d3Selection.select(this.el).select('.grouped-bar-chart-container'), containerWidth = groupedBarContainer.node() ? groupedBarContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.groupedBar.width(containerWidth);
             for (var option in this.chartConfig['properties']) {
@@ -61,8 +61,8 @@ var GroupedBarChartComponent = (function () {
             }
             if (this.chartConfig.hasOwnProperty('colors')) {
                 if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
-                    if (this.colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-                        this.groupedBar.colorSchema(this.colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+                    if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
+                        this.groupedBar.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
                     }
                 }
                 else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
@@ -71,7 +71,7 @@ var GroupedBarChartComponent = (function () {
             }
             groupedBarContainer.datum(this.data).call(this.groupedBar);
             if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.select(this.el).selectAll('.grouped-bar .bar').on('click', function (ev) { return _this.chartConfig['click'](ev); });
+                d3Selection.select(this.el).selectAll('.grouped-bar .bar').on('click', function (ev) { return _this.chartConfig['click'](ev); });
             }
             if (showTooltip) {
                 for (var option in this.chartConfig['tooltip']) {
@@ -79,14 +79,14 @@ var GroupedBarChartComponent = (function () {
                         this.chartTooltip[option](this.chartConfig['tooltip'][option]);
                     }
                 }
-                this.tooltipContainer = this.d3Selection.select(this.el).select('.grouped-bar-chart-container .metadata-group');
+                this.tooltipContainer = d3Selection.select(this.el).select('.grouped-bar-chart-container .metadata-group');
                 this.tooltipContainer.datum(this.data).call(this.chartTooltip);
             }
             this.ready.emit(true);
         }
     };
     GroupedBarChartComponent.prototype.redrawChart = function () {
-        this.d3Selection.select(this.el).selectAll('.grouped-bar').remove();
+        d3Selection.select(this.el).selectAll('.grouped-bar').remove();
         this.drawChart();
     };
     return GroupedBarChartComponent;

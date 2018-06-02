@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as stackedBar from 'britecharts/dist/umd/stackedBar.min';
+import * as d3Selection from 'd3-selection';
+import * as tooltip from 'britecharts/dist/umd/tooltip.min';
+import * as colors from 'britecharts/dist/umd/colors.min';
 
 @Component({
   selector: 'ngx-bc-stackedbarchart',
@@ -12,11 +16,6 @@ export class StackedBarChartComponent implements OnInit {
   @Input() exportAsImageEvt: Observable<any>;
 
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  private stackedBarChart = require('britecharts/dist/umd/stackedBar.min');
-  private d3Selection = require('d3-selection');
-  private colors = require('britecharts/dist/umd/colors.min');
-  private tooltip = require('britecharts/dist/umd/tooltip.min');
 
   private el: HTMLElement;
   public stackedBar: any;
@@ -44,10 +43,10 @@ export class StackedBarChartComponent implements OnInit {
   }
 
   private drawChart() {
-    this.stackedBar = this.stackedBarChart();
-    this.chartTooltip = this.tooltip();
+    this.stackedBar = stackedBar();
+    this.chartTooltip = tooltip();
 
-    let stackedBarContainer = this.d3Selection.select(this.el).select('.stacked-bar-chart-container'),
+    let stackedBarContainer = d3Selection.select(this.el).select('.stacked-bar-chart-container'),
       containerWidth = stackedBarContainer.node() ? stackedBarContainer.node().getBoundingClientRect().width : false;
 
     if (containerWidth) {
@@ -76,8 +75,8 @@ export class StackedBarChartComponent implements OnInit {
 
       if (this.chartConfig.hasOwnProperty('colors')) {
         if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
-          if (this.colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-            this.stackedBar.colorSchema(this.colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+          if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
+            this.stackedBar.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
           }
         } else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
           this.stackedBar.colorSchema(this.chartConfig['colors']['customSchema']);
@@ -87,7 +86,7 @@ export class StackedBarChartComponent implements OnInit {
       stackedBarContainer.datum(this.data).call(this.stackedBar);
 
       if (this.chartConfig.hasOwnProperty('click')) {
-        this.d3Selection.select(this.el).selectAll('.stacked-bar .bar').on('click', (ev) => this.chartConfig['click'](ev));
+        d3Selection.select(this.el).selectAll('.stacked-bar .bar').on('click', (ev) => this.chartConfig['click'](ev));
       }
 
       if (showTooltip) {
@@ -97,7 +96,7 @@ export class StackedBarChartComponent implements OnInit {
           }
         }
 
-        this.tooltipContainer = this.d3Selection.select(this.el).select('.stacked-bar-chart-container .metadata-group');
+        this.tooltipContainer = d3Selection.select(this.el).select('.stacked-bar-chart-container .metadata-group');
         this.tooltipContainer.datum(this.data).call(this.chartTooltip);
       }
 
@@ -106,7 +105,7 @@ export class StackedBarChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    this.d3Selection.select(this.el).selectAll('.stacked-bar').remove();
+    d3Selection.select(this.el).selectAll('.stacked-bar').remove();
     this.drawChart();
   }
 }

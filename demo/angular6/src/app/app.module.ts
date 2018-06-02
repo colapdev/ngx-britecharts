@@ -1,11 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-
-import { BarChartModule, LegendChartModule, GroupedBarChartModule, StackedBarChartModule,
-  LineChartModule, BrushChartModule, DonutChartModule } from '@colap-dev/ngx-britecharts/dist';
+import { BrowserModule } from '@angular/platform-browser';
+import {
+  BarChartModule, BrushChartModule, DonutChartModule, GroupedBarChartModule, 
+  LegendChartModule, LineChartModule, StackedBarChartModule 
+} from '@colap-dev/ngx-britecharts/dist';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [

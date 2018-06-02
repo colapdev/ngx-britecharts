@@ -5,9 +5,6 @@ export declare class DonutChartComponent implements OnInit {
     chartConfig: any;
     exportAsImageEvt: Observable<any>;
     ready: EventEmitter<boolean>;
-    private donutChart;
-    private d3Selection;
-    private colors;
     private el;
     donut: any;
     constructor(elementRef: ElementRef);

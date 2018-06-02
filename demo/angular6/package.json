@@ -1,6 +1,6 @@
 {
   "name": "ngx-britecharts-demo_angular6",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -23,11 +23,10 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/platform-server": "^6.0.3",
     "@angular/router": "^6.0.3",
-    "@colap-dev/ngx-britecharts": "^0.5.6",
+    "@colap-dev/ngx-britecharts": "0.5.7",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "ngx-bootstrap": "^1.9.1",
-    "rxjs": "^6.2.0",
     "rxjs-compat": "^6.2.0",
     "zone.js": "^0.7.2"
   },
