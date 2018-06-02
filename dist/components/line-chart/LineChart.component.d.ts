@@ -5,10 +5,6 @@ export declare class LineChartComponent implements OnInit {
     chartConfig: any;
     exportAsImageEvt: Observable<any>;
     ready: EventEmitter<boolean>;
-    private lineChart;
-    private d3Selection;
-    private colors;
-    private tooltip;
     private el;
     line: any;
     chartTooltip: any;

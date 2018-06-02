@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as legend from 'britecharts/dist/umd/legend.min';
+import * as d3Selection from 'd3-selection';
+import * as colors from 'britecharts/dist/umd/colors.min';
 
 @Component({
   selector: 'ngx-bc-legendchart',
@@ -12,10 +15,6 @@ export class LegendChartComponent implements OnInit {
   @Input() exportAsImageEvt: Observable<any>;
 
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  private d3Selection = require('d3-selection');
-  private legendChart = require('britecharts/dist/umd/legend.min');
-  private colors = require('britecharts/dist/umd/colors.min');
 
   private el: HTMLElement;
   public legend: any;
@@ -41,10 +40,10 @@ export class LegendChartComponent implements OnInit {
   }
 
   public drawLegend() {
-    this.legend = this.legendChart();
+    this.legend = legend();
 
     if (this.data) {
-      let legendContainer = this.d3Selection.select(this.el).select('.legend-chart-container'),
+      let legendContainer = d3Selection.select(this.el).select('.legend-chart-container'),
         containerWidth = legendContainer.node() ? legendContainer.node().getBoundingClientRect().width : false;
 
       if (containerWidth) {
@@ -58,8 +57,8 @@ export class LegendChartComponent implements OnInit {
 
         if (this.chartConfig.hasOwnProperty('colors')) {
           if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
-            if (this.colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-              this.legend.colorSchema(this.colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+            if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
+              this.legend.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
             }
           } else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
             this.legend.colorSchema(this.chartConfig['colors']['customSchema']);
@@ -74,7 +73,7 @@ export class LegendChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    this.d3Selection.select(this.el).selectAll('.britechart-legend').remove();
+    d3Selection.select(this.el).selectAll('.britechart-legend').remove();
     this.drawLegend();
   }
 }

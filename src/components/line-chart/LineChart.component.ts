@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as lineChart from 'britecharts/dist/umd/line.min';
+import * as d3Selection from 'd3-selection';
+import * as tooltip from 'britecharts/dist/umd/tooltip.min';
+import * as colors from 'britecharts/dist/umd/colors.min';
 
 @Component({
   selector: 'ngx-bc-linechart',
@@ -12,11 +16,6 @@ export class LineChartComponent implements OnInit {
   @Input() exportAsImageEvt: Observable<any>;
 
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  private lineChart = require('britecharts/dist/umd/line.min');
-  private d3Selection = require('d3-selection');
-  private colors = require('britecharts/dist/umd/colors.min');
-  private tooltip = require('britecharts/dist/umd/tooltip.min');
 
   private el: HTMLElement;
   public line: any;
@@ -45,10 +44,10 @@ export class LineChartComponent implements OnInit {
 
   private drawChart() {
     let that = this;
-    this.line = this.lineChart();
-    this.chartTooltip = this.tooltip();
+    this.line = lineChart();
+    this.chartTooltip = tooltip();
 
-    let lineContainer = this.d3Selection.select(this.el).select('.line-chart-container'),
+    let lineContainer = d3Selection.select(this.el).select('.line-chart-container'),
       containerWidth = lineContainer.node() ? lineContainer.node().getBoundingClientRect().width : false;
 
     if (containerWidth) {
@@ -76,16 +75,16 @@ export class LineChartComponent implements OnInit {
 
       if (this.chartConfig.hasOwnProperty('colors')) {
         if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
-          if (this.colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-            this.line.colorSchema(this.colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+          if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
+            this.line.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
           }
         } else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
           this.line.colorSchema(this.chartConfig['colors']['customSchema']);
         }
 
         if (this.chartConfig['colors'].hasOwnProperty('singleLineGradient')) {
-          if (this.colors.colorGradientsHuman.hasOwnProperty(this.chartConfig['colors']['singleLineGradient'])) {
-            this.line.lineGradient(this.colors.colorGradients[this.chartConfig['colors']['singleLineGradient']]);
+          if (colors.colorGradientsHuman.hasOwnProperty(this.chartConfig['colors']['singleLineGradient'])) {
+            this.line.lineGradient(colors.colorGradients[this.chartConfig['colors']['singleLineGradient']]);
           }
         } else if (this.chartConfig['colors'].hasOwnProperty('customsingleLineGradient')) {
           this.line.lineGradient(this.chartConfig['colors']['customsingleLineGradient']);
@@ -107,7 +106,7 @@ export class LineChartComponent implements OnInit {
           }
         }
 
-        this.tooltipContainer = this.d3Selection.select(this.el).select('.line-chart-container .metadata-group .hover-marker');
+        this.tooltipContainer = d3Selection.select(this.el).select('.line-chart-container .metadata-group .hover-marker');
         this.tooltipContainer.datum([]).call(this.chartTooltip);
       }
 
@@ -116,7 +115,7 @@ export class LineChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    this.d3Selection.select(this.el).selectAll('.line-chart').remove();
+    d3Selection.select(this.el).selectAll('.line-chart').remove();
     this.drawChart();
   }
 }

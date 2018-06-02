@@ -5,10 +5,6 @@ export declare class GroupedBarChartComponent implements AfterViewInit {
     chartConfig: any;
     exportAsImageEvt: Observable<any>;
     ready: EventEmitter<boolean>;
-    private groupedBarChart;
-    private d3Selection;
-    private colors;
-    private tooltip;
     private el;
     groupedBar: any;
     chartTooltip: any;

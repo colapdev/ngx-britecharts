@@ -5,8 +5,6 @@ export declare class BrushChartComponent implements OnInit {
     chartConfig: any;
     exportAsImageEvt: Observable<any>;
     ready: EventEmitter<boolean>;
-    private brushChart;
-    private d3Selection;
     private el;
     brush: any;
     constructor(elementRef: ElementRef);

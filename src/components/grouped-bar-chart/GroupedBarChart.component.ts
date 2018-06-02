@@ -1,5 +1,9 @@
 import { Component, AfterViewInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as groupedBar from 'britecharts/dist/umd/groupedBar.min';
+import * as d3Selection from 'd3-selection';
+import * as tooltip from 'britecharts/dist/umd/tooltip.min';
+import * as colors from 'britecharts/dist/umd/colors.min';
 
 @Component({
   selector: 'ngx-bc-groupedbarchart',
@@ -12,11 +16,6 @@ export class GroupedBarChartComponent implements AfterViewInit {
   @Input() exportAsImageEvt: Observable<any>;
 
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  private groupedBarChart = require('britecharts/dist/umd/groupedBar.min');
-  private d3Selection = require('d3-selection');
-  private colors = require('britecharts/dist/umd/colors.min');
-  private tooltip = require('britecharts/dist/umd/tooltip.min');
 
   private el: HTMLElement;
   public groupedBar: any;
@@ -44,10 +43,10 @@ export class GroupedBarChartComponent implements AfterViewInit {
   }
 
   private drawChart() {
-    this.groupedBar = this.groupedBarChart();
-    this.chartTooltip = this.tooltip();
+    this.groupedBar = groupedBar();
+    this.chartTooltip = tooltip();
 
-    let groupedBarContainer = this.d3Selection.select(this.el).select('.grouped-bar-chart-container'),
+    let groupedBarContainer = d3Selection.select(this.el).select('.grouped-bar-chart-container'),
       containerWidth = groupedBarContainer.node() ? groupedBarContainer.node().getBoundingClientRect().width : false;
 
     if (containerWidth) {
@@ -76,8 +75,8 @@ export class GroupedBarChartComponent implements AfterViewInit {
 
       if (this.chartConfig.hasOwnProperty('colors')) {
         if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
-          if (this.colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-            this.groupedBar.colorSchema(this.colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+          if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
+            this.groupedBar.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
           }
         } else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
           this.groupedBar.colorSchema(this.chartConfig['colors']['customSchema']);
@@ -87,7 +86,7 @@ export class GroupedBarChartComponent implements AfterViewInit {
       groupedBarContainer.datum(this.data).call(this.groupedBar);
 
       if (this.chartConfig.hasOwnProperty('click')) {
-        this.d3Selection.select(this.el).selectAll('.grouped-bar .bar').on('click', (ev) => this.chartConfig['click'](ev));
+        d3Selection.select(this.el).selectAll('.grouped-bar .bar').on('click', (ev) => this.chartConfig['click'](ev));
       }
 
       if (showTooltip) {
@@ -97,7 +96,7 @@ export class GroupedBarChartComponent implements AfterViewInit {
           }
         }
 
-        this.tooltipContainer = this.d3Selection.select(this.el).select('.grouped-bar-chart-container .metadata-group');
+        this.tooltipContainer = d3Selection.select(this.el).select('.grouped-bar-chart-container .metadata-group');
         this.tooltipContainer.datum(this.data).call(this.chartTooltip);
       }
 
@@ -106,7 +105,7 @@ export class GroupedBarChartComponent implements AfterViewInit {
   }
 
   public redrawChart() {
-    this.d3Selection.select(this.el).selectAll('.grouped-bar').remove();
+    d3Selection.select(this.el).selectAll('.grouped-bar').remove();
     this.drawChart();
   }
 }

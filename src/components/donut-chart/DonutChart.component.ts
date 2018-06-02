@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as donut from 'britecharts/dist/umd/donut.min';
+import * as d3Selection from 'd3-selection';
+import * as colors from 'britecharts/dist/umd/colors.min';
 
 @Component({
   selector: 'ngx-bc-donutchart',
@@ -12,10 +15,6 @@ export class DonutChartComponent implements OnInit {
   @Input() exportAsImageEvt: Observable<any>;
 
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  private donutChart = require('britecharts/dist/umd/donut.min');
-  private d3Selection = require('d3-selection');
-  private colors = require('britecharts/dist/umd/colors.min');
 
   private el: HTMLElement;
   public donut: any;
@@ -41,9 +40,9 @@ export class DonutChartComponent implements OnInit {
   }
 
   private drawChart() {
-    this.donut = this.donutChart();
+    this.donut = donut();
 
-    let donutContainer = this.d3Selection.select(this.el).select('.donut-chart-container'),
+    let donutContainer = d3Selection.select(this.el).select('.donut-chart-container'),
       containerWidth = donutContainer.node() ? donutContainer.node().getBoundingClientRect().width : false;
 
     if (containerWidth) {
@@ -57,8 +56,8 @@ export class DonutChartComponent implements OnInit {
 
       if (this.chartConfig.hasOwnProperty('colors')) {
         if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
-          if (this.colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-            this.donut.colorSchema(this.colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+          if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
+            this.donut.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
           }
         } else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
           this.donut.colorSchema(this.chartConfig['colors']['customSchema']);
@@ -68,7 +67,7 @@ export class DonutChartComponent implements OnInit {
       donutContainer.datum(this.data).call(this.donut);
 
       if (this.chartConfig.hasOwnProperty('click')) {
-        this.d3Selection.select(this.el).selectAll('.donut-chart .arc').on('click', (ev) => this.chartConfig['click'](ev));
+        d3Selection.select(this.el).selectAll('.donut-chart .arc').on('click', (ev) => this.chartConfig['click'](ev));
       }
 
       this.ready.emit(true);
@@ -76,7 +75,7 @@ export class DonutChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    this.d3Selection.select(this.el).selectAll('.donut-chart').remove();
+    d3Selection.select(this.el).selectAll('.donut-chart').remove();
     this.drawChart();
   }
 }

@@ -5,10 +5,6 @@ export declare class BarChartComponent implements OnInit {
     chartConfig: any;
     exportAsImageEvt: Observable<any>;
     ready: EventEmitter<boolean>;
-    private barChart;
-    private d3Selection;
-    private miniTooltip;
-    private colors;
     private el;
     bar: any;
     tooltip: any;

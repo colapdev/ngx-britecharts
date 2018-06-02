@@ -9,14 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as stackedBar from 'britecharts/dist/umd/stackedBar.min';
+import * as d3Selection from 'd3-selection';
+import * as tooltip from 'britecharts/dist/umd/tooltip.min';
+import * as colors from 'britecharts/dist/umd/colors.min';
 var StackedBarChartComponent = (function () {
     function StackedBarChartComponent(elementRef) {
         var _this = this;
         this.ready = new EventEmitter();
-        this.stackedBarChart = require('britecharts/dist/umd/stackedBar.min');
-        this.d3Selection = require('d3-selection');
-        this.colors = require('britecharts/dist/umd/colors.min');
-        this.tooltip = require('britecharts/dist/umd/tooltip.min');
         Observable.fromEvent(window, 'resize')
             .debounceTime(250)
             .subscribe(function () {
@@ -35,9 +35,9 @@ var StackedBarChartComponent = (function () {
     };
     StackedBarChartComponent.prototype.drawChart = function () {
         var _this = this;
-        this.stackedBar = this.stackedBarChart();
-        this.chartTooltip = this.tooltip();
-        var stackedBarContainer = this.d3Selection.select(this.el).select('.stacked-bar-chart-container'), containerWidth = stackedBarContainer.node() ? stackedBarContainer.node().getBoundingClientRect().width : false;
+        this.stackedBar = stackedBar();
+        this.chartTooltip = tooltip();
+        var stackedBarContainer = d3Selection.select(this.el).select('.stacked-bar-chart-container'), containerWidth = stackedBarContainer.node() ? stackedBarContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.stackedBar.width(containerWidth);
             for (var option in this.chartConfig['properties']) {
@@ -61,8 +61,8 @@ var StackedBarChartComponent = (function () {
             }
             if (this.chartConfig.hasOwnProperty('colors')) {
                 if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
-                    if (this.colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-                        this.stackedBar.colorSchema(this.colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+                    if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
+                        this.stackedBar.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
                     }
                 }
                 else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
@@ -71,7 +71,7 @@ var StackedBarChartComponent = (function () {
             }
             stackedBarContainer.datum(this.data).call(this.stackedBar);
             if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.select(this.el).selectAll('.stacked-bar .bar').on('click', function (ev) { return _this.chartConfig['click'](ev); });
+                d3Selection.select(this.el).selectAll('.stacked-bar .bar').on('click', function (ev) { return _this.chartConfig['click'](ev); });
             }
             if (showTooltip) {
                 for (var option in this.chartConfig['tooltip']) {
@@ -79,14 +79,14 @@ var StackedBarChartComponent = (function () {
                         this.chartTooltip[option](this.chartConfig['tooltip'][option]);
                     }
                 }
-                this.tooltipContainer = this.d3Selection.select(this.el).select('.stacked-bar-chart-container .metadata-group');
+                this.tooltipContainer = d3Selection.select(this.el).select('.stacked-bar-chart-container .metadata-group');
                 this.tooltipContainer.datum(this.data).call(this.chartTooltip);
             }
             this.ready.emit(true);
         }
     };
     StackedBarChartComponent.prototype.redrawChart = function () {
-        this.d3Selection.select(this.el).selectAll('.stacked-bar').remove();
+        d3Selection.select(this.el).selectAll('.stacked-bar').remove();
         this.drawChart();
     };
     return StackedBarChartComponent;

@@ -5,9 +5,6 @@ export declare class LegendChartComponent implements OnInit {
     chartConfig: any;
     exportAsImageEvt: Observable<any>;
     ready: EventEmitter<boolean>;
-    private d3Selection;
-    private legendChart;
-    private colors;
     private el;
     legend: any;
     constructor(elementRef: ElementRef);

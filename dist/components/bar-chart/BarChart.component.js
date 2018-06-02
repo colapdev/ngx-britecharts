@@ -9,14 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as bar from 'britecharts/dist/umd/bar.min';
+import * as d3Selection from 'd3-selection';
+import * as miniTooltip from 'britecharts/dist/umd/miniTooltip.min';
+import * as colors from 'britecharts/dist/umd/colors.min';
 var BarChartComponent = (function () {
     function BarChartComponent(elementRef) {
         var _this = this;
         this.ready = new EventEmitter();
-        this.barChart = require('britecharts/dist/umd/bar.min');
-        this.d3Selection = require('d3-selection');
-        this.miniTooltip = require('britecharts/dist/umd/miniTooltip.min');
-        this.colors = require('britecharts/dist/umd/colors.min');
         Observable.fromEvent(window, 'resize')
             .debounceTime(250)
             .subscribe(function () {
@@ -35,9 +35,9 @@ var BarChartComponent = (function () {
     };
     BarChartComponent.prototype.drawChart = function () {
         var _this = this;
-        this.bar = this.barChart();
-        this.tooltip = this.miniTooltip();
-        var barContainer = this.d3Selection.select(this.el).select('.bar-chart-container'), containerWidth = barContainer.node() ? barContainer.node().getBoundingClientRect().width : false;
+        this.bar = bar();
+        this.tooltip = miniTooltip();
+        var barContainer = d3Selection.select(this.el).select('.bar-chart-container'), containerWidth = barContainer.node() ? barContainer.node().getBoundingClientRect().width : false;
         if (containerWidth) {
             this.bar.width(containerWidth);
             this.bar.shouldReverseColorList(false);
@@ -55,8 +55,8 @@ var BarChartComponent = (function () {
             }
             if (this.chartConfig.hasOwnProperty('colors')) {
                 if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
-                    if (this.colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-                        this.bar.colorSchema(this.colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+                    if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
+                        this.bar.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
                     }
                 }
                 else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
@@ -65,15 +65,15 @@ var BarChartComponent = (function () {
             }
             barContainer.datum(this.data).call(this.bar);
             if (this.chartConfig.hasOwnProperty('click')) {
-                this.d3Selection.select(this.el).selectAll('.bar-chart .bar').on('click', function (ev) { return _this.chartConfig['click'](ev); });
+                d3Selection.select(this.el).selectAll('.bar-chart .bar').on('click', function (ev) { return _this.chartConfig['click'](ev); });
             }
-            this.tooltipContainer = this.d3Selection.select(this.el).select('.bar-chart-container .metadata-group');
+            this.tooltipContainer = d3Selection.select(this.el).select('.bar-chart-container .metadata-group');
             this.tooltipContainer.datum(this.data).call(this.tooltip);
             this.ready.emit(true);
         }
     };
     BarChartComponent.prototype.redrawChart = function () {
-        this.d3Selection.select(this.el).selectAll('.bar-chart').remove();
+        d3Selection.select(this.el).selectAll('.bar-chart').remove();
         this.drawChart();
     };
     return BarChartComponent;

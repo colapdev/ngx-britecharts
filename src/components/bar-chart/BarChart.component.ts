@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as bar from 'britecharts/dist/umd/bar.min';
+import * as d3Selection from 'd3-selection';
+import * as miniTooltip from 'britecharts/dist/umd/miniTooltip.min';
+import * as colors from 'britecharts/dist/umd/colors.min';
 
 @Component({
   selector: 'ngx-bc-barchart',
@@ -12,11 +16,6 @@ export class BarChartComponent implements OnInit {
   @Input() exportAsImageEvt: Observable<any>;
 
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  private barChart = require('britecharts/dist/umd/bar.min');
-  private d3Selection = require('d3-selection');
-  private miniTooltip = require('britecharts/dist/umd/miniTooltip.min');
-  private colors = require('britecharts/dist/umd/colors.min');
 
   private el: HTMLElement;
   public bar: any;
@@ -44,10 +43,10 @@ export class BarChartComponent implements OnInit {
   }
 
   private drawChart() {
-    this.bar = this.barChart();
-    this.tooltip = this.miniTooltip();
+    this.bar = bar();
+    this.tooltip = miniTooltip();
 
-    let barContainer = this.d3Selection.select(this.el).select('.bar-chart-container'),
+    let barContainer = d3Selection.select(this.el).select('.bar-chart-container'),
       containerWidth = barContainer.node() ? barContainer.node().getBoundingClientRect().width : false;
 
     if (containerWidth) {
@@ -70,8 +69,8 @@ export class BarChartComponent implements OnInit {
 
       if (this.chartConfig.hasOwnProperty('colors')) {
         if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
-          if (this.colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-            this.bar.colorSchema(this.colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+          if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
+            this.bar.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
           }
         } else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
           this.bar.colorSchema(this.chartConfig['colors']['customSchema']);
@@ -81,10 +80,10 @@ export class BarChartComponent implements OnInit {
       barContainer.datum(this.data).call(this.bar);
 
       if (this.chartConfig.hasOwnProperty('click')) {
-        this.d3Selection.select(this.el).selectAll('.bar-chart .bar').on('click', (ev) => this.chartConfig['click'](ev));
+        d3Selection.select(this.el).selectAll('.bar-chart .bar').on('click', (ev) => this.chartConfig['click'](ev));
       }
 
-      this.tooltipContainer = this.d3Selection.select(this.el).select('.bar-chart-container .metadata-group');
+      this.tooltipContainer = d3Selection.select(this.el).select('.bar-chart-container .metadata-group');
       this.tooltipContainer.datum(this.data).call(this.tooltip);
 
       this.ready.emit(true);
@@ -92,7 +91,7 @@ export class BarChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    this.d3Selection.select(this.el).selectAll('.bar-chart').remove();
+    d3Selection.select(this.el).selectAll('.bar-chart').remove();
     this.drawChart();
   }
 }
