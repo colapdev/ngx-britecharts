@@ -115,9 +115,11 @@ var ChartComponent = (function () {
             if (this.chart.hasOwnProperty('shouldReverseColorList')) {
                 this.chart.shouldReverseColorList(false);
             }
-            for (var option in this.chartConfig['properties']) {
-                if (this.chart.hasOwnProperty(option) && !this.isDictionary(option)) {
-                    this.chart[option](this.chartConfig['properties'][option]);
+            if (this.chartConfig) {
+                for (var option in this.chartConfig['properties']) {
+                    if (this.chart.hasOwnProperty(option) && !this.isDictionary(option)) {
+                        this.chart[option](this.chartConfig['properties'][option]);
+                    }
                 }
             }
             /*
