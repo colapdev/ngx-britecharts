@@ -21,7 +21,7 @@
     "@angular/platform-browser": "2.4.10",
     "@angular/platform-browser-dynamic": "2.4.10",
     "@angular/router": "3.4.10",
-    "@colap-dev/ngx-britecharts": "0.5.7",
+    "@colap-dev/ngx-britecharts": "../..",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "ngx-bootstrap": "^1.9.1",
@@ -45,7 +45,6 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.1.2",
     "ts-node": "~3.0.4",
-    "tslint": "~5.3.2",
-    "typescript": "~2.1.4"
+    "tslint": "~5.3.2"
   }
 }

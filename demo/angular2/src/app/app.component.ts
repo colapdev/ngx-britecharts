@@ -1,5 +1,9 @@
 import { Component, ViewChild, EventEmitter } from '@angular/core';
-import { LegendChartComponent, BarChartComponent, BrushChartComponent, LineChartComponent, DonutChartComponent } from '@colap-dev/ngx-britecharts/dist';
+import {
+  LegendChartComponent, BarChartComponent, BrushChartComponent,
+  LineChartComponent, DonutChartComponent, ChartComponent
+} from '@colap-dev/ngx-britecharts/dist';
+import { ChartType } from '@colap-dev/ngx-britecharts/dist/components/chart/Chart.types';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +35,18 @@ export class AppComponent {
   @ViewChild('multilineBrushChart') multilineBrushChart: BrushChartComponent;
   @ViewChild('donutChart') donutChart: DonutChartComponent;
   @ViewChild('donutLegendChart') donutLegendChart: LegendChartComponent;
+  @ViewChild('bulletChart') bulletChart: ChartComponent;
+
+  public bulletChartConfig = {
+    properties: {
+      height: 500,
+    },
+  };
+
+  public ngOnInit(): void {
+    this.bulletChart.setChartType(ChartType.Bullet);
+    this.bulletChart.drawChart();
+  }
 
   public exportBarChart: EventEmitter<any> = new EventEmitter<any>();
   public exportBarChartClick() {
@@ -38,6 +54,12 @@ export class AppComponent {
       'filename': 'Exported bar chart.png',
       'title': 'Chart title'
     });
+  }
+
+  public bulletChartData = {
+    ranges: [130, 160, 250],
+    measures: [150, 180],
+    markers: [175]
   }
 
   private onDemoChartClick($ev) {
