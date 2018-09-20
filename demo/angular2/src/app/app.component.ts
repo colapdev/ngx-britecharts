@@ -22,7 +22,7 @@ export class AppComponent {
       numberFormat: '%'
     },
     colors: {
-      customSchema: ["#17becf ", "#bcbd22 ", "#7f7f7f ", "#e377c2 ", "#8c564b ", "#9467bd ", "#d62728 ", "#2ca02c ", "#ff7f0e ", "#1f77b4 "],
+      customSchema: ["#17becf ", "#bcbd22 ", "#7f7f7f ", "#e377c2 ", "#8c564b ", "#9467bd ", "#d62728 ", "#2ca02c ", '#ff7f0e ', "#1f77b4 "],
     },
     click: this.onDemoChartClick,
     showTooltip: false, // Dont set to true if you are going to use custom mouse events.
@@ -36,16 +36,43 @@ export class AppComponent {
   @ViewChild('donutChart') donutChart: DonutChartComponent;
   @ViewChild('donutLegendChart') donutLegendChart: LegendChartComponent;
   @ViewChild('bulletChart') bulletChart: ChartComponent;
-
-  public bulletChartConfig = {
-    properties: {
-      height: 500,
-    },
-  };
+  @ViewChild('heatmapChart') heatmapChart: ChartComponent;
 
   public ngOnInit(): void {
+    // Bullet chart
     this.bulletChart.setChartType(ChartType.Bullet);
+    this.bulletChart.chartConfig = {
+      properties: {
+        height: 250,
+      },
+    };
+    this.bulletChart.data = {
+      ranges: [130, 160, 250],
+      measures: [150, 180],
+      markers: [175]
+    };
     this.bulletChart.drawChart();
+
+    // Heatmap
+    this.heatmapChart.setChartType(ChartType.Heatmap);
+    this.heatmapChart.chartConfig = {
+      properties: {
+        height: 250,
+      },
+    };
+    this.heatmapChart.data = [
+      {
+        week: 0,
+        day: 0,
+        value: 7
+      },
+      {
+        week: 0,
+        day: 1,
+        value: 10
+      }
+    ];
+    this.heatmapChart.drawChart();
   }
 
   public exportBarChart: EventEmitter<any> = new EventEmitter<any>();
@@ -54,12 +81,6 @@ export class AppComponent {
       'filename': 'Exported bar chart.png',
       'title': 'Chart title'
     });
-  }
-
-  public bulletChartData = {
-    ranges: [130, 160, 250],
-    measures: [150, 180],
-    markers: [175]
   }
 
   private onDemoChartClick($ev) {

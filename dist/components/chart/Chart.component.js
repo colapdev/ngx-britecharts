@@ -28,17 +28,15 @@ var ChartComponent = (function () {
     // public tooltip: any;
     // public tooltipContainer: any;
     function ChartComponent(elementRef) {
-        var _this = this;
         this.ready = new EventEmitter();
         Observable.fromEvent(window, 'resize')
             .debounceTime(250)
             .subscribe(function () {
-            _this.redrawChart();
+            // this.redrawChart();
         });
         this.el = elementRef.nativeElement;
     }
     ChartComponent.prototype.ngOnInit = function () {
-        // this.drawChart();
         var that = this;
         if (this.exportAsImageEvt) {
             this.exportAsImageEvt.subscribe(function (data) {
@@ -115,11 +113,9 @@ var ChartComponent = (function () {
             if (this.chart.hasOwnProperty('shouldReverseColorList')) {
                 this.chart.shouldReverseColorList(false);
             }
-            if (this.chartConfig) {
-                for (var option in this.chartConfig['properties']) {
-                    if (this.chart.hasOwnProperty(option) && !this.isDictionary(option)) {
-                        this.chart[option](this.chartConfig['properties'][option]);
-                    }
+            for (var option in this.chartConfig['properties']) {
+                if (this.chart.hasOwnProperty(option) && !this.isDictionary(option)) {
+                    this.chart[option](this.chartConfig['properties'][option]);
                 }
             }
             /*

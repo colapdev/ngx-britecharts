@@ -42,14 +42,12 @@ export class ChartComponent implements OnInit {
     Observable.fromEvent(window, 'resize')
       .debounceTime(250)
       .subscribe(() => {
-        this.redrawChart();
+        // this.redrawChart();
       });
     this.el = elementRef.nativeElement;
   }
 
   ngOnInit() {
-    // this.drawChart();
-
     let that = this;
     if (this.exportAsImageEvt) {
       this.exportAsImageEvt.subscribe(data => {
