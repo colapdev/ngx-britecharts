@@ -5,10 +5,12 @@ export declare class ChartComponent implements OnInit {
     data: any;
     chartConfig: any;
     exportAsImageEvt: Observable<any>;
-    ready: EventEmitter<boolean>;
-    private el;
-    chart: any;
     chartType: ChartType;
+    ready: EventEmitter<boolean>;
+    chart: any;
+    private el;
+    private chartSelector;
+    private chartClickSelector;
     constructor(elementRef: ElementRef);
     ngOnInit(): void;
     setChartType(chartType: ChartType): void;

@@ -28,11 +28,12 @@ var ChartComponent = (function () {
     // public tooltip: any;
     // public tooltipContainer: any;
     function ChartComponent(elementRef) {
+        var _this = this;
         this.ready = new EventEmitter();
         Observable.fromEvent(window, 'resize')
             .debounceTime(250)
             .subscribe(function () {
-            // this.redrawChart();
+            _this.redrawChart();
         });
         this.el = elementRef.nativeElement;
     }
@@ -43,6 +44,9 @@ var ChartComponent = (function () {
                 that.chart.exportChart(data['filename'], data['title']);
             });
         }
+        if (this.data && this.chartConfig && this.chartType) {
+            this.redrawChart();
+        }
     };
     ChartComponent.prototype.setChartType = function (chartType) {
         this.chartType = chartType;
@@ -51,6 +55,8 @@ var ChartComponent = (function () {
         switch (this.chartType) {
             case ChartType.Bar:
                 this.chart = bar();
+                this.chartSelector = '.bar-chart';
+                this.chartClickSelector = '.bar-chart .bar';
                 break;
             case ChartType.Brush:
                 this.chart = brush();
@@ -153,7 +159,7 @@ var ChartComponent = (function () {
     };
     ChartComponent.prototype.redrawChart = function () {
         // d3Selection.select(this.el).selectAll('.bar-chart').remove();
-        // this.drawChart();
+        this.drawChart();
     };
     return ChartComponent;
 }());
@@ -169,6 +175,10 @@ __decorate([
     Input(),
     __metadata("design:type", Observable)
 ], ChartComponent.prototype, "exportAsImageEvt", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Number)
+], ChartComponent.prototype, "chartType", void 0);
 __decorate([
     Output(),
     __metadata("design:type", EventEmitter)

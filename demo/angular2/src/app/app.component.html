@@ -35,10 +35,12 @@
         </div>
       </tab>
       <tab heading="Bullet chart">
-        <ngx-bc-chart #bulletChart></ngx-bc-chart>
+        <ngx-bc-chart #bulletChart1 [data]="bulletChartData1" [chartConfig]="bulletChartConfig" [chartType]="3"></ngx-bc-chart>
+        <ngx-bc-chart #bulletChart2 [data]="bulletChartData2" [chartConfig]="bulletChartConfig" [chartType]="3"></ngx-bc-chart>
+        <ngx-bc-chart #bulletChart3 [data]="bulletChartData3" [chartConfig]="bulletChartConfig" [chartType]="3"></ngx-bc-chart>
       </tab>
       <tab heading="Heatmap chart">
-        <ngx-bc-chart #heatmapChart></ngx-bc-chart>
+        <ngx-bc-chart #heatmapChart [data]="heatmapChartData" [chartConfig]="heatmapChartConfig" [chartType]="6"></ngx-bc-chart>
       </tab>
     </tabset>
   </div>

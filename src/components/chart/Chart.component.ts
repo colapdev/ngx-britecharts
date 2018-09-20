@@ -29,12 +29,15 @@ export class ChartComponent implements OnInit {
   @Input() data: any;
   @Input() chartConfig: any;
   @Input() exportAsImageEvt: Observable<any>;
+  @Input() chartType: ChartType;
 
   @Output() ready: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  private el: HTMLElement;
   public chart: any;
-  public chartType: ChartType;
+
+  private el: HTMLElement;
+  private chartSelector: string;
+  private chartClickSelector: string;
   // public tooltip: any;
   // public tooltipContainer: any;
 
@@ -42,7 +45,7 @@ export class ChartComponent implements OnInit {
     Observable.fromEvent(window, 'resize')
       .debounceTime(250)
       .subscribe(() => {
-        // this.redrawChart();
+        this.redrawChart();
       });
     this.el = elementRef.nativeElement;
   }
@@ -54,6 +57,10 @@ export class ChartComponent implements OnInit {
         that.chart.exportChart(data['filename'], data['title']);
       });
     }
+
+    if (this.data && this.chartConfig && this.chartType) {
+      this.redrawChart();
+    }
   }
 
   public setChartType(chartType: ChartType) {
@@ -64,6 +71,8 @@ export class ChartComponent implements OnInit {
     switch (this.chartType) {
       case ChartType.Bar:
         this.chart = bar();
+        this.chartSelector = '.bar-chart';
+        this.chartClickSelector = '.bar-chart .bar';
         break;
       case ChartType.Brush:
         this.chart = brush();
@@ -177,6 +186,6 @@ export class ChartComponent implements OnInit {
 
   public redrawChart() {
     // d3Selection.select(this.el).selectAll('.bar-chart').remove();
-    // this.drawChart();
+    this.drawChart();
   }
 }
