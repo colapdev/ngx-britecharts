@@ -1,5 +1,95 @@
+<div class="row" id="bar">
+  <div class="col-md-6">
+    <article>
+      <h2 class="tutorial__heading">Bar Chart</h2>
+      <ngx-bc-chart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" [chartType]="1"></ngx-bc-chart>
+    </article>
+  </div>
+  <div class="col-md-6">
+    <article>
+      <h2 class="tutorial__heading">Horizontal Bar Chart</h2>
+      <ngx-bc-chart #horizontalBarChart [data]="horizontalBarChartData" [chartConfig]="horizontalBarChartConfig" [chartType]="1"></ngx-bc-chart>      
+    </article>
+  </div>
+</div>
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-md-12" id="line">
+    <article>
+      <h2 class="tutorial__heading">Line Chart</h2>
+      <ngx-bc-chart #lineChart [data]="lineChartData" [chartConfig]="lineChartConfig" [chartType]="8"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6" id="donut">
+    <article>
+      <h2 class="tutorial__heading">Donut Chart</h2>
+      <div class="card--chart">
+        <div class="col-xs-12">
+            <ngx-bc-chart #donutChart [data]="donutChartData" [chartConfig]="donutChartConfig" [chartType]="4"></ngx-bc-chart>
+        </div>
+        <div class="col-xs-12">
+            <ngx-bc-chart #donutLegendChart [data]="donutChartData" [chartConfig]="donutLegendChartConfig" [chartType]="7"></ngx-bc-chart>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="col-md-6">
+    <article id="brush">
+      <h2 class="tutorial__heading">Brush Chart</h2>
+      <ngx-bc-chart #brushChart [data]="brushChartData" [chartConfig]="brushChartConfig" [chartType]="2"></ngx-bc-chart>
+      <p class="js-date-range date-range is-hidden">Selected from <span class="js-start-date"></span> to <span class="js-end-date"></span></p>
+    </article>
+    <article id="step">
+      <h2 class="tutorial__heading">Step Chart</h2>
+      <ngx-bc-chart #stepChart [data]="stepChartData" [chartConfig]="stepChartConfig" [chartType]="13"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" id="stacked-area">
+    <article>
+      <h2 class="tutorial__heading">Stacked Area Chart</h2>
+      <ngx-bc-chart #stackedAreaChart [data]="stackedAreaChartData" [chartConfig]="stackedAreaChartConfig" [chartType]="11"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <article>
+      <h2 class="tutorial__heading">Grouped Bar Chart with Tooltip</h2>
+      <div class="britechart js-grouped-bar-chart-tooltip-container card--chart"></div>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <article>
+      <h2 class="tutorial__heading">Horizontal Stacked Bar Chart</h2>
+      <div class="britechart js-stacked-bar-chart-tooltip-container card--chart"></div>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10">
+    <article>
+      <h2 class="tutorial__heading">Scatter Plot</h2>
+      <div class="britechart js-scatter-plot-chart-tooltip-container card--chart"></div>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10">
+    <article>
+      <h2 class="tutorial__heading">Bullet Chart</h2>
+      <ngx-bc-chart #bulletChart1 [data]="bulletChartData1" [chartConfig]="bulletChartConfig" [chartType]="3"></ngx-bc-chart>
+      <ngx-bc-chart #bulletChart2 [data]="bulletChartData2" [chartConfig]="bulletChartConfig" [chartType]="3"></ngx-bc-chart>
+      <ngx-bc-chart #bulletChart3 [data]="bulletChartData3" [chartConfig]="bulletChartConfig" [chartType]="3"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <!--<div class="col-xs-12">
     <tabset>
       <tab heading="Bar charts">
         <div class="col-sm-9">
@@ -44,8 +134,10 @@
       </tab>
     </tabset>
   </div>
+  -->
   <div class="col-xs-12 text-center">
     <hr>
-    <h4><a target="_blank" href="https://www.colap.io"><img class="colap-logo" src="/ngx-britecharts/assets/logo_light.png" alt="Colap logo"></a></h4>
+    <h4><a target="_blank" href="https://www.colap.io"><img class="colap-logo" src="/ngx-britecharts/assets/logo_light.png"
+          alt="Colap logo"></a></h4>
   </div>
 </div>

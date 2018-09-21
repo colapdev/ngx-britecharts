@@ -158,17 +158,17 @@ export class ChartComponent implements OnInit {
         this.bar.on('customMouseOut', this.tooltip.hide);
       }
       */
-      /*
-       if (this.chartConfig.hasOwnProperty('colors')) {
-         if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
-           if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-             this.bar.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
-           }
-         } else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
-           this.bar.colorSchema(this.chartConfig['colors']['customSchema']);
-         }
-       }
-       */
+
+      if (this.chartConfig.hasOwnProperty('colors')) {
+        if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
+          if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
+            this.chart.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+          }
+        } else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
+          this.chart.colorSchema(this.chartConfig['colors']['customSchema']);
+        }
+      }
+
       chartContainer.datum(this.data).call(this.chart);
 
       /*

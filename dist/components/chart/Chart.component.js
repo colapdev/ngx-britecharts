@@ -13,6 +13,7 @@ import * as d3Selection from 'd3-selection';
 import * as bar from 'britecharts/dist/umd/bar.min';
 import * as brush from 'britecharts/dist/umd/brush.min';
 import * as bullet from 'britecharts/dist/umd/bullet.min';
+import * as colors from 'britecharts/dist/umd/colors.min';
 import * as donut from 'britecharts/dist/umd/donut.min';
 import * as groupedBar from 'britecharts/dist/umd/groupedBar.min';
 import * as heatmap from 'britecharts/dist/umd/heatmap.min';
@@ -133,17 +134,16 @@ var ChartComponent = (function () {
               this.bar.on('customMouseOut', this.tooltip.hide);
             }
             */
-            /*
-             if (this.chartConfig.hasOwnProperty('colors')) {
-               if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
-                 if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-                   this.bar.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
-                 }
-               } else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
-                 this.bar.colorSchema(this.chartConfig['colors']['customSchema']);
-               }
-             }
-             */
+            if (this.chartConfig.hasOwnProperty('colors')) {
+                if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
+                    if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
+                        this.chart.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+                    }
+                }
+                else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
+                    this.chart.colorSchema(this.chartConfig['colors']['customSchema']);
+                }
+            }
             chartContainer.datum(this.data).call(this.chart);
             /*
             if (this.chartConfig.hasOwnProperty('click')) {

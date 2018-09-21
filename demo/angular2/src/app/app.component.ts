@@ -5,19 +5,31 @@ import {
 import { BarChartData } from './../../../data/BarChartData';
 import { BulletChartData } from './../../../data/BulletChartData';
 import { HeatmapChartData } from './../../../data/HeatmapChartData';
+import { LineChartData } from './../../../data/LineChartData';
+import { DonutChartData } from './../../../data/DonutChartData';
+import { BrushChartData } from './../../../data/BrushChartData';
+import { StepChartData } from './../../../data/StepChartData';
+import { StackedAreaChartData } from './../../../data/StackedAreaChartData';
+
+import { ChartType } from '@colap-dev/ngx-britecharts/dist/components/chart/Chart.types';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  @ViewChild('barChart') barChart: BarChartComponent;
+  @ViewChild('barChart') barChart: ChartComponent;
+  @ViewChild('horizontalBarChart') horizontalBarChart: ChartComponent;
+  @ViewChild('lineChart') lineChart: ChartComponent;
+  @ViewChild('donutChart') donutChart: ChartComponent;
+  @ViewChild('donutLegendChart') donutLegendChart: ChartComponent;
+  @ViewChild('brushChart') brushChart: ChartComponent;
+  @ViewChild('stackedAreaChart') stackedAreaChart: ChartComponent;
+
+
+
   @ViewChild('legendChart') legendChart: LegendChartComponent;
-  @ViewChild('brushChart') brushChart: BrushChartComponent;
-  @ViewChild('multilineChart') multilineChart: LineChartComponent;
   @ViewChild('multilineBrushChart') multilineBrushChart: BrushChartComponent;
-  @ViewChild('donutChart') donutChart: DonutChartComponent;
-  @ViewChild('donutLegendChart') donutLegendChart: LegendChartComponent;
   @ViewChild('bulletChart1') bulletChart1: ChartComponent;
   @ViewChild('bulletChart2') bulletChart2: ChartComponent;
   @ViewChild('bulletChart3') bulletChart3: ChartComponent;
@@ -26,41 +38,155 @@ export class AppComponent {
   private barChartDataGen: BarChartData = new BarChartData();
   private bulletChartDataGen: BulletChartData = new BulletChartData();
   private heatmapChartDataGen: HeatmapChartData = new HeatmapChartData();
+  private lineChartDataGen: LineChartData = new LineChartData();
+  private donutChartDataGen: DonutChartData = new DonutChartData();
+  private brushChartDataGen: BrushChartData = new BrushChartData();
+  private stepChartDataGen: StepChartData = new StepChartData();
+  private stackedAreaChartDataGen: StackedAreaChartData = new StackedAreaChartData();
 
+
+  // barChart
   public firstBarChartData = this.barChartDataGen.getLetterBarChartData();
   public firstBarChartConfig = {
     properties: {
-      height: 500,
-      usePercentage: true,
+      hasPercentage: true,
+      enableLabels: false,
+      labelsNumberFormat: '.0%',
+      height: 300
+    },
+  };
+
+  // horizontalBarChart
+  public horizontalBarChartData = this.barChartDataGen.getHorizontalBarChartData();
+  public horizontalBarChartConfig = {
+    properties: {
+      isHorizontal: true,
       isAnimated: true,
-      isHorizontal: false,
+      margin: {
+        left: 120,
+        right: 20,
+        top: 20,
+        bottom: 30
+      },
+      yAxisPaddingBetweenChart: 30,
+      height: 300,
       percentageAxisToMaxRatio: 1.3,
-      numberFormat: '%'
     },
     colors: {
-      customSchema: ["#17becf", "#bcbd22", "#7f7f7f", "#e377c2", "#8c564b", "#9467bd", "#d62728", "#2ca02c", '#ff7f0e', "#1f77b4"],
+      colorSchema: 'britecharts'
     },
-    click: this.onDemoChartClick,
-    showTooltip: false, // Dont set to true if you are going to use custom mouse events.
   };
 
-  public bulletChartConfig = {
+  // lineChart
+  public lineChartData = this.lineChartDataGen.geLineChartData();
+  public lineChartConfig = {
     properties: {
-      height: 250,
-    },
+      isAnimated: true,
+      aspectRatio: 0.5,
+      grid: 'horizontal',
+      tooltipThreshold: 600,
+      margin: {
+        top: 60,
+        bottom: 50,
+        left: 50,
+        right: 30
+      },
+      dateLabel: 'fullDate',
+    }
   };
 
+  // donutChart and donutLegendChart
+  public donutChartData = this.donutChartDataGen.getDonutChartData();
+  public donutChartConfig = {
+    properties: {
+      isAnimated: true,
+      highlightSliceById: 2,
+    }
+  };
+  public donutLegendChartConfig = {
+    properties: {
+      height: 200,
+      numberFormat: 's'
+    }
+  };
+
+  // brushChart
+  public brushChartData = this.brushChartDataGen.getBrushChartData();
+  public brushChartConfig = {
+    properties: {
+      height: 150,
+    }
+  };
+
+  // stepChart
+  public stepChartData = this.stepChartDataGen.getStepChartData();
+  public stepChartConfig = {
+    properties: {
+      height: 300,
+      xAxisLabel: 'Meal Type',
+      xAxisLabelOffset: 45,
+      yAxisLabel: 'Quantity',
+      yAxisLabelOffset: -50,
+      margin: {
+        top: 40,
+        right: 40,
+        bottom: 50,
+        left: 80
+      }
+    }
+  };
+
+  // stackedAreaChart
+  public stackedAreaChartData = this.stackedAreaChartDataGen.getStackedAreaChartData();
+  public stackedAreaChartConfig = {
+    properties: {
+      isAnimated: true,
+      tooltipThreshold: 600,
+      dateLabel: 'dateUTC',
+      valueLabel: 'views',
+      grid: 'horizontal',
+    }
+  };
+
+
+
+  // bulletChart
   public bulletChartData1 = this.bulletChartDataGen.getBulletDataCpuUsageChartData()[0];
   public bulletChartData2 = this.bulletChartDataGen.getBulletDataCpuUsageChartData()[1];
   public bulletChartData3 = this.bulletChartDataGen.getBulletDataCpuUsageChartData()[2];
 
+  public bulletChartConfig = {
+    properties: {
+      height: 150,
+    },
+  };
+
+  // heatmapChart
   public heatmapChartData = this.heatmapChartDataGen.getHeatmapWeeklyChartData();
 
   public heatmapChartConfig = {
     properties: {
-      height: 250,
+      height: 250
     },
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   public exportBarChart: EventEmitter<any> = new EventEmitter<any>();
   public exportBarChartClick() {
@@ -75,7 +201,7 @@ export class AppComponent {
   }
 
   public configCustomEventsBarChart(ready) {
-    if (ready) {
+    /*if (ready) {
       let that = this;
       this.barChart.bar.on('customMouseOver', function () {
         that.barChart.tooltip.show();
@@ -95,7 +221,7 @@ export class AppComponent {
         that.barChart.tooltip.hide();
         that.legendChart.legend.clearHighlight();
       });
-    }
+    }*/
   }
 
   public groupedBarChartData = [
@@ -347,7 +473,7 @@ export class AppComponent {
   }
 
   private filterMultilineChartData(startDate, endDate) {
-    if (startDate == null && endDate == null) {
+    /*if (startDate == null && endDate == null) {
       return this.multilineChartData;
     }
     let iDate = new Date(startDate);
@@ -384,19 +510,11 @@ export class AppComponent {
     }
 
     this.multilineChart.data = data;
-    this.multilineChart.redrawChart();
+    this.multilineChart.redrawChart();*/
   }
 
-  public brushChartData = [{ "date": "2015-06-27T07:00:00.000Z", "value": 4 }, { "date": "2015-06-28T07:00:00.000Z", "value": 12 }, { "date": "2015-06-29T07:00:00.000Z", "value": 33 }, { "date": "2015-06-30T07:00:00.000Z", "value": 17 }, { "date": "2015-07-01T07:00:00.000Z", "value": 17 }, { "date": "2015-07-02T07:00:00.000Z", "value": 16 }, { "date": "2015-07-03T07:00:00.000Z", "value": 8 }, { "date": "2015-07-04T07:00:00.000Z", "value": 14 }, { "date": "2015-07-05T07:00:00.000Z", "value": 11 }, { "date": "2015-07-06T07:00:00.000Z", "value": 14 }, { "date": "2015-07-07T07:00:00.000Z", "value": 25 }, { "date": "2015-07-08T07:00:00.000Z", "value": 55 }, { "date": "2015-07-09T07:00:00.000Z", "value": 15 }, { "date": "2015-07-10T07:00:00.000Z", "value": 26 }, { "date": "2015-07-11T07:00:00.000Z", "value": 21 }, { "date": "2015-07-12T07:00:00.000Z", "value": 16 }, { "date": "2015-07-13T07:00:00.000Z", "value": 20 }, { "date": "2015-07-14T07:00:00.000Z", "value": 26 }, { "date": "2015-07-15T07:00:00.000Z", "value": 24 }, { "date": "2015-07-16T07:00:00.000Z", "value": 29 }, { "date": "2015-07-17T07:00:00.000Z", "value": 12 }, { "date": "2015-07-18T07:00:00.000Z", "value": 16 }, { "date": "2015-07-19T07:00:00.000Z", "value": 11 }, { "date": "2015-07-20T07:00:00.000Z", "value": 29 }, { "date": "2015-07-21T07:00:00.000Z", "value": 9 }, { "date": "2015-07-22T07:00:00.000Z", "value": 26 }, { "date": "2015-07-23T07:00:00.000Z", "value": 21 }, { "date": "2015-07-24T07:00:00.000Z", "value": 18 }, { "date": "2015-07-25T07:00:00.000Z", "value": 15 }, { "date": "2015-07-26T07:00:00.000Z", "value": 23 }, { "date": "2015-07-27T07:00:00.000Z", "value": 43 }, { "date": "2015-07-28T07:00:00.000Z", "value": 44 }, { "date": "2015-07-29T07:00:00.000Z", "value": 67 }, { "date": "2015-07-30T07:00:00.000Z", "value": 67 }, { "date": "2015-07-31T07:00:00.000Z", "value": 0 }, { "date": "2015-08-01T07:00:00.000Z", "value": 0 }, { "date": "2015-08-02T07:00:00.000Z", "value": 0 }];
-  public brushChartConfig = {
-    properties: {
-      height: 125
-    },
-    //click: this.onDemoChartClick
-  };
-
   public configCustomEventsBrushChart(ready) {
-    if (ready) {
+    /*if (ready) {
       let that = this;
       this.brushChart.brush.on('customBrushStart', function (brushExtent) {
         console.log("Start", brushExtent);
@@ -404,54 +522,11 @@ export class AppComponent {
       this.brushChart.brush.on('customBrushEnd', function (brushExtent) {
         console.log("End", brushExtent);
       });
-    }
+    }*/
   }
 
-  public donutChartData = [
-    {
-      "name": "Shiny",
-      "id": 1,
-      "quantity": 86
-    },
-    {
-      "name": "Blazing",
-      "id": 2,
-      "quantity": 300
-    },
-    {
-      "name": "Dazzling",
-      "id": 3,
-      "quantity": 276
-    },
-    {
-      "name": "Radiant",
-      "id": 4,
-      "quantity": 195
-    },
-    {
-      "name": "Sparkling",
-      "id": 5,
-      "quantity": 36
-    },
-    {
-      "name": "Other",
-      "id": 0,
-      "quantity": 814
-    }
-  ];
-  public donutChartConfig = {
-    properties: {
-      width: 500,
-      height: 500,
-      externalRadius: 500 / 2.5,
-      internalRadius: 500 / 5,
-    },
-    click: this.onDemoChartClick,
-  };
-  public donutLegendChartConfig = {};
-
   public configCustomEventsDonutChart(ready) {
-    if (ready) {
+    /*if (ready) {
       let that = this;
       this.donutChart.donut.on('customMouseOver', function (data) {
         that.donutLegendChart.legend.highlight(data.data["id"]);
@@ -459,7 +534,7 @@ export class AppComponent {
       this.donutChart.donut.on('customMouseOut', function (data) {
         that.donutLegendChart.legend.clearHighlight();
       });
-    }
+    }*/
   }
 
 }
