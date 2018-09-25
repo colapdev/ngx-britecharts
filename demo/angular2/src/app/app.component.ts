@@ -222,15 +222,6 @@ export class AppComponent {
 
 
 
-
-
-
-
-
-
-
-
-
   public exportBarChart: EventEmitter<any> = new EventEmitter<any>();
   public exportBarChartClick() {
     this.exportBarChart.emit({
@@ -266,7 +257,7 @@ export class AppComponent {
       });
     }*/
   }
-  
+
   public gorupedBarChartConfig = {
     /*properties: {
       height: 500,

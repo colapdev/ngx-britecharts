@@ -137,7 +137,12 @@ var ChartComponent = (function () {
             if (this.chartConfig.hasOwnProperty('colors')) {
                 if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
                     if (colors.colorSchemas.hasOwnProperty(this.chartConfig['colors']['colorSchema'])) {
-                        this.chart.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+                        if (this.chartConfig['colors'].hasOwnProperty('reverse') && this.chartConfig['colors']['reverse'] === true) {
+                            this.chart.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']].reverse());
+                        }
+                        else {
+                            this.chart.colorSchema(colors.colorSchemas[this.chartConfig['colors']['colorSchema']]);
+                        }
                     }
                 }
                 else if (this.chartConfig['colors'].hasOwnProperty('customSchema')) {
