@@ -152,12 +152,12 @@ var ChartComponent = (function () {
                 }
             }
             // If the size of some property must be set relative to the container width it must be sent in an
-            // object name 'sizeRelativeToWidth' containing the property to set as key and the ratio to the
+            // object name 'sizeRelativeToContainerWidth' containing the property to set as key and the ratio to the
             // container's width as value.
-            if (this.chartConfig.hasOwnProperty('sizeRelativeToWidth')) {
-                for (var option in this.chartConfig['sizeRelativeToWidth']) {
+            if (this.chartConfig.hasOwnProperty('sizeRelativeToContainerWidth')) {
+                for (var option in this.chartConfig['sizeRelativeToContainerWidth']) {
                     if (this.chart.hasOwnProperty(option)) {
-                        this.chart[option](containerWidth / this.chartConfig['sizeRelativeToWidth'][option]);
+                        this.chart[option](containerWidth / this.chartConfig['sizeRelativeToContainerWidth'][option]);
                     }
                 }
             }

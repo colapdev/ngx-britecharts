@@ -106,7 +106,7 @@ export class AppComponent {
       isAnimated: true,
       highlightSliceById: 2,
     },
-    sizeRelativeToWidth: {
+    sizeRelativeToContainerWidth: {
       width: 1,
       height: 1,
       externalRadius: 2.5,
@@ -240,7 +240,7 @@ export class AppComponent {
       isAnimated: true,
       duration: 2500
     },
-    sizeRelativeToWidth: {
+    sizeRelativeToContainerWidth: {
       height: 4,
     },
   };
