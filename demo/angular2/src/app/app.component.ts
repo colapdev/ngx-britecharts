@@ -54,6 +54,7 @@ export class AppComponent {
       labelsNumberFormat: '.0%',
       height: 300
     },
+    click: this.onDemoChartClick,
   };
 
   // horizontalBarChart
@@ -75,6 +76,7 @@ export class AppComponent {
     colors: {
       colorSchema: 'britecharts'
     },
+    click: this.onDemoChartClick,
   };
 
   // lineChart
@@ -92,7 +94,8 @@ export class AppComponent {
         right: 30
       },
       dateLabel: 'fullDate',
-    }
+    },
+    click: this.onDemoLineChartClick,
   };
 
   // donutChart and donutLegendChart
@@ -101,7 +104,8 @@ export class AppComponent {
     properties: {
       isAnimated: true,
       highlightSliceById: 2,
-    }
+    },
+    click: this.onDemoChartClick,
   };
   public donutLegendChartConfig = {
     properties: {
@@ -213,15 +217,7 @@ export class AppComponent {
     },
   };
 
-
-
-
-
-
-
-
-
-
+  // Functions
   public exportBarChart: EventEmitter<any> = new EventEmitter<any>();
   public exportBarChartClick() {
     this.exportBarChart.emit({
@@ -233,6 +229,22 @@ export class AppComponent {
   private onDemoChartClick($ev) {
     console.log($ev);
   }
+
+  private onDemoLineChartClick($ev, d, m) {
+    console.log($ev, d, m);
+  }
+
+
+
+
+
+
+
+
+
+
+  // OLD
+
 
   public configCustomEventsBarChart(ready) {
     /*if (ready) {

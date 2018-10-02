@@ -76,39 +76,63 @@ export class ChartComponent implements OnInit {
         break;
       case ChartType.Brush:
         this.chart = brush();
+        this.chartSelector = '';
+        this.chartClickSelector = '';
         break;
       case ChartType.Bullet:
         this.chart = bullet();
+        this.chartSelector = '';
+        this.chartClickSelector = '';
         break;
       case ChartType.Donut:
         this.chart = donut();
+        this.chartSelector = '.donut-chart';
+        this.chartClickSelector = '.donut-chart .arc';
         break;
       case ChartType.GroupedBar:
         this.chart = groupedBar();
+        this.chartSelector = '';
+        this.chartClickSelector = '';
         break;
       case ChartType.Heatmap:
         this.chart = heatmap();
+        this.chartSelector = '';
+        this.chartClickSelector = '';
         break;
       case ChartType.Legend:
         this.chart = legend();
+        this.chartSelector = '.britechart-legend';
+        this.chartClickSelector = '';
         break;
       case ChartType.Line:
         this.chart = line();
+        this.chartSelector = '.line-chart';
+        this.chartClickSelector = '';
         break;
       case ChartType.ScatterPlot:
         this.chart = scatterPlot();
+        this.chartSelector = '';
+        this.chartClickSelector = '';
         break;
       case ChartType.Sparkline:
         this.chart = sparkline();
+        this.chartSelector = '';
+        this.chartClickSelector = '';
         break;
       case ChartType.StackedArea:
         this.chart = stackedArea();
+        this.chartSelector = '';
+        this.chartClickSelector = '';
         break;
       case ChartType.StackedBar:
         this.chart = stackedBar();
+        this.chartSelector = '';
+        this.chartClickSelector = '';
         break;
       case ChartType.Step:
         this.chart = step();
+        this.chartSelector = '';
+        this.chartClickSelector = '';
         break;
     }
   }
@@ -128,6 +152,7 @@ export class ChartComponent implements OnInit {
 
 
   public drawChart() {
+    let that = this;
     this.initializeChart();
     // this.tooltip = miniTooltip();
 
@@ -175,11 +200,17 @@ export class ChartComponent implements OnInit {
 
       chartContainer.datum(this.data).call(this.chart);
 
-      /*
+
       if (this.chartConfig.hasOwnProperty('click')) {
-        d3Selection.select(this.el).selectAll('.bar-chart .bar').on('click', (ev) => this.chartConfig['click'](ev));
+        if (this.chartType === ChartType.Line) {
+          this.chart.on('customDataEntryClick', function (e, d, m) {
+            that.chartConfig['click'](e, d, m);
+          });
+        } else {
+          d3Selection.select(this.el).selectAll(this.chartClickSelector).on('click', (ev) => this.chartConfig['click'](ev));
+        }
       }
-      */
+
       /*
       this.tooltipContainer = d3Selection.select(this.el).select('.bar-chart-container .metadata-group');
       this.tooltipContainer.datum(this.data).call(this.tooltip);
