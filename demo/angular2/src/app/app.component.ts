@@ -106,6 +106,12 @@ export class AppComponent {
       isAnimated: true,
       highlightSliceById: 2,
     },
+    sizeRelativeToWidth: {
+      width: 1,
+      height: 1,
+      externalRadius: 2.5,
+      internalRadius: 5
+    },
     click: this.onDemoChartClick,
   };
   public donutLegendChartConfig = {
@@ -230,11 +236,13 @@ export class AppComponent {
   public sparklineChartData = this.sparklineChartDataGen.getSparklineChartData();
   public sparklineChartConfig = {
     properties: {
-      height: 50,
       dateLabel: 'dateUTC',
       isAnimated: true,
       duration: 2500
-    }
+    },
+    sizeRelativeToWidth: {
+      height: 4,
+    },
   };
 
   // Functions

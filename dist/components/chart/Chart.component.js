@@ -151,6 +151,16 @@ var ChartComponent = (function () {
                     this.chart[option](this.chartConfig['properties'][option]);
                 }
             }
+            // If the size of some property must be set relative to the container width it must be sent in an
+            // object name 'sizeRelativeToWidth' containing the property to set as key and the ratio to the
+            // container's width as value.
+            if (this.chartConfig.hasOwnProperty('sizeRelativeToWidth')) {
+                for (var option in this.chartConfig['sizeRelativeToWidth']) {
+                    if (this.chart.hasOwnProperty(option)) {
+                        this.chart[option](containerWidth / this.chartConfig['sizeRelativeToWidth'][option]);
+                    }
+                }
+            }
             /*
             let showTooltip = false;
             if (this.chartConfig.hasOwnProperty('showTooltip') && this.chartConfig['showTooltip'] === true) {
