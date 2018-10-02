@@ -61,13 +61,13 @@ var ChartComponent = (function () {
                 break;
             case ChartType.Brush:
                 this.chart = brush();
-                this.chartSelector = '';
-                this.chartClickSelector = '';
+                this.chartSelector = '.brush-chart';
+                this.chartClickSelector = ''; // No click selector.
                 break;
             case ChartType.Bullet:
                 this.chart = bullet();
-                this.chartSelector = '';
-                this.chartClickSelector = '';
+                this.chartSelector = '.bullet-chart';
+                this.chartClickSelector = '.bullet-chart .range, .bullet-chart .measure, .bullet-chart .marker-line';
                 break;
             case ChartType.Donut:
                 this.chart = donut();
@@ -76,48 +76,48 @@ var ChartComponent = (function () {
                 break;
             case ChartType.GroupedBar:
                 this.chart = groupedBar();
-                this.chartSelector = '';
-                this.chartClickSelector = '';
+                this.chartSelector = '.grouped-bar';
+                this.chartClickSelector = '.grouped-bar .bar';
                 break;
             case ChartType.Heatmap:
                 this.chart = heatmap();
-                this.chartSelector = '';
-                this.chartClickSelector = '';
+                this.chartSelector = '.heatmap';
+                this.chartClickSelector = '.heatmap .box';
                 break;
             case ChartType.Legend:
                 this.chart = legend();
                 this.chartSelector = '.britechart-legend';
-                this.chartClickSelector = '';
+                this.chartClickSelector = '.legend-entry';
                 break;
             case ChartType.Line:
                 this.chart = line();
                 this.chartSelector = '.line-chart';
-                this.chartClickSelector = '';
+                this.chartClickSelector = ''; // No click selector.
                 break;
             case ChartType.ScatterPlot:
                 this.chart = scatterPlot();
-                this.chartSelector = '';
-                this.chartClickSelector = '';
+                this.chartSelector = '.scatter-plot';
+                this.chartClickSelector = ''; // No click selector.
                 break;
             case ChartType.Sparkline:
                 this.chart = sparkline();
-                this.chartSelector = '';
-                this.chartClickSelector = '';
+                this.chartSelector = '.sparkline';
+                this.chartClickSelector = ''; // No click selector.
                 break;
             case ChartType.StackedArea:
                 this.chart = stackedArea();
-                this.chartSelector = '';
-                this.chartClickSelector = '';
+                this.chartSelector = '.stacked-area';
+                this.chartClickSelector = ''; // No click selector.
                 break;
             case ChartType.StackedBar:
                 this.chart = stackedBar();
-                this.chartSelector = '';
-                this.chartClickSelector = '';
+                this.chartSelector = '.stacked-bar';
+                this.chartClickSelector = '.stacked-bar .bar';
                 break;
             case ChartType.Step:
                 this.chart = step();
-                this.chartSelector = '';
-                this.chartClickSelector = '';
+                this.chartSelector = '.step-chart';
+                this.chartClickSelector = '.step-chart .step';
                 break;
         }
     };
@@ -177,9 +177,14 @@ var ChartComponent = (function () {
             }
             chartContainer.datum(this.data).call(this.chart);
             if (this.chartConfig.hasOwnProperty('click')) {
-                if (this.chartType === ChartType.Line) {
+                if (this.chartType === ChartType.Line || this.chartType === ChartType.StackedArea) {
                     this.chart.on('customDataEntryClick', function (e, d, m) {
                         that.chartConfig['click'](e, d, m);
+                    });
+                }
+                else if (this.chartType === ChartType.ScatterPlot) {
+                    this.chart.on('customClick', function (e, d, m, s) {
+                        that.chartConfig['click'](e, d, m, s);
                     });
                 }
                 else {

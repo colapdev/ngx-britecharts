@@ -1,18 +1,17 @@
 import { Component, EventEmitter, ViewChild } from '@angular/core';
-import {
-  BarChartComponent, BrushChartComponent, ChartComponent, DonutChartComponent, LegendChartComponent, LineChartComponent
-} from '@colap-dev/ngx-britecharts/dist';
+import { SparklineChartData } from '@colap-dev/ngx-britecharts/demo/data/SparklineChartData';
+import { ChartComponent } from '@colap-dev/ngx-britecharts/dist';
 import { BarChartData } from './../../../data/BarChartData';
-import { BulletChartData } from './../../../data/BulletChartData';
-import { HeatmapChartData } from './../../../data/HeatmapChartData';
-import { LineChartData } from './../../../data/LineChartData';
-import { DonutChartData } from './../../../data/DonutChartData';
 import { BrushChartData } from './../../../data/BrushChartData';
-import { StepChartData } from './../../../data/StepChartData';
-import { StackedAreaChartData } from './../../../data/StackedAreaChartData';
+import { BulletChartData } from './../../../data/BulletChartData';
+import { DonutChartData } from './../../../data/DonutChartData';
 import { GrouppedBarChartData } from './../../../data/GrouppedBarData';
+import { HeatmapChartData } from './../../../data/HeatmapChartData';
 import { HorizontalStackedBarChartData } from './../../../data/HorizontalStackedBarChartData';
+import { LineChartData } from './../../../data/LineChartData';
 import { ScatterPlotChartData } from './../../../data/ScatterPlotChartData';
+import { StackedAreaChartData } from './../../../data/StackedAreaChartData';
+import { StepChartData } from './../../../data/StepChartData';
 
 @Component({
   selector: 'app-root',
@@ -32,6 +31,7 @@ export class AppComponent {
   @ViewChild('bulletChart2') bulletChart2: ChartComponent;
   @ViewChild('bulletChart3') bulletChart3: ChartComponent;
   @ViewChild('heatmapChart') heatmapChart: ChartComponent;
+  @ViewChild('sparklineChart') sparklineChart: ChartComponent;
 
   private barChartDataGen: BarChartData = new BarChartData();
   private bulletChartDataGen: BulletChartData = new BulletChartData();
@@ -44,6 +44,7 @@ export class AppComponent {
   private horizontalStackedBarChartDataGen: HorizontalStackedBarChartData = new HorizontalStackedBarChartData();
   private scatterPlotChartDataGen: ScatterPlotChartData = new ScatterPlotChartData();
   private heatmapChartDataGen: HeatmapChartData = new HeatmapChartData();
+  private sparklineChartDataGen: SparklineChartData = new SparklineChartData();
 
   // barChart
   public firstBarChartData = this.barChartDataGen.getLetterBarChartData();
@@ -111,7 +112,8 @@ export class AppComponent {
     properties: {
       height: 200,
       numberFormat: 's'
-    }
+    },
+    click: this.onDemoChartClick,
   };
 
   // brushChart
@@ -137,7 +139,8 @@ export class AppComponent {
         bottom: 50,
         left: 80
       }
-    }
+    },
+    click: this.onDemoChartClick,
   };
 
   // stackedAreaChart
@@ -149,7 +152,8 @@ export class AppComponent {
       dateLabel: 'dateUTC',
       valueLabel: 'views',
       grid: 'horizontal',
-    }
+    },
+    click: this.onDemoLineChartClick,
   };
 
   // gruppedBarChart
@@ -162,7 +166,8 @@ export class AppComponent {
       groupLabel: 'stack',
       nameLabel: 'date',
       valueLabel: 'views'
-    }
+    },
+    click: this.onDemoChartClick,
   };
 
   // horizontalStackedBarChart
@@ -176,7 +181,8 @@ export class AppComponent {
       nameLabel: 'date',
       valueLabel: 'views',
       betweenBarsPadding: 0.3
-    }
+    },
+    click: this.onDemoChartClick,
   };
 
   // scatterPlotChart
@@ -195,7 +201,8 @@ export class AppComponent {
       yAxisLabel: 'Ice Cream Sales',
       yAxisFormat: '$',
       xAxisFormat: '.1f'
-    }
+    },
+    click: this.onDemoScatterPlotChartClick,
   };
 
   // bulletChart
@@ -207,6 +214,7 @@ export class AppComponent {
     properties: {
       height: 150,
     },
+    click: this.onDemoChartClick,
   };
 
   // heatmapChart
@@ -215,6 +223,18 @@ export class AppComponent {
     properties: {
       height: 250
     },
+    click: this.onDemoChartClick,
+  };
+
+  // sparklineChart
+  public sparklineChartData = this.sparklineChartDataGen.getSparklineChartData();
+  public sparklineChartConfig = {
+    properties: {
+      height: 50,
+      dateLabel: 'dateUTC',
+      isAnimated: true,
+      duration: 2500
+    }
   };
 
   // Functions
@@ -234,7 +254,9 @@ export class AppComponent {
     console.log($ev, d, m);
   }
 
-
+  private onDemoScatterPlotChartClick($ev, d, m, s) {
+    console.log($ev, d, m, s);
+  }
 
 
 
