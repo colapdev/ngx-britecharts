@@ -223,7 +223,7 @@ export class ChartComponent implements OnInit {
   }
 
   public redrawChart() {
-    // d3Selection.select(this.el).selectAll('.bar-chart').remove();
+    d3Selection.select(this.el).selectAll(this.chartSelector).remove();
     this.drawChart();
   }
 }

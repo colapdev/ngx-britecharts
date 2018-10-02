@@ -199,7 +199,7 @@ var ChartComponent = (function () {
         }
     };
     ChartComponent.prototype.redrawChart = function () {
-        // d3Selection.select(this.el).selectAll('.bar-chart').remove();
+        d3Selection.select(this.el).selectAll(this.chartSelector).remove();
         this.drawChart();
     };
     return ChartComponent;
