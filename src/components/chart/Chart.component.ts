@@ -38,8 +38,10 @@ export class ChartComponent implements OnInit {
   private el: HTMLElement;
   private chartSelector: string;
   private chartClickSelector: string;
-  // public tooltip: any;
-  // public tooltipContainer: any;
+  private tooltipContainerSelector: string;
+
+  public tooltip: any;
+  public tooltipContainer: any;
 
   constructor(elementRef: ElementRef) {
     Observable.fromEvent(window, 'resize')
@@ -73,66 +75,79 @@ export class ChartComponent implements OnInit {
         this.chart = bar();
         this.chartSelector = '.bar-chart';
         this.chartClickSelector = '.bar-chart .bar';
+        this.tooltipContainerSelector = '.bar-chart .metadata-group';
         break;
       case ChartType.Brush:
         this.chart = brush();
         this.chartSelector = '.brush-chart';
         this.chartClickSelector = ''; // No click selector.
+        this.tooltipContainerSelector = '';
         break;
       case ChartType.Bullet:
         this.chart = bullet();
         this.chartSelector = '.bullet-chart';
         this.chartClickSelector = '.bullet-chart .range, .bullet-chart .measure, .bullet-chart .marker-line';
+        this.tooltipContainerSelector = '';
         break;
       case ChartType.Donut:
         this.chart = donut();
         this.chartSelector = '.donut-chart';
         this.chartClickSelector = '.donut-chart .arc';
+        this.tooltipContainerSelector = ''; // No tooltip selector.
         break;
       case ChartType.GroupedBar:
         this.chart = groupedBar();
         this.chartSelector = '.grouped-bar';
         this.chartClickSelector = '.grouped-bar .bar';
+        this.tooltipContainerSelector = '';
         break;
       case ChartType.Heatmap:
         this.chart = heatmap();
         this.chartSelector = '.heatmap';
         this.chartClickSelector = '.heatmap .box';
+        this.tooltipContainerSelector = '';
         break;
       case ChartType.Legend:
         this.chart = legend();
         this.chartSelector = '.britechart-legend';
         this.chartClickSelector = '.legend-entry';
+        this.tooltipContainerSelector = '';
         break;
       case ChartType.Line:
         this.chart = line();
         this.chartSelector = '.line-chart';
         this.chartClickSelector = ''; // No click selector.
+        this.tooltipContainerSelector = '.line-chart .metadata-group .hover-marker';
         break;
       case ChartType.ScatterPlot:
         this.chart = scatterPlot();
         this.chartSelector = '.scatter-plot';
         this.chartClickSelector = ''; // No click selector.
+        this.tooltipContainerSelector = '';
         break;
       case ChartType.Sparkline:
         this.chart = sparkline();
         this.chartSelector = '.sparkline';
         this.chartClickSelector = ''; // No click selector.
+        this.tooltipContainerSelector = '';
         break;
       case ChartType.StackedArea:
         this.chart = stackedArea();
         this.chartSelector = '.stacked-area';
         this.chartClickSelector = ''; // No click selector.
+        this.tooltipContainerSelector = '.stacked-area .metadata-group .vertical-marker-container';
         break;
       case ChartType.StackedBar:
         this.chart = stackedBar();
         this.chartSelector = '.stacked-bar';
         this.chartClickSelector = '.stacked-bar .bar';
+        this.tooltipContainerSelector = '';
         break;
       case ChartType.Step:
         this.chart = step();
         this.chartSelector = '.step-chart';
         this.chartClickSelector = '.step-chart .step';
+        this.tooltipContainerSelector = '.step-chart .metadata-group';
         break;
     }
   }
@@ -154,7 +169,6 @@ export class ChartComponent implements OnInit {
   public drawChart() {
     let that = this;
     this.initializeChart();
-    // this.tooltip = miniTooltip();
 
     let chartContainer = d3Selection.select(this.el).select('.chart-container'),
       containerWidth = chartContainer.node() ? chartContainer.node().getBoundingClientRect().width : false;
@@ -184,16 +198,6 @@ export class ChartComponent implements OnInit {
           }
         }
       }
-
-      /*
-      let showTooltip = false;
-      if (this.chartConfig.hasOwnProperty('showTooltip') && this.chartConfig['showTooltip'] === true) {
-        showTooltip = true;
-        this.bar.on('customMouseOver', this.tooltip.show);
-        this.bar.on('customMouseMove', this.tooltip.update);
-        this.bar.on('customMouseOut', this.tooltip.hide);
-      }
-      */
 
       if (this.chartConfig.hasOwnProperty('colors')) {
         if (this.chartConfig['colors'].hasOwnProperty('colorSchema')) {
@@ -225,10 +229,35 @@ export class ChartComponent implements OnInit {
         }
       }
 
-      /*
-      this.tooltipContainer = d3Selection.select(this.el).select('.bar-chart-container .metadata-group');
-      this.tooltipContainer.datum(this.data).call(this.tooltip);
-      */
+      if (this.chartConfig.hasOwnProperty('tooltip')) {
+        if ([ChartType.Bar, ChartType.Step].indexOf(this.chartType) > -1) {
+          this.tooltip = miniTooltip();
+          this.chart.on('customMouseOver', this.tooltip.show);
+          this.chart.on('customMouseMove', this.tooltip.update);
+          this.chart.on('customMouseOut', this.tooltip.hide);
+          this.tooltipContainer = d3Selection.select(this.el).select(this.tooltipContainerSelector);
+          this.tooltipContainer.datum(this.data).call(this.tooltip);
+        } else if ([ChartType.Line, ChartType.StackedArea].indexOf(this.chartType) > -1) {
+          this.tooltip = tooltip();
+          this.chart.on('customMouseOver', function () {
+            that.tooltip.show();
+          });
+          this.chart.on('customMouseMove', function (dataPoint, topicColorMap, dataPointXPosition) {
+            that.tooltip.update(dataPoint, topicColorMap, dataPointXPosition);
+          });
+          this.chart.on('customMouseOut', function () {
+            that.tooltip.hide();
+          });
+          for (let option in this.chartConfig['tooltip']) {
+            if (this.tooltip.hasOwnProperty(option)) {
+              this.tooltip[option](this.chartConfig['tooltip'][option]);
+            }
+          }
+          this.tooltipContainer = d3Selection.select(this.el).select(this.tooltipContainerSelector);
+          this.tooltipContainer.datum([]).call(this.tooltip);
+        }
+      }
+
       this.ready.emit(true);
     }
   }

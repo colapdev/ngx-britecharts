@@ -56,6 +56,7 @@ export class AppComponent {
       height: 300
     },
     click: this.onDemoChartClick,
+    tooltip: {}
   };
 
   // horizontalBarChart
@@ -78,6 +79,7 @@ export class AppComponent {
       colorSchema: 'britecharts'
     },
     click: this.onDemoChartClick,
+    tooltip: {}
   };
 
   // lineChart
@@ -97,6 +99,10 @@ export class AppComponent {
       dateLabel: 'fullDate',
     },
     click: this.onDemoLineChartClick,
+    tooltip: {
+      valueLabel: 'value',
+      title: 'Quantity Sold',
+    }
   };
 
   // donutChart and donutLegendChart
@@ -119,7 +125,7 @@ export class AppComponent {
       height: 200,
       numberFormat: 's'
     },
-    click: this.onDemoChartClick,
+    click: this.onDemoChartClick
   };
 
   // brushChart
@@ -147,6 +153,7 @@ export class AppComponent {
       }
     },
     click: this.onDemoChartClick,
+    tooltip: {}
   };
 
   // stackedAreaChart
@@ -160,6 +167,11 @@ export class AppComponent {
       grid: 'horizontal',
     },
     click: this.onDemoLineChartClick,
+    tooltip: {
+      valueLabel: 'views',
+      topicLabel: 'values',
+      title: 'Testing tooltip',
+    }
   };
 
   // gruppedBarChart

@@ -11,6 +11,9 @@ export declare class ChartComponent implements OnInit {
     private el;
     private chartSelector;
     private chartClickSelector;
+    private tooltipContainerSelector;
+    tooltip: any;
+    tooltipContainer: any;
     constructor(elementRef: ElementRef);
     ngOnInit(): void;
     setChartType(chartType: ChartType): void;
