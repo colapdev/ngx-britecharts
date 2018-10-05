@@ -119,6 +119,9 @@ export class AppComponent {
       internalRadius: 5
     },
     click: this.onDemoChartClick,
+    highlightLegend: {
+      legend: this.donutLegendChart
+    }
   };
   public donutLegendChartConfig = {
     properties: {
@@ -186,6 +189,12 @@ export class AppComponent {
       valueLabel: 'views'
     },
     click: this.onDemoChartClick,
+    tooltip: {
+      topicLabel: 'values',
+      dateLabel: 'key',
+      nameLabel: 'stack',
+      title: 'Testing tooltip',
+    }
   };
 
   // horizontalStackedBarChart
@@ -201,6 +210,12 @@ export class AppComponent {
       betweenBarsPadding: 0.3
     },
     click: this.onDemoChartClick,
+    tooltip: {
+      topicLabel: 'values',
+      dateLabel: 'key',
+      nameLabel: 'stack',
+      title: 'Testing tooltip',
+    }
   };
 
   // scatterPlotChart
@@ -221,6 +236,12 @@ export class AppComponent {
       xAxisFormat: '.1f'
     },
     click: this.onDemoScatterPlotChartClick,
+    tooltip: {
+      valueLabel: 'y',
+      nameLabel: 'x',
+      numberFormat: '$',
+      title: 'Temperature (C)'
+    }
   };
 
   // bulletChart
@@ -232,7 +253,7 @@ export class AppComponent {
     properties: {
       height: 150,
     },
-    click: this.onDemoChartClick,
+    click: this.onDemoChartClick
   };
 
   // heatmapChart

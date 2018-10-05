@@ -81,13 +81,13 @@ export class ChartComponent implements OnInit {
         this.chart = brush();
         this.chartSelector = '.brush-chart';
         this.chartClickSelector = ''; // No click selector.
-        this.tooltipContainerSelector = '';
+        this.tooltipContainerSelector = ''; // No tooltip selector.
         break;
       case ChartType.Bullet:
         this.chart = bullet();
         this.chartSelector = '.bullet-chart';
         this.chartClickSelector = '.bullet-chart .range, .bullet-chart .measure, .bullet-chart .marker-line';
-        this.tooltipContainerSelector = '';
+        this.tooltipContainerSelector = ''; // No tooltip selector.
         break;
       case ChartType.Donut:
         this.chart = donut();
@@ -99,19 +99,19 @@ export class ChartComponent implements OnInit {
         this.chart = groupedBar();
         this.chartSelector = '.grouped-bar';
         this.chartClickSelector = '.grouped-bar .bar';
-        this.tooltipContainerSelector = '';
+        this.tooltipContainerSelector = '.grouped-bar .metadata-group';
         break;
       case ChartType.Heatmap:
         this.chart = heatmap();
         this.chartSelector = '.heatmap';
         this.chartClickSelector = '.heatmap .box';
-        this.tooltipContainerSelector = '';
+        this.tooltipContainerSelector = ''; // No tooltip selector.
         break;
       case ChartType.Legend:
         this.chart = legend();
         this.chartSelector = '.britechart-legend';
         this.chartClickSelector = '.legend-entry';
-        this.tooltipContainerSelector = '';
+        this.tooltipContainerSelector = ''; // No tooltip selector.
         break;
       case ChartType.Line:
         this.chart = line();
@@ -123,13 +123,13 @@ export class ChartComponent implements OnInit {
         this.chart = scatterPlot();
         this.chartSelector = '.scatter-plot';
         this.chartClickSelector = ''; // No click selector.
-        this.tooltipContainerSelector = '';
+        this.tooltipContainerSelector = '.scatter-plot .metadata-group';
         break;
       case ChartType.Sparkline:
         this.chart = sparkline();
         this.chartSelector = '.sparkline';
         this.chartClickSelector = ''; // No click selector.
-        this.tooltipContainerSelector = '';
+        this.tooltipContainerSelector = ''; // No tooltip selector.
         break;
       case ChartType.StackedArea:
         this.chart = stackedArea();
@@ -141,7 +141,7 @@ export class ChartComponent implements OnInit {
         this.chart = stackedBar();
         this.chartSelector = '.stacked-bar';
         this.chartClickSelector = '.stacked-bar .bar';
-        this.tooltipContainerSelector = '';
+        this.tooltipContainerSelector = '.stacked-bar .metadata-group';
         break;
       case ChartType.Step:
         this.chart = step();
@@ -230,15 +230,18 @@ export class ChartComponent implements OnInit {
       }
 
       if (this.chartConfig.hasOwnProperty('tooltip')) {
-        if ([ChartType.Bar, ChartType.Step].indexOf(this.chartType) > -1) {
+        this.tooltipContainer = d3Selection.select(this.el).select(this.tooltipContainerSelector);
+        if ([ChartType.Bar, ChartType.Step, ChartType.ScatterPlot].indexOf(this.chartType) > -1) {
           this.tooltip = miniTooltip();
+
           this.chart.on('customMouseOver', this.tooltip.show);
           this.chart.on('customMouseMove', this.tooltip.update);
           this.chart.on('customMouseOut', this.tooltip.hide);
-          this.tooltipContainer = d3Selection.select(this.el).select(this.tooltipContainerSelector);
+
           this.tooltipContainer.datum(this.data).call(this.tooltip);
-        } else if ([ChartType.Line, ChartType.StackedArea].indexOf(this.chartType) > -1) {
+        } else if ([ChartType.Line, ChartType.StackedArea, ChartType.GroupedBar, ChartType.StackedBar].indexOf(this.chartType) > -1) {
           this.tooltip = tooltip();
+
           this.chart.on('customMouseOver', function () {
             that.tooltip.show();
           });
@@ -248,13 +251,13 @@ export class ChartComponent implements OnInit {
           this.chart.on('customMouseOut', function () {
             that.tooltip.hide();
           });
-          for (let option in this.chartConfig['tooltip']) {
-            if (this.tooltip.hasOwnProperty(option)) {
-              this.tooltip[option](this.chartConfig['tooltip'][option]);
-            }
-          }
-          this.tooltipContainer = d3Selection.select(this.el).select(this.tooltipContainerSelector);
+
           this.tooltipContainer.datum([]).call(this.tooltip);
+        }
+        for (let option in this.chartConfig['tooltip']) {
+          if (this.tooltip.hasOwnProperty(option)) {
+            this.tooltip[option](this.chartConfig['tooltip'][option]);
+          }
         }
       }
 
