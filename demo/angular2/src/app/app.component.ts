@@ -56,7 +56,8 @@ export class AppComponent {
       height: 300
     },
     click: this.onDemoChartClick,
-    tooltip: {}
+    tooltip: {},
+    loading: false
   };
 
   // horizontalBarChart
@@ -102,7 +103,8 @@ export class AppComponent {
     tooltip: {
       valueLabel: 'value',
       title: 'Quantity Sold',
-    }
+    },
+    loading: false
   };
 
   // donutChart and donutLegendChart
@@ -119,8 +121,13 @@ export class AppComponent {
       internalRadius: 5
     },
     click: this.onDemoChartClick,
-    highlightLegend: {
-      legend: this.donutLegendChart
+    events: {
+      customMouseOver: (data) => {
+        this.donutLegendChart.chart.highlight(data.data['id']);
+      },
+      customMouseOut: (demo) => {
+        this.donutLegendChart.chart.clearHighlight();
+      }
     }
   };
   public donutLegendChartConfig = {
@@ -132,10 +139,25 @@ export class AppComponent {
   };
 
   // brushChart
+  public brushChartDates: any = {
+    start: undefined,
+    end: undefined
+  }
   public brushChartData = this.brushChartDataGen.getBrushChartData();
   public brushChartConfig = {
     properties: {
       height: 150,
+    },
+    events: {
+      customBrushStart: (brushExtent) => {
+        this.brushChartDates.start = brushExtent[0];
+        this.brushChartDates.end = brushExtent[1];
+      },
+      customBrushEnd: (brushExtent) => {
+        this.brushChartDates.start = brushExtent[0];
+        this.brushChartDates.end = brushExtent[1];
+        this.filterLineChartData();
+      }
     }
   };
 
@@ -299,199 +321,46 @@ export class AppComponent {
     console.log($ev, d, m, s);
   }
 
+  private filterLineChartData() {
+    if (this.brushChartDates.start == null && this.brushChartDates.end == null) {
+      this.lineChart.data = this.lineChartDataGen.geLineChartData();;
+      this.lineChart.redrawChart();
+    } else {
+      const iDate = new Date(this.brushChartDates.start);
+      const eDate = new Date(this.brushChartDates.end);
 
+      const data: any = {};
+      data['dataByDate'] = [];
+      data['dataByTopic'] = [];
 
+      for (const d of this.lineChartData['dataByDate']) {
+        const aDate = new Date(d['date']);
+        if (iDate <= aDate && aDate <= eDate) {
+          data['dataByDate'].push(d);
+        }
+      }
 
-
-
-
-
-  // OLD
-
-
-  public configCustomEventsBarChart(ready) {
-    /*if (ready) {
-      let that = this;
-      this.barChart.bar.on('customMouseOver', function () {
-        that.barChart.tooltip.show();
-      });
-      this.barChart.bar.on('customMouseMove', function (data, pos, size) {
-        that.barChart.tooltip.update(data, pos, size);
-        // We are about to send a pull request to britecharts in order to make
-        // this more efficient.
-        for (let d of that.firstBarChartData) {
-          if (d["name"] == data["name"]) {
-            that.legendChart.legend.highlight(d["id"]);
-            break;
+      for (const t of this.lineChartData['dataByTopic']) {
+        const newTopic = {};
+        newTopic['topic'] = t['topic'];
+        newTopic['topicName'] = t['topicName'];
+        newTopic['dates'] = [];
+        for (const d of t['dates']) {
+          const aDate = new Date(d['date']);
+          if (iDate <= aDate && aDate <= eDate) {
+            newTopic['dates'].push({
+              'date': aDate,
+              'value': d['value'],
+              'fullDate': d['date']
+            });
           }
         }
-      })
-      this.barChart.bar.on('customMouseOut', function () {
-        that.barChart.tooltip.hide();
-        that.legendChart.legend.clearHighlight();
-      });
-    }*/
-  }
-
-  public gorupedBarChartConfig = {
-    /*properties: {
-      height: 500,
-      tooltipThreshold: 600,
-      grid: 'horizontal',
-      isAnimated: false,
-      groupLabel: 'stack',
-      nameLabel: 'date',
-      valueLabel: 'views'
-    },
-    click: this.onDemoChartClick,
-    showTooltip: true, // Dont set to true if you are going to use custom mouse events.
-    tooltip: {
-      topicLabel: "values",
-      dateLabel: "key",
-      nameLabel: "stack",
-      title: "Testing",
-    }*/
-  };
-
-  public stackedBarChartConfig = {
-    /*properties: {
-      height: 500,
-      tooltipThreshold: 600,
-      grid: 'horizontal',
-      isAnimated: false,
-      stackLabel: 'stack',
-      nameLabel: 'date',
-      valueLabel: 'views'
-    },
-    click: this.onDemoChartClick,
-    showTooltip: true, // Dont set to true if you are going to use custom mouse events.
-    tooltip: {
-      topicLabel: "values",
-      dateLabel: "key",
-      nameLabel: "stack",
-      title: "Testing",
-    }*/
-  };
-
-  public singleLineChartConfig = {
-    /*properties: {
-      height: 500,
-      tooltipThreshold: 600,
-      grid: 'full',
-      lineCurve: 'basis',
-      topicNameLabel: "topic",
-      dateLabel: "fullDate",
-      valueLabel: "value",
-    },
-    click: this.lineChartClick,
-    showTooltip: true,
-    tooltip: {
-      valueLabel: 'value',
-      title: 'Quantity Sold'
-    }*/
-  };
-
-  private lineChartClick($ev, d, m) {
-    console.log($ev, d, m);
-  }
-
-  public multilineChartConfig = {
-    /*properties: {
-      height: 500,
-      tooltipThreshold: 600,
-      grid: 'full',
-      lineCurve: 'basis',
-      topicNameLabel: "topic",
-      dateLabel: "fullDate",
-      valueLabel: "value",
-    },
-    click: this.lineChartClick,
-    showTooltip: true,
-    tooltip: {
-      valueLabel: 'value',
-      title: 'Quantity Sold'
-    }
-  };
-  public multilineBrushChartConfig = {
-    properties: {
-      height: 125,
-      margin: { top: 0, bottom: 0, left: 70, right: 30 }
-    },
-    //click: this.onDemoChartClick*/
-  };
-
-  public configCustomEventsMultilineBrushChartConfig(ready) {
-    /*if (ready) {
-      let that = this;
-      this.multilineBrushChart.brush.on('customBrushEnd', function (brushExtent) {
-        that.filterMultilineChartData(brushExtent[0], brushExtent[1]);
-      });
-    }*/
-  }
-
-  private filterMultilineChartData(startDate, endDate) {
-    /*if (startDate == null && endDate == null) {
-      return this.multilineChartData;
-    }
-    let iDate = new Date(startDate);
-    let eDate = new Date(endDate);
-  
-    let data = {};
-    let that = this;
-    data["dataByDate"] = [];
-    data["dataByTopic"] = [];
-  
-    for (let d of this.multilineChartData["dataByDate"]) {
-      let aDate = new Date(d["date"]);
-      if (iDate <= aDate && aDate <= eDate) {
-        data["dataByDate"].push(d);
+        data['dataByTopic'].push(newTopic);
       }
-    }
-  
-    for (let t of this.multilineChartData["dataByTopic"]) {
-      let newTopic = {};
-      newTopic["topic"] = t["topic"];
-      newTopic["topicName"] = t["topicName"];
-      newTopic["dates"] = [];
-      for (let d of t["dates"]) {
-        let aDate = new Date(d["date"]);
-        if (iDate <= aDate && aDate <= eDate) {
-          newTopic["dates"].push({
-            'date': aDate,
-            'value': d["value"],
-            'fullDate': d["date"]
-          });
-        }
-      }
-      data["dataByTopic"].push(newTopic);
-    }
-  
-    this.multilineChart.data = data;
-    this.multilineChart.redrawChart();*/
-  }
 
-  public configCustomEventsBrushChart(ready) {
-    /*if (ready) {
-      let that = this;
-      this.brushChart.brush.on('customBrushStart', function (brushExtent) {
-        console.log("Start", brushExtent);
-      });
-      this.brushChart.brush.on('customBrushEnd', function (brushExtent) {
-        console.log("End", brushExtent);
-      });
-    }*/
-  }
-
-  public configCustomEventsDonutChart(ready) {
-    /*if (ready) {
-      let that = this;
-      this.donutChart.donut.on('customMouseOver', function (data) {
-        that.donutLegendChart.legend.highlight(data.data["id"]);
-      });
-      this.donutChart.donut.on('customMouseOut', function (data) {
-        that.donutLegendChart.legend.clearHighlight();
-      });
-    }*/
+      this.lineChart.data = data;
+      this.lineChart.redrawChart();
+    }
   }
 
 }

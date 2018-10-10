@@ -8,7 +8,8 @@
   <div class="col-md-6">
     <article>
       <h2 class="tutorial__heading">Horizontal Bar Chart</h2>
-      <ngx-bc-chart #horizontalBarChart [data]="horizontalBarChartData" [chartConfig]="horizontalBarChartConfig" [chartType]="1"></ngx-bc-chart>      
+      <ngx-bc-chart #horizontalBarChart [data]="horizontalBarChartData" [chartConfig]="horizontalBarChartConfig"
+        [chartType]="1"></ngx-bc-chart>
     </article>
   </div>
 </div>
@@ -26,10 +27,10 @@
       <h2 class="tutorial__heading">Donut Chart</h2>
       <div class="card--chart">
         <div class="col-xs-12">
-            <ngx-bc-chart #donutChart [data]="donutChartData" [chartConfig]="donutChartConfig" [chartType]="4"></ngx-bc-chart>
+          <ngx-bc-chart #donutChart [data]="donutChartData" [chartConfig]="donutChartConfig" [chartType]="4"></ngx-bc-chart>
         </div>
         <div class="col-xs-12">
-            <ngx-bc-chart #donutLegendChart [data]="donutChartData" [chartConfig]="donutLegendChartConfig" [chartType]="7"></ngx-bc-chart>
+          <ngx-bc-chart #donutLegendChart [data]="donutChartData" [chartConfig]="donutLegendChartConfig" [chartType]="7"></ngx-bc-chart>
         </div>
       </div>
     </article>
@@ -38,7 +39,9 @@
     <article id="brush">
       <h2 class="tutorial__heading">Brush Chart</h2>
       <ngx-bc-chart #brushChart [data]="brushChartData" [chartConfig]="brushChartConfig" [chartType]="2"></ngx-bc-chart>
-      <p class="js-date-range date-range is-hidden">Selected from <span class="js-start-date"></span> to <span class="js-end-date"></span></p>
+      <p class="js-date-range date-range is-hidden" *ngIf="brushChartDates.start">Selected from <span class="js-start-date">{{
+          brushChartDates.start | date }}</span> to <span class="js-end-date">{{ brushChartDates.end | date }}</span></p>
+      <p class="js-date-range date-range is-hidden" *ngIf="!brushChartDates.start">Select a date range</p>
     </article>
     <article id="step">
       <h2 class="tutorial__heading">Step Chart</h2>
@@ -66,7 +69,8 @@
   <div class="col-sm-12">
     <article>
       <h2 class="tutorial__heading">Horizontal Stacked Bar Chart</h2>
-      <ngx-bc-chart #gruppedBarChart [data]="horizontalStackedBarChartData" [chartConfig]="horizontalStackedBarChartConfig" [chartType]="12"></ngx-bc-chart>
+      <ngx-bc-chart #gruppedBarChart [data]="horizontalStackedBarChartData" [chartConfig]="horizontalStackedBarChartConfig"
+        [chartType]="12"></ngx-bc-chart>
     </article>
   </div>
 </div>

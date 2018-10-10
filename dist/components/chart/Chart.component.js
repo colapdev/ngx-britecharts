@@ -155,6 +155,13 @@ var ChartComponent = (function () {
             // Set the container width to a standar value. If width is passed in the properties it is going to be
             // overriden later.
             this.chart.width(containerWidth);
+            if (this.chartConfig.hasOwnProperty('loading') && this.chartConfig['loading']) {
+                if (this.chart.hasOwnProperty('loadingState')) {
+                    chartContainer.html(this.chart.loadingState());
+                }
+                this.ready.emit(true);
+                return;
+            }
             if (this.chart.hasOwnProperty('shouldReverseColorList')) {
                 this.chart.shouldReverseColorList(false);
             }
@@ -230,6 +237,12 @@ var ChartComponent = (function () {
                     if (this.tooltip.hasOwnProperty(option)) {
                         this.tooltip[option](this.chartConfig['tooltip'][option]);
                     }
+                }
+            }
+            if (this.chartConfig.hasOwnProperty('events')) {
+                // tslint:disable-next-line:forin
+                for (var event_1 in this.chartConfig['events']) {
+                    this.chart.on(event_1, this.chartConfig['events'][event_1]);
                 }
             }
             this.ready.emit(true);

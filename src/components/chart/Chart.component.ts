@@ -178,6 +178,14 @@ export class ChartComponent implements OnInit {
       // overriden later.
       this.chart.width(containerWidth);
 
+      if (this.chartConfig.hasOwnProperty('loading') && this.chartConfig['loading']) {
+        if (this.chart.hasOwnProperty('loadingState')) {
+          chartContainer.html(this.chart.loadingState());
+        }
+        this.ready.emit(true);
+        return;
+      }
+
       if (this.chart.hasOwnProperty('shouldReverseColorList')) {
         this.chart.shouldReverseColorList(false);
       }
@@ -258,6 +266,13 @@ export class ChartComponent implements OnInit {
           if (this.tooltip.hasOwnProperty(option)) {
             this.tooltip[option](this.chartConfig['tooltip'][option]);
           }
+        }
+      }
+
+      if (this.chartConfig.hasOwnProperty('events')) {
+        // tslint:disable-next-line:forin
+        for (let event in this.chartConfig['events']) {
+          this.chart.on(event, this.chartConfig['events'][event]);
         }
       }
 
