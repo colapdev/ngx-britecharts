@@ -1,5 +1,11 @@
 # Changelog
 
+### 2018-10-11
+- 1.0.0 release.
+  - Updated to Britecharts 2.9.6.
+  - Implemented unique API.
+  - Added support for all available visualization charts.
+
 ### 2018-06-02
 - 0.5.7 release.
   - Changed require for imports.

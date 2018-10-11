@@ -5,28 +5,26 @@
 Don't now what Britecharts is? [Check this out.](http://eventbrite.github.io/britecharts/)
 
 ## Demo
+
 Visit https://colapdev.github.io/ngx-britecharts/.
 
 ## Installation
-```
+
+```shell
 npm install @colap-dev/ngx-britecharts --save
 ```
 
 ## Using it in your project
-Every chart is independent so you must import the ones you want to use.
-```
-import { BarChartModule, LegendChartModule, GroupedBarChartModule, StackedBarChartModule, LineChartModule, BrushChartModule, DonutChartModule } from '@colap-dev/ngx-britecharts/dist';
+
+Include the charts module.
+
+```typescript
+import { ChartModule } from '@colap-dev/ngx-britecharts/dist';
 
 @NgModule({
   imports: [
     ...
-    BarChartModule,
-    LegendChartModule,
-    GroupedBarChartModule,
-    StackedBarChartModule,
-    LineChartModule,
-    BrushChartModule,
-    DonutChartModule
+    ChartModule,
     ...
   ],
   declarations: [
@@ -40,176 +38,140 @@ import { BarChartModule, LegendChartModule, GroupedBarChartModule, StackedBarCha
 ```
 
 ## Adding styles
+
 In order to use the original Britecharts styles you'll need to include the needed CSS files.
 There's a base file for all charts and then each chart has it's own CSS.
-```
+
+```typescript
 @import '../../node_modules/britecharts/dist/css/common/common.min.css';
-@import '../../node_modules/britecharts/dist/css/charts/bar.min.css';
-@import '../../node_modules/britecharts/dist/css/charts/grouped-bar.min.css';
-@import '../../node_modules/britecharts/dist/css/charts/stacked-bar.min.css';
-@import '../../node_modules/britecharts/dist/css/charts/brush.min.css';
-@import '../../node_modules/britecharts/dist/css/charts/line.min.css';
-@import '../../node_modules/britecharts/dist/css/charts/donut.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/bar.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/brush.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/bullet.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/donut.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/grouped-bar.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/line.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/scatter-plot.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/sparkline.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/stacked-area.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/stacked-bar.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/step.min.css';
+```
+
+## Chart types
+
+Each chart type is defined by a number defined in the enum **ChartType**.
+
+```typescript
+Bar = 1
+Brush = 2
+Bullet = 3
+Donut = 4
+GroupedBar = 5
+Heatmap = 6
+Legend = 7
+Line = 8
+ScatterPlot = 9
+Sparkline = 10
+StackedArea = 11
+StackedBar = 12
+Step = 13
 ```
 
 ## Rendering the chart
-### HTML:
-```
-<ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" (ready)="configCustomEventsBarChart($event)"></ngx-bc-barchart>
-<ngx-bc-legendchart #legendChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-legendchart>
-<ngx-bc-groupedbarchart #groupedBarChart [data]="groupedBarChartData" [chartConfig]="gorupedBarChartConfig"></ngx-bc-groupedbarchart>
-<ngx-bc-stackedbarchart #stackedBarChart [data]="stackedBarChartData" [chartConfig]="stackedBarChartConfig"></ngx-bc-stackedbarchart>
-<ngx-bc-linechart #multilineChart [data]="multilineChartData" [chartConfig]="multilineChartConfig"></ngx-bc-linechart>
-<ngx-bc-brushchart #multilineBrushChart [data]="multilineChartData.dataByDate" [chartConfig]="multilineBrushChartConfig" (ready)="configCustomEventsMultilineBrushChartConfig($event)"></ngx-bc-brushchart>
-<ngx-bc-donutchart #donutChart [data]="donutChartData" [chartConfig]="donutChartConfig" (ready)="configCustomEventsDonutChart($event)"></ngx-bc-donutchart>
-</tab>
+
+### HTML
+
+```html
+<ngx-bc-chart #lineChart [data]="lineChartData" [chartConfig]="lineChartConfig" [chartType]="8"></ngx-bc-chart>
 ```
 
-### Component:
-```
-private firstBarChartData = [...];
-private firstBarChartConfig = {
-  properties: {
-    height: 500,
-    usePercentage: true,
-    isAnimated: true,
-    isHorizontal: false,
-    percentageAxisToMaxRatio: 1.3,
-    numberFormat: '%'
-  },
-  colors: {
-    customSchema: [...],
-  },
-  click: this.onBarChartClick,
-  showTooltip: false // Dont set to true if you are going to use custom mouse events.
+### Component
+
+```typescript
+@ViewChild('lineChart') lineChart: ChartComponent;
+private lineChartData = [...];
+private lineChartConfig = {
+    properties: {
+        isAnimated: true,
+        aspectRatio: 0.5,
+        grid: 'horizontal',
+        tooltipThreshold: 600,
+        margin: {
+            top: 60,
+            bottom: 50,
+            left: 50,
+            right: 30
+        },
+        dateLabel: 'fullDate',
+    },
+    click: this.onDemoLineChartClick,
+    tooltip: {
+        valueLabel: 'value',
+        title: 'Quantity Sold',
+    },
+    loading: false
 };
 ```
-Check the demos for examples of using custom mouse event handlers.
-The **properties** attributes are all optional, they correlate with their corresponding [Britechart chart API](http://eventbrite.github.io/britecharts/module-Bar.html).
+
+Check the demos for examples of chart configurations.
+
+- The **properties** attributes are all optional, they correlate with their corresponding [Britechart chart API](http://eventbrite.github.io/britecharts/module-Bar.html).
+- The **click** handler expects a function.
+- If the **tooltip** attribute exists the corresponding tooltip for the chart will be set up. In some cases it is the [Mini-tooltip](http://eventbrite.github.io/britecharts/module-Mini-tooltip.html) and in others it is the [Tooltip](http://eventbrite.github.io/britecharts/module-Tooltip.html). Check [Britechart docs for more info](http://eventbrite.github.io/britecharts/).
+- If the **loading** attribute is present and it is **true** then the chart will show it loading state. Some charts doesn't have a loading state. In that case nothing will be shown (not even the chart).
+- In some cases, specially the donut chart, you will like to have some properties values to be related to the container's width. To achieve this you'll have to define **sizeRelativeToContainerWidth** in the config object. Every key contained in it will have its value set by dividing the container's width by the value set. Check **donutChartConfig** in the examples to see how this works.
+- If you would like to handle the custom events fired by the chart you should include the **events** attribute in the config. Each member of this attribute should be a custom event defined by Britecharts and a function to hanlde it. Check **donutChartConfig** in the examples to see how this works. Please mind that this may override the events used by the tootlip.
+
+It's worth noting that all the API is exposed and public so you can interact with the chart and it's tooltip from your component. In the line chart example defined above you can access it and it's corresponding tooltip by doing:
+
+```typescript
+this.lineChart.chart...
+this.lineChart.tooltip...
+```
 
 #### Exporting the chart
-To export the chart the parent component must emit an event that has to binded to the graph component like this (full code in the demos):
+
+To export the chart just call the **exportChart** function the chart exposes.
 
 **Parent:**
 
 *HTML:*
+
+```html
+<ngx-bc-chart #lineChart ....></ngx-bc-chart>
+<button (click)="exportChartClick()" ....>Export</button>
 ```
-<ngx-bc-barchart [exportAsImageEvt]="exportBarChart" ....></ngx-bc-barchart>
-<button (click)="exportBarChartClick()" ....>Export</button>
-```
+
 *Component:*
-```
-private exportBarChart: EventEmitter<any> = new EventEmitter<any>();
-private exportBarChartClick() {
-    this.exportBarChart.emit({
-        'filename': 'Exported bar chart.png', 
-        'title': 'Chart title'
-    });
+
+```typescript
+@ViewChild('lineChart') lineChart: ChartComponent;
+private exportChartClick() {
+    this.lineChart.chart.exportChart('Exported bar chart.png', 'Chart title');
 }
 ```
+
 The file name and chart title must be sent inside the event.
 
 ### Data format
-#### Bar chart:
-```
-{
-    "id": 0, // Optional, if using legend chart and want to highlight on mouse over.
-    "name": "A",
-    "value": 0.08167,
-    "quantity": 0.08167 // Optional, if using legend chart and want to highlight on mouse over.
-}
-```
-#### Grouped Bar chart:
-```
-{
-    "stack": "shiny",
-    "name": "Direct4",
-    "views": 23,
-    "date": "2011-01-08"
-}
-```
-#### Stacked Bar chart:
-```
-{
-    "stack": "sunny",
-    "name": "Email4",
-    "views": 33,
-    "date": "2011-01-08"
-}
-```
-#### Line chart:
-```
-{
-    "dataByTopic": [
-        {
-            "topic": 103,
-            "topicName": "San Francisco",
-            "dates": [
-                {
-                    "date": "2015-06-27T07:00:00.000Z",
-                    "value": 1,
-                    "fullDate": "2015-06-27T07:00:00.000Z"
-                },
-            ]
-        }
-    ],
-    "dataByDate": [
-        {
-            "date": "2015-06-27T07:00:00.000Z",
-            "value": 1,
-            "topics": [
-                {
-                    "name": 103,
-                    "value": 1,
-                    "topicName": "San Francisco"
-                },
-            ]
-        }
-    ]
-}
-```
 
-#### Brush chart:
-```
-{
-    "date": "2015-06-27T07:00:00.000Z",
-    "value": 4
-}
-```
-
-### Donut chart
-```
-{
-    "name": "Other",
-    "id": 0,
-    "quantity": 814
-}
-```
+The data format used by the charts is the same defined by Britecharts, you can check each available type in their [docs](http://eventbrite.github.io/britecharts/global.html).
 
 ## Running the demo
+
  1. Clone this repo.
  2. *cd* into *demo* folder.
  3. *npm install*
  4. *npm run start*
  5. Browse to http://localhost:4200
 
-## Roadmap
- - 0.1.X - Bar chart and Legend chart available.
- - 0.2.X - Grouped Bar Chart
- - 0.3.X - Stacked Bar Chart
- - 0.4.X - Line Chart and Brush Chart
- - 0.5.X - Donut Chart --> Current release
- - 0.6.X - Stacked Area Chart
- - 0.7.X - Step Chart
- - 0.8.X - Sparkline Chart
-
-**NOTE: EXPECT REAKING CHANGES WITH EACH RELEASE UNTIL WE REACH THE 1.0.0 VERSION.**
-
 ## Contributing
+
 We are open to pull requests including:
- - More demos.
- - Better docs.
- - Tests.
+
+- More demos.
+- Better docs.
+- Tests.
 
 ## Support
 Feel free to open any issue in case you need help.
