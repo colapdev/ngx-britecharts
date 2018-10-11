@@ -3,6 +3,7 @@
     <article>
       <h2 class="tutorial__heading">Bar Chart</h2>
       <ngx-bc-chart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" [chartType]="1"></ngx-bc-chart>
+      <button class="btn btn-default pull-right" (click)="exportBarChartClick()">Export bar chart</button>
     </article>
   </div>
   <div class="col-md-6">

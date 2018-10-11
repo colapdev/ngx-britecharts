@@ -301,12 +301,8 @@ export class AppComponent {
   };
 
   // Functions
-  public exportBarChart: EventEmitter<any> = new EventEmitter<any>();
   public exportBarChartClick() {
-    this.exportBarChart.emit({
-      'filename': 'Exported bar chart.png',
-      'title': 'Chart title'
-    });
+    this.barChart.chart.exportChart('Exported bar chart.png', 'Chart title');
   }
 
   private onDemoChartClick($ev) {
