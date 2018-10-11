@@ -1,43 +1,118 @@
-<div class="row">
-  <div class="col-xs-12">
-    <tabset>
-      <tab heading="Bar charts">
-        <div class="col-sm-9">
-          <ngx-bc-barchart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" [exportAsImageEvt]="exportBarChart" (ready)="configCustomEventsBarChart($event)"></ngx-bc-barchart>
-          <button class="btn btn-default" (click)="exportBarChartClick()">Export</button>
-        </div>
-        <div class="col-sm-3">
-          <ngx-bc-legendchart #legendChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig"></ngx-bc-legendchart>
-        </div>
-      </tab>
-      <tab heading="Grouped bar chart">
-        <ngx-bc-groupedbarchart #groupedBarChart [data]="groupedBarChartData" [chartConfig]="gorupedBarChartConfig"></ngx-bc-groupedbarchart>
-      </tab>
-      <tab heading="Stacked bar chart">
-        <ngx-bc-stackedbarchart #stackedBarChart [data]="stackedBarChartData" [chartConfig]="stackedBarChartConfig"></ngx-bc-stackedbarchart>
-      </tab>
-      <tab heading="Single line chart">
-        <ngx-bc-linechart #singleLineChart [data]="singleLineChartData" [chartConfig]="singleLineChartConfig"></ngx-bc-linechart>
-      </tab>
-      <tab heading="Multiline chart">
-        <ngx-bc-linechart #multilineChart [data]="multilineChartData" [chartConfig]="multilineChartConfig"></ngx-bc-linechart>
-        <ngx-bc-brushchart #multilineBrushChart [data]="multilineChartData.dataByDate" [chartConfig]="multilineBrushChartConfig" (ready)="configCustomEventsMultilineBrushChartConfig($event)"></ngx-bc-brushchart>
-      </tab>
-      <tab heading="Brush chart">
-        <ngx-bc-brushchart #brushChart [data]="brushChartData" [chartConfig]="brushChartConfig" (ready)="configCustomEventsBrushChart($event)"></ngx-bc-brushchart>
-      </tab>
-      <tab heading="Donut chart">
-        <div class="col-sm-6 col-sm-offset-3 text-center">
-          <ngx-bc-donutchart #donutChart [data]="donutChartData" [chartConfig]="donutChartConfig" (ready)="configCustomEventsDonutChart($event)"></ngx-bc-donutchart>
-        </div>
-        <div class="col-sm-6 col-sm-offset-3 text-center">
-          <ngx-bc-legendchart #donutLegendChart [data]="donutChartData" [chartConfig]="donutLegendChartConfig"></ngx-bc-legendchart>
-        </div>
-      </tab>
-    </tabset>
+<div class="row" id="bar">
+  <div class="col-md-6">
+    <article>
+      <h2 class="tutorial__heading">Bar Chart</h2>
+      <ngx-bc-chart #barChart [data]="firstBarChartData" [chartConfig]="firstBarChartConfig" [chartType]="1"></ngx-bc-chart>
+      <button class="btn btn-default pull-right" (click)="exportBarChartClick()">Export bar chart</button>
+    </article>
   </div>
+  <div class="col-md-6">
+    <article>
+      <h2 class="tutorial__heading">Horizontal Bar Chart</h2>
+      <ngx-bc-chart #horizontalBarChart [data]="horizontalBarChartData" [chartConfig]="horizontalBarChartConfig"
+        [chartType]="1"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" id="line">
+    <article>
+      <h2 class="tutorial__heading">Line Chart</h2>
+      <ngx-bc-chart #lineChart [data]="lineChartData" [chartConfig]="lineChartConfig" [chartType]="8"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6" id="donut">
+    <article>
+      <h2 class="tutorial__heading">Donut Chart</h2>
+      <div class="card--chart">
+        <div class="col-xs-12">
+          <ngx-bc-chart #donutChart [data]="donutChartData" [chartConfig]="donutChartConfig" [chartType]="4"></ngx-bc-chart>
+        </div>
+        <div class="col-xs-12">
+          <ngx-bc-chart #donutLegendChart [data]="donutChartData" [chartConfig]="donutLegendChartConfig" [chartType]="7"></ngx-bc-chart>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="col-md-6">
+    <article id="brush">
+      <h2 class="tutorial__heading">Brush Chart</h2>
+      <ngx-bc-chart #brushChart [data]="brushChartData" [chartConfig]="brushChartConfig" [chartType]="2"></ngx-bc-chart>
+      <p class="js-date-range date-range is-hidden" *ngIf="brushChartDates.start">Selected from <span class="js-start-date">{{
+          brushChartDates.start | date }}</span> to <span class="js-end-date">{{ brushChartDates.end | date }}</span></p>
+      <p class="js-date-range date-range is-hidden" *ngIf="!brushChartDates.start">Select a date range</p>
+    </article>
+    <article id="step">
+      <h2 class="tutorial__heading">Step Chart</h2>
+      <ngx-bc-chart #stepChart [data]="stepChartData" [chartConfig]="stepChartConfig" [chartType]="13"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" id="stacked-area">
+    <article>
+      <h2 class="tutorial__heading">Stacked Area Chart</h2>
+      <ngx-bc-chart #stackedAreaChart [data]="stackedAreaChartData" [chartConfig]="stackedAreaChartConfig" [chartType]="11"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <article>
+      <h2 class="tutorial__heading">Grouped Bar Chart with Tooltip</h2>
+      <ngx-bc-chart #gruppedBarChart [data]="gruppedBarChartData" [chartConfig]="gruppedBarChartConfig" [chartType]="5"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <article>
+      <h2 class="tutorial__heading">Horizontal Stacked Bar Chart</h2>
+      <ngx-bc-chart #gruppedBarChart [data]="horizontalStackedBarChartData" [chartConfig]="horizontalStackedBarChartConfig"
+        [chartType]="12"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10">
+    <article>
+      <h2 class="tutorial__heading">Scatter Plot</h2>
+      <ngx-bc-chart #scatterPlotChart [data]="scatterPlotChartData" [chartConfig]="scatterPlotChartConfig" [chartType]="9"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10">
+    <article>
+      <h2 class="tutorial__heading">Bullet Chart</h2>
+      <ngx-bc-chart #bulletChart1 [data]="bulletChartData1" [chartConfig]="bulletChartConfig" [chartType]="3"></ngx-bc-chart>
+      <ngx-bc-chart #bulletChart2 [data]="bulletChartData2" [chartConfig]="bulletChartConfig" [chartType]="3"></ngx-bc-chart>
+      <ngx-bc-chart #bulletChart3 [data]="bulletChartData3" [chartConfig]="bulletChartConfig" [chartType]="3"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10">
+    <article>
+      <h2 class="tutorial__heading">Heatmap Chart</h2>
+      <ngx-bc-chart #heatmapChart [data]="heatmapChartData" [chartConfig]="heatmapChartConfig" [chartType]="6"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <article>
+      <h2 class="tutorial__heading">Sparkline Chart</h2>
+      <ngx-bc-chart #sparklineChart [data]="sparklineChartData" [chartConfig]="sparklineChartConfig" [chartType]="10"></ngx-bc-chart>
+    </article>
+  </div>
+</div>
+<div class="row">
   <div class="col-xs-12 text-center">
     <hr>
-    <h4><a target="_blank" href="https://www.colap.io"><img class="colap-logo" src="/ngx-britecharts/assets/logo_light.png" alt="Colap logo"></a></h4>
+    <h4><a target="_blank" href="https://www.colap.io"><img class="colap-logo" src="/ngx-britecharts/assets/logo_light.png"
+          alt="Colap logo"></a></h4>
   </div>
 </div>

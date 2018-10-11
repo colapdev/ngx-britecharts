@@ -1,0 +1,15 @@
+export enum ChartType {
+    Bar = 1,
+    Brush = 2,
+    Bullet = 3,
+    Donut = 4,
+    GroupedBar = 5,
+    Heatmap = 6,
+    Legend = 7,
+    Line = 8,
+    ScatterPlot = 9,
+    Sparkline = 10,
+    StackedArea = 11,
+    StackedBar = 12,
+    Step = 13,
+  }
