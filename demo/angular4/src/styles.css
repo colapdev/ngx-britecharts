@@ -5,7 +5,12 @@
 @import '../../../node_modules/britecharts/dist/css/common/common.min.css';
 @import '../../../node_modules/britecharts/dist/css/charts/bar.min.css';
 @import '../../../node_modules/britecharts/dist/css/charts/brush.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/bullet.min.css';
 @import '../../../node_modules/britecharts/dist/css/charts/donut.min.css';
 @import '../../../node_modules/britecharts/dist/css/charts/grouped-bar.min.css';
 @import '../../../node_modules/britecharts/dist/css/charts/line.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/scatter-plot.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/sparkline.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/stacked-area.min.css';
 @import '../../../node_modules/britecharts/dist/css/charts/stacked-bar.min.css';
+@import '../../../node_modules/britecharts/dist/css/charts/step.min.css';
