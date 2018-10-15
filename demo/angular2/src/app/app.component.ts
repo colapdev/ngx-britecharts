@@ -1,5 +1,4 @@
-import { Component, EventEmitter, ViewChild } from '@angular/core';
-import { SparklineChartData } from '@colap-dev/ngx-britecharts/demo/data/SparklineChartData';
+import { Component, ViewChild } from '@angular/core';
 import { ChartComponent } from '@colap-dev/ngx-britecharts/dist';
 import { BarChartData } from './../../../data/BarChartData';
 import { BrushChartData } from './../../../data/BrushChartData';
@@ -10,6 +9,7 @@ import { HeatmapChartData } from './../../../data/HeatmapChartData';
 import { HorizontalStackedBarChartData } from './../../../data/HorizontalStackedBarChartData';
 import { LineChartData } from './../../../data/LineChartData';
 import { ScatterPlotChartData } from './../../../data/ScatterPlotChartData';
+import { SparklineChartData } from './../../../data/SparklineChartData';
 import { StackedAreaChartData } from './../../../data/StackedAreaChartData';
 import { StepChartData } from './../../../data/StepChartData';
 

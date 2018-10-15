@@ -1,0 +1,26 @@
+body {
+  padding-top: 70px;
+}
+
+.colap-logo {
+  width: 100px;
+  background-color: #37474f;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 4px;
+}
+
+.bar-chart .bar,
+.bullet-chart .range,
+.bullet-chart .measure,
+.bullet-chart .marker-line,
+.donut-chart .arc,
+.grouped-bar .bar,
+.heatmap .box,
+.legend-entry,
+.stacked-bar .bar,
+.step-chart .step {
+  cursor: pointer !important;
+}
