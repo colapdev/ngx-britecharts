@@ -3,9 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import { BarChartModule, LegendChartModule, GroupedBarChartModule, StackedBarChartModule,
-  LineChartModule, BrushChartModule, DonutChartModule } from '@colap-dev/ngx-britecharts/dist';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ChartModule } from '@colap-dev/ngx-britecharts/dist';
 
 @NgModule({
   declarations: [
@@ -13,14 +11,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
   ],
   imports: [
     BrowserModule,
-    TabsModule.forRoot(),
-    BarChartModule,
-    GroupedBarChartModule,
-    StackedBarChartModule,
-    LineChartModule,
-    BrushChartModule,
-    LegendChartModule,
-    DonutChartModule
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
