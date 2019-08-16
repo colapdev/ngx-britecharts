@@ -27,7 +27,8 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "ngx-bootstrap": "^1.9.1",
-    "rxjs-compat": "^6.2.0",
+    "rxjs-compat": "^6.5.2",
+    "rxjs": "5.6.0-forward-compat.5",
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
