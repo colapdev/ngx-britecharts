@@ -282,4 +282,4 @@ ChartComponent = __decorate([
     __metadata("design:paramtypes", [ElementRef])
 ], ChartComponent);
 export { ChartComponent };
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/chart/Chart.component.js.map
+//# sourceMappingURL=/Users/martin/proyectos/ngx-britecharts/src/components/chart/Chart.component.js.map

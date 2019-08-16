@@ -27,4 +27,4 @@ ChartModule = ChartModule_1 = __decorate([
 ], ChartModule);
 export { ChartModule };
 var ChartModule_1;
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/chart/Chart.module.js.map
+//# sourceMappingURL=/Users/martin/proyectos/ngx-britecharts/src/components/chart/Chart.module.js.map
