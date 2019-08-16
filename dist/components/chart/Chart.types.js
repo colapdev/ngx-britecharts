@@ -14,4 +14,4 @@ export var ChartType;
     ChartType[ChartType["StackedBar"] = 12] = "StackedBar";
     ChartType[ChartType["Step"] = 13] = "Step";
 })(ChartType || (ChartType = {}));
-//# sourceMappingURL=/home/martin/proyectos/ngx-britecharts/src/components/chart/Chart.types.js.map
+//# sourceMappingURL=/Users/martin/proyectos/ngx-britecharts/src/components/chart/Chart.types.js.map
