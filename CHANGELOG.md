@@ -1,5 +1,11 @@
 # Changelog
 
+## 2020-09-18
+
+- 2.16.1 release.
+  - Updated to Britecharts 2.16.1.
+  - Bumped version to use same as Britecharts.
+
 ## 2019-08-16
 
 - 1.0.2 release.
